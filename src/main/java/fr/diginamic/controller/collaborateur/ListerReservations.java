@@ -3,7 +3,15 @@ package fr.diginamic.controller.collaborateur;
 import java.io.IOException;
 import java.util.List;
 
-import fr.diginamic.controller.WebServlet;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.diginamic.dao.CovoiturageDao;
+import fr.diginamic.model.Employe;
 import fr.diginamic.model.Reservation;
 
 @WebServlet(urlPatterns = "/gestion-transports/collaborateur/reservations/*")
@@ -28,11 +36,13 @@ public class ListerReservations {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String utilisateurCourant = req.getParameter("utilisateurCourant");
+		HttpSession session = req.getSession(false);
 
-		ReservationCovoiturageDao reservationCovoiturageDao = new ReservationCovoiturageDao();
-		List<Reservation> listeDesReservationsCovoiturage = reservationCovoiturageDao
-				.recupererLesReservations(utilisateurCourant);
+		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
+
+		CovoiturageDao covoiturageDao = new CovoiturageDao();
+
+		List<Reservation> listeDesReservationsCovoiturage = covoiturageDao.recupererLesReservations(utilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP

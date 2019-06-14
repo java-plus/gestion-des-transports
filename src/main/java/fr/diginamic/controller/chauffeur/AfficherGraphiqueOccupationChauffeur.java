@@ -1,17 +1,24 @@
 package fr.diginamic.controller.chauffeur;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import fr.diginamic.controller.WebServlet;
+import fr.diginamic.dao.ResaVehiculeDao;
+import fr.diginamic.model.Employe;
+import fr.diginamic.model.Occupation;
 
 @WebServlet(urlPatterns = "/gestion-transports/chauffeur/occupation/*")
-public class AfficherGraphiqueOccupationChauffeur {
+public class AfficherGraphiqueOccupationChauffeur extends HttpServlet {
 
 	/**
 	 * Methode doGet qui affiche les données quand l'utilisateur accede à l'url
@@ -26,10 +33,6 @@ public class AfficherGraphiqueOccupationChauffeur {
 	 * pour une page occupation de l'utilisateur kevinAUnePetitePinne concernant
 	 * des dates du 3 mai au 6 juin 2019 (et donc un graphique avec ces dates en
 	 * abscisse)
-	 *
-	 * 
-	 * 
-	 * 
 	 * 
 	 * @param req
 	 * @param resp
@@ -38,26 +41,25 @@ public class AfficherGraphiqueOccupationChauffeur {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String utilisateurCourant = req.getParameter("utilisateurCourant");
-		String dateDeDebut = req.getParameter("dateDeDebut");
-		String dateDeFin = req.getParameter("dateDeFin");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+		HttpSession session = req.getSession(false);
+
+		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
+
+		LocalDate dateDeDebut = LocalDate.parse(req.getParameter("dateDeDebut"), formatter);
+		LocalDate dateDeFin = LocalDate.parse(req.getParameter("dateDeFin"), formatter);
 
 		// Verifie si les dates en paramètres sont correctes et si ce n'est pas
 		// le cas prend en paramètre la dernière semaine
-		if (!dateEstValide(dateDeDebut) && !dateEstValide(dateDeFin)) {
-			dateDeDebut = dateDujour;
-			dateDeFin = dateDuJourMoinsSeptJour;
-		}
+		// if (!dateEstValide(dateDeDebut) && !dateEstValide(dateDeFin)) {
+		// dateDeDebut = dateDujour;
+		// dateDeFin = dateDuJourMoinsSeptJour;
+		// }
 
-		OccupationDao occupationDao = new OccupationDao();
-		List<Occupation> listeDesOccupations = occupationDao.recupererLesOccupationsCourantes(dateDeDebut, dateDeFin,
+		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
+		List<Occupation> listeDesOccupations = resaVehiculeDao.recupererLesOccupationsCourantes(dateDeDebut, dateDeFin,
 				utilisateurCourant);
-
-		// Afficher la graphique
-		// TODO Creer la methode afficherLesOccupations(List<Occupation>
-		// listeDesOccupations) dans utils pour afficher le graphique lié
-		// ou le faire via Java dans JPS?
-		afficherLesOccupations(listeDesOccupations);
 
 		// ou alors via (cf ligne) + java dans JSP
 		req.setAttribute("listeDesOccupations", listeDesOccupations);

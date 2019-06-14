@@ -1,9 +1,20 @@
 package fr.diginamic.controller.chauffeur;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import fr.diginamic.controller.WebServlet;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.diginamic.dao.ResaVehiculeDao;
+import fr.diginamic.model.Employe;
+import fr.diginamic.model.Planning;
 
 @WebServlet(urlPatterns = "/gestion-transports/chauffeur/planning/*")
 public class AfficherPlanningChauffeur {
@@ -35,27 +46,25 @@ public class AfficherPlanningChauffeur {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String utilisateurCourant = req.getParameter("utilisateurCourant");
-		String jourCourant = req.getParameter("jourCourant");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+		HttpSession session = req.getSession(false);
+
+		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
+		LocalDate jourCourant = LocalDate.parse(req.getParameter("jourCourant"), formatter);
 
 		// Verifie si les dates en paramètres sont correctes et si ce n'est pas
 		// le cas prend en paramètre la dernière semaine
-		if (!dateEstValide(jourCourant)) {
-			jourCourant = dateDujour;
+		// if (!dateEstValide(jourCourant)) {
+		// jourCourant = dateDujour;
+		//
+		// }
 
-		}
-
-		PlanningDao planningDao = new PlanningDao();
-		List<Planning> listeDesTachesDuJourCourant = planningDao.recupererLesTachesDuJourCourant(jourCourant,
+		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
+		List<Planning> listeDesTachesDuJourCourant = resaVehiculeDao.recupererLesTachesDuJourCourant(jourCourant,
 				utilisateurCourant);
 
-		// Afficher la graphique
-		// TODO Creer la methode afficherLesOccupations(List<Occupation>
-		// listeDesOccupations) dans utils pour afficher le graphique lié
-		// ou le faire via Java dans JPS?
-		afficherLesTachesDuJourCourant(listeDesTachesDuJourCourant);
-
-		// ou alors via (cf ligne) + java dans JSP
+		// pour java dans JSP
 		req.setAttribute("listeDesTachesDuJourCourant", listeDesTachesDuJourCourant);
 		req.setAttribute("utilisateurCourant", utilisateurCourant);
 
