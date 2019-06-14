@@ -34,13 +34,13 @@
 					<!-- COLLAB + ADMIN -->
 					<a class="nav-item nav-link"
 						href="http://localhost:8080/gestion-transports/controller/collaborateur/reservations">Vos
-						réservations</a> <a class="nav-item nav-link"
+						rÃ©servations</a> <a class="nav-item nav-link"
 						href="http://localhost:8080/gestion-transports/controller/collaborateur/annonces">Vos
 						annonces</a> <a class="nav-item nav-link"
 						href="http://localhost:8080/gestion-transports/controller/collaborateur/statistiques">Statistiques</a>
 					<!-- ADMIN SEULEMENT -->
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/administrateur/vehicules">Véhicules</a>
+						href="http://localhost:8080/gestion-transports/controller/administrateur/vehicules">VÃ©hicules</a>
 					<a class="nav-item nav-link"
 						href="http://localhost:8080/gestion-transports/controller/administrateur/chauffeurs">Chauffeurs</a>
 					<!-- CHAUFFEUR SEULEMENT -->
@@ -52,10 +52,10 @@
 			</div>
 		</nav>
 		<div class="text-center col-4 bg-success p-2">
-			<p class="text-dark m-0">Bonjour NOM Prénom</p>
+			<p class="text-dark m-0">Bonjour NOM PrÃ©nom</p>
 			<a class="text-success bg-dark p-1"
 				href="http://localhost:8080/gestion-transports/logout">Se
-				déconnecter</a>
+				dÃ©connecter</a>
 		</div>
 	</header>
 
