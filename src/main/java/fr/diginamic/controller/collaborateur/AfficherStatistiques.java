@@ -1,15 +1,9 @@
-package fr.diginamic.controller;
+package fr.diginamic.controller.collaborateur;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-@WebServlet(urlPatterns = "/gestion-transports/chauffeur/occupation/*")
-public class AfficherGraphiqueOccupationChauffeur {
+public class AfficherStatistiques {
 
 	/**
 	 * Methode doGet qui affiche les données quand l'utilisateur accede à l'url
@@ -40,6 +34,13 @@ public class AfficherGraphiqueOccupationChauffeur {
 		String dateDeDebut = req.getParameter("dateDeDebut");
 		String dateDeFin = req.getParameter("dateDeFin");
 
+		// Verifie si les dates en paramètres sont correctes et si ce n'est pas
+		// le cas prend en paramètre la dernière semaine
+		if (!dateEstValide(dateDeDebut) && !dateEstValide(dateDeFin)) {
+			dateDeDebut = dateDujour;
+			dateDeFin = dateDuJourMoinsSeptJour;
+		}
+
 		Occupation occupation = new Occupation();
 		List<Occupation> listeDesOccupations = occupationDao.recupererLesOccupationsCourantes(dateDeDebut, dateDeFin,
 				utilisateurCourant);
@@ -50,46 +51,12 @@ public class AfficherGraphiqueOccupationChauffeur {
 		// ou le faire via Java dans JPS?
 		afficherLesOccupations(listeDesOccupations);
 
+		// ou alors via (cf ligne) + java dans JSP
+		req.setAttribute("listeDesOccupations", listeDesOccupations);
+		req.setAttribute("utilisateurCourant", utilisateurCourant);
+
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/occupation.jsp");
 		requestDispatcher.forward(req, resp);
-	}
-
-	/**
-	 * Methode doPost qui execute la requete utilisateur pour visualiser
-	 * occupations selon nouvelles dates
-	 * 
-	 * la methode verifie d'abord si les dates selectionnées sont valides,
-	 * stocke ces valeurs (dateDeDebut, dateDeFin et utilisateurCourant) puis
-	 * renvoi sur l'url /gestion-transports/chauffeur/occupation/*
-	 * 
-	 * 
-	 * @param req
-	 * @param resp
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-		String utilisateurCourant = req.getParameter("utilisateurCourant");
-		String dateDeDebut = req.getParameter("dateDeDebut");
-		String dateDeFin = req.getParameter("dateDeFin");
-
-		// SI DATES (OU QUELQUECHOSE) INVALIDE
-		// TODO creer methode dateEstValide sur utils
-		if (dateEstValide(dateDeDebut) && dateEstValide(dateDeFin)) {
-
-			req.setAttribute("utilisateurCourant", utilisateurCourant);
-			req.setAttribute("dateDeDebut", dateDeDebut);
-			req.setAttribute("dateDeFin", dateDeFin);
-
-			RequestDispatcher dispatcher = this.getServletContext()
-					.getRequestDispatcher("/gestion-transports/chauffeur/occupation/*");
-			dispatcher.forward(req, resp);
-		} else {
-
-			// MESSAGE D'ERREUR "DATE (OU QUELQUECHOSE) INVALIDE
-
-		}
 	}
 
 }
