@@ -14,7 +14,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../css/style.css">
 
 <title>Gestion des transports</title>
 </head>
