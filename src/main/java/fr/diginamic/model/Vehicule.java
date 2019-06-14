@@ -2,12 +2,14 @@ package fr.diginamic.model;
 
 public class Vehicule {
 
-	String immatriculation;
-	String marque;
-	String modele;
-	String categorie;
-	Integer nombreDePlaces;
-	String photo;
+	private Integer idVehicule;
+	private StatutVehicule statutVehicule;
+	private String immatriculation;
+	private String marque;
+	private String modele;
+	private String categorie;
+	private Integer nombreDePlaces;
+	private String photo;
 
 	/**
 	 * Constructeur

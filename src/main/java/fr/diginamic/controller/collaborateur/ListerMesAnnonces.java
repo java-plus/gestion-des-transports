@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.CovoiturageDao;
-import fr.diginamic.model.Annonce;
+import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
 @WebServlet(urlPatterns = "/gestion-transports/collaborateur/annonces/*")
@@ -36,7 +36,7 @@ public class ListerMesAnnonces extends HttpServlet {
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
 
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<Annonce> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(utilisateurCourant);
+		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(utilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
