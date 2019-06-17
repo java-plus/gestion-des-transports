@@ -1,3 +1,4 @@
+<%@ page pageEncoding="utf8" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,7 +15,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
 
 <title>Gestion des transports</title>
 </head>

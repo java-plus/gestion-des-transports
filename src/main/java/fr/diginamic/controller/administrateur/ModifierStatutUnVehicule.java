@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Employe;
-import fr.diginamic.model.Vehicule;
 
 @WebServlet(urlPatterns = "/gestion-transports/admin/vehicules/suppr/*")
 public class ModifierStatutUnVehicule {
@@ -49,8 +48,11 @@ public class ModifierStatutUnVehicule {
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
 
-		vehiculeDao.modifierStatutVehicule(nouveauStatut,
-				new Vehicule(immatriculation, marque, modele, categorie, nombreDePlaces, photo));
+		/*
+		 * vehiculeDao.modifierStatutVehicule(nouveauStatut, new
+		 * Vehicule(immatriculation, marque, modele, categorie, nombreDePlaces,
+		 * photo));
+		 */
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/gestion-transports/administrateur/vehicules/");
 		requestDispatcher.forward(req, resp);
