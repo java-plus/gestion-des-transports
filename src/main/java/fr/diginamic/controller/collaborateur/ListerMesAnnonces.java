@@ -15,7 +15,7 @@ import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
-@WebServlet(urlPatterns = "/gestion-transports/collaborateur/annonces/*")
+@WebServlet(urlPatterns = "/controllers/annonces/*")
 public class ListerMesAnnonces extends HttpServlet {
 
 	/**

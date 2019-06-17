@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.diginamic.dao.CovoiturageDao;
+import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.ReservationCovoiturage;
 
@@ -40,9 +40,9 @@ public class ListerReservations {
 
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
 
-		CovoiturageDao covoiturageDao = new CovoiturageDao();
+		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
-		List<ReservationCovoiturage> listeDesReservationsCovoiturage = covoiturageDao
+		List<ReservationCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
 				.recupererLesReservations(utilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
