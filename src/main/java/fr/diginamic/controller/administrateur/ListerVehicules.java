@@ -9,13 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.VehiculeDao;
-import fr.diginamic.model.Employe;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/gestion-transports/administrateur/vehicules/*")
+@WebServlet(urlPatterns = "/gdt/controlleur/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/**
@@ -29,11 +27,6 @@ public class ListerVehicules extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		HttpSession session = req.getSession(false);
-
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
-
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();
 
