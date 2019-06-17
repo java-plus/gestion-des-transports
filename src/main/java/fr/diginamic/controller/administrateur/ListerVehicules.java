@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/controllers/vehicules/*")
+@WebServlet(urlPatterns = "/controllers/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/**
@@ -31,12 +31,8 @@ public class ListerVehicules extends HttpServlet {
 
 		HttpSession session = req.getSession(false);
 
-		// Employe utilisateurCourant = (Employe)
-		// session.getAttribute("utilisateurCourant");
-
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();
-
 		// ou alors via (cf ligne) + java dans JSP
 		req.setAttribute("listeDesVehicules", listeDesVehiculesSociete);
 

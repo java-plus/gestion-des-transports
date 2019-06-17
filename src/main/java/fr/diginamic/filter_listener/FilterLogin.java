@@ -38,7 +38,7 @@ public class FilterLogin implements Filter {
 		// } else if (statut.equals("collaborateur") &&
 		// !req.getPathInfo().contains("chauffeur") && !req.getPathInfo()
 		// .contains("admin")) {
-		// chain.doFilter(request, response);
+		chain.doFilter(request, response);
 		// } else {
 		// ((HttpServletResponse) response).sendError(403, "Interdit");
 		// }
