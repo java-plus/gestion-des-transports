@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Employe;
-import fr.diginamic.model.Vehicule;
 
 @WebServlet(urlPatterns = "/gestion-transports/admin/vehicules/ajout/*")
 public class AjouterVehicule extends HttpServlet {
@@ -62,7 +61,8 @@ public class AjouterVehicule extends HttpServlet {
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
 
-		vehiculeDao.ajouterVehicule(new Vehicule(immatriculation, marque, modele, categorie, nombreDePlaces, photo));
+		// vehiculeDao.ajouterVehicule(new Vehicule(immatriculation, marque,
+		// modele, categorie, nombreDePlaces, photo));
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/gestion-transports/administrateur/vehicules/");
 		requestDispatcher.forward(req, resp);

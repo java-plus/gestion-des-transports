@@ -7,7 +7,8 @@
 <title>Document</title>
 </head>
 <body>
-	<h1>"/administrateur/vehicules"</h1>
+	<h1>administrateur/vehicules</h1>
+	<p>rgregregregregregrereg</p>
 
 
 	<script type="text/javascript">

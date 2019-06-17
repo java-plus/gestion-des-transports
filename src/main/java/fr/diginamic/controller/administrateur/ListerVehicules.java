@@ -9,11 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/gdt/controlleur/administrateur/vehicules/*")
+@WebServlet(urlPatterns = "/controller/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/**
@@ -27,13 +28,16 @@ public class ListerVehicules extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();
 
 		// ou alors via (cf ligne) + java dans JSP
 		req.setAttribute("listeDesVehicules", listeDesVehiculesSociete);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/vehicules.jsp");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 

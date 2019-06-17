@@ -24,8 +24,8 @@ public class FilterUtf8 implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-			ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		// Respect the client-specified character encoding
 		// (see HTTP specification section 3.4.1)
 		request.setCharacterEncoding("UTF-8");
