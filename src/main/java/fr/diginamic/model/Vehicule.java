@@ -2,14 +2,15 @@ package fr.diginamic.model;
 
 public class Vehicule {
 
-	private Integer idVehicule;
-	private StatutVehicule statutVehicule;
+	// private Integer idVehicule;
+	// private StatutVehicule statutVehicule;
 	private String immatriculation;
 	private String marque;
 	private String modele;
 	private String categorie;
-	private Integer nombreDePlaces;
 	private String photo;
+	private String etat;
+	private String position;
 
 	/**
 	 * Constructeur
@@ -18,19 +19,26 @@ public class Vehicule {
 	 * @param marque
 	 * @param modele
 	 * @param categorie
-	 * @param nombreDePlaces
 	 * @param photo
+	 * @param etat
+	 * @param position
+	 * @param proprietaire
 	 */
-	public Vehicule(String immatriculation, String marque, String modele, String categorie, Integer nombreDePlaces,
-			String photo) {
+	public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
+			String position, String proprietaire) {
 		super();
 		this.immatriculation = immatriculation;
 		this.marque = marque;
 		this.modele = modele;
 		this.categorie = categorie;
-		this.nombreDePlaces = nombreDePlaces;
 		this.photo = photo;
+		this.etat = etat;
+		this.position = position;
+		this.proprietaire = proprietaire;
 	}
+
+	private String proprietaire;
+	// private Integer nombreDePlaces;
 
 	/**
 	 * @return the immatriculation
@@ -101,23 +109,6 @@ public class Vehicule {
 	}
 
 	/**
-	 * @return the nombreDePlaces
-	 */
-	public Integer getNombreDePlaces() {
-		return nombreDePlaces;
-	}
-
-	/**
-	 * Setter
-	 * 
-	 * @param nombreDePlaces
-	 *            the nombreDePlaces to set
-	 */
-	public void setNombreDePlaces(Integer nombreDePlaces) {
-		this.nombreDePlaces = nombreDePlaces;
-	}
-
-	/**
 	 * @return the photo
 	 */
 	public String getPhoto() {
@@ -132,6 +123,57 @@ public class Vehicule {
 	 */
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	/**
+	 * @return the etat
+	 */
+	public String getEtat() {
+		return etat;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param etat
+	 *            the etat to set
+	 */
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
+	/**
+	 * @return the position
+	 */
+	public String getPosition() {
+		return position;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param position
+	 *            the position to set
+	 */
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	/**
+	 * @return the proprietaire
+	 */
+	public String getProprietaire() {
+		return proprietaire;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param proprietaire
+	 *            the proprietaire to set
+	 */
+	public void setProprietaire(String proprietaire) {
+		this.proprietaire = proprietaire;
 	}
 
 }

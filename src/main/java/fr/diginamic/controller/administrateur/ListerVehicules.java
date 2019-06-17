@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.VehiculeDao;
-import fr.diginamic.model.Employe;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/gestion-transports/administrateur/vehicules/*")
+@WebServlet(urlPatterns = "/controllers/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/**
@@ -32,7 +31,8 @@ public class ListerVehicules extends HttpServlet {
 
 		HttpSession session = req.getSession(false);
 
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
+		// Employe utilisateurCourant = (Employe)
+		// session.getAttribute("utilisateurCourant");
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();
@@ -40,7 +40,7 @@ public class ListerVehicules extends HttpServlet {
 		// ou alors via (cf ligne) + java dans JSP
 		req.setAttribute("listeDesVehicules", listeDesVehiculesSociete);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/vehicules.jsp");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 
