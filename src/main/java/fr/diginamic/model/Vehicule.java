@@ -12,6 +12,7 @@ public class Vehicule {
 	private String etat;
 	private String position;
 	private String proprietaire;
+	private Integer nbPlaces;
 	// private Integer nombreDePlaces;
 
 	/**
@@ -182,6 +183,25 @@ public class Vehicule {
 	 */
 	public void setProprietaire(String proprietaire) {
 		this.proprietaire = proprietaire;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the nbPlaces
+	 */
+	public Integer getNbPlaces() {
+		return nbPlaces;
+	}
+
+	/**
+	 * Setters
+	 * 
+	 * @param nbPlaces
+	 *            the nbPlaces to set
+	 */
+	public void setNbPlaces(Integer nbPlaces) {
+		this.nbPlaces = nbPlaces;
 	}
 
 }

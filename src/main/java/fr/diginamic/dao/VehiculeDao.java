@@ -12,13 +12,27 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.Vehicule;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class VehiculeDao {
 	/** SERVICE_LOG : Logger */
-	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ConnectionUtils.class);
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(VehiculeDao.class);
 
 	public void ajouterVehicule(Vehicule vehicule) {
-		// ajout du vehicule dans la base de donnée
+		StringBuilder sb = new StringBuilder();
+		sb.append(
+				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_etat`) VALUES (");
+		sb.append("'").append(vehicule.getImmatriculation()).append("',");
+		sb.append("'").append(vehicule.getMarque()).append("',");
+		sb.append("'").append(vehicule.getModele()).append("',");
+		sb.append("'").append(vehicule.getCategorie()).append("',");
+		sb.append("'").append(vehicule.getPhoto()).append("',");
+		sb.append(vehicule.getNbPlaces()).append(",");
+		sb.append("'").append("inconnu").append("'");
+		sb.append(")");
+
+		SERVICE_LOG.info(sb.toString());
+		QueryUtils.updateQuery(sb.toString());
 	}
 
 	public void modifierStatutVehicule(String nouveauStatutVehicule, Vehicule vehicule) {

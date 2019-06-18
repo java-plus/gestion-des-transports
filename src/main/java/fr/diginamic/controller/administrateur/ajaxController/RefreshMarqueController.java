@@ -31,7 +31,12 @@ public class RefreshMarqueController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String marque = req.getParameter("marque");
 		VehiculeDao vehiculeDao = new VehiculeDao();
-		List<Vehicule> listeVehicule = vehiculeDao.recupererLesVehiculesParMarque(marque);
+		List<Vehicule> listeVehicule;
+		if (marque.equals("")) {
+			listeVehicule = vehiculeDao.recupererLesVehiculesSociete();
+		} else {
+			listeVehicule = vehiculeDao.recupererLesVehiculesParMarque(marque);
+		}
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting();
 		Gson gson = builder.create();

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/controller/administrateur/vehicules")
+@WebServlet(urlPatterns = "/controller/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
@@ -51,8 +51,21 @@ public class ListerVehicules extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		String immatriculation = req.getParameter("immatriculationModal");
+		String marque = req.getParameter("marqueModal");
+		String modele = req.getParameter("modeleModal");
+		String categorie = req.getParameter("categorieModal");
+		Integer nbPlaces = Integer.parseInt(req.getParameter("nbPlacesModal"));
+		String photo = req.getParameter("photoModal");
+
+		Vehicule vehicule = new Vehicule(immatriculation, marque, modele, categorie, photo);
+		vehicule.setNbPlaces(nbPlaces);
+
+		VehiculeDao vehiculeDao = new VehiculeDao();
+		vehiculeDao.ajouterVehicule(vehicule);
+		SERVICE_LOG.info("redirect");
+		resp.sendRedirect("/gdt/controller/administrateur/vehicules");
+
 	}
 
 }

@@ -73,7 +73,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <form method="POST" action="/controller/administrateur/vehicules/">
+      <form method="POST" action="/gdt/controller/administrateur/vehicules/">
         <div class="form-group">
             <label for="immatriculationModal">Immatriculation:</label>
             <input type="text" class="form-control" id="immatriculationModal" name="immatriculationModal" placeholder="immatriculation (xx-123-xx)" pattern="[a-zA-Z]{2}-[0-9]{3}-[a-zA-Z]{2}" required>
@@ -112,8 +112,8 @@
     
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="enregistrer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        <input type="submit" class="btn btn-success" value="Enregistrer" >
       </div>
       </form>
     </div>
@@ -136,8 +136,9 @@
     		/-->
 	<script>
 	$("#immatriculation").change(function(){
+		console.log("j’ai changé");
 		    $.ajax({
-		        url: "/gdt/controllers/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
+		        url: "/gdt/controller/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
 		        dataType: "json",
 		        success: (result) => {
 		        	let html = '<div class="mx-5 mt-5 text-center" id="vehicules">';
@@ -165,7 +166,7 @@
 	<script>
 	$("#marque").change(function(){
 		    $.ajax({
-		        url: "/gdt/controllers/refreshMarque?marque="+document.getElementById('marque').value,
+		        url: "/gdt/controller/refreshMarque?marque="+document.getElementById('marque').value,
 		        dataType: "json",
 		        success: (result) => {
 		        	let html = '<div class="mx-5 mt-5 text-center" id="vehicules">';
