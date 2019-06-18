@@ -26,9 +26,25 @@ public abstract class Employe {
 	}
 
 	protected String mdp;
+	protected String statut;
 
 	public Employe() {
 
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param statut
+	 */
+	public Employe(Integer id, String nom, String prenom, String statut) {
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.statut = statut;
 	}
 
 	/**
@@ -118,6 +134,8 @@ public abstract class Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the id
 	 */
 	public Integer getId() {
@@ -129,9 +147,30 @@ public abstract class Employe {
 	 * 
 	 * @param id
 	 *            the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the statut
+	 */
+	public String getStatut() {
+		return statut;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param statut
+	 *            the statut to set
+	 */
+	public void setStatut(String statut) {
+		this.statut = statut;
 	}
 
 }

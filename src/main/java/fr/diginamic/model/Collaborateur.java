@@ -13,6 +13,18 @@ public class Collaborateur extends Employe {
 	}
 
 	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param statut
+	 */
+	public Collaborateur(Integer id, String nom, String prenom, String statut) {
+		super(id, nom, prenom, statut);
+	}
+
+	/**
 	 * Constructeur
 	 * 
 	 * @param listeDesReservationsVoitures

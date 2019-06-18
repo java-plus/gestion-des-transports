@@ -14,6 +14,10 @@ public class Administrateur extends Employe {
 		super();
 	}
 
+	public Administrateur(Integer id, String nom, String prenom, String statut) {
+		super(id, nom, prenom, statut);
+	}
+
 	public void supprimerVehicule() {
 
 	}
