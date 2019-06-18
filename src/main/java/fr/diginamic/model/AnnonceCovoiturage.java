@@ -1,7 +1,6 @@
 package fr.diginamic.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class AnnonceCovoiturage {
 
@@ -10,7 +9,7 @@ public class AnnonceCovoiturage {
 	private LocalDateTime dateDeDepart;
 	private String lieuDeDepart;
 	private String lieuDeDestination;
-	private LocalTime duree;
+	private Integer duree;
 	private Integer distanceEnKm;
 	private Integer idReservationVehicule;
 	private Integer idUtilisateur;
@@ -31,7 +30,7 @@ public class AnnonceCovoiturage {
 	 * @param idVehicule
 	 */
 	public AnnonceCovoiturage(Integer idAnnonceCovoiturage, Integer nbPlacesDisponibles, LocalDateTime dateDeDepart,
-			String lieuDeDepart, String lieuDeDestination, LocalTime duree, Integer distanceEnKm,
+			String lieuDeDepart, String lieuDeDestination, Integer duree, Integer distanceEnKm,
 			Integer idReservationVehicule, Integer idUtilisateur, Integer idVehicule) {
 		super();
 		this.idAnnonceCovoiturage = idAnnonceCovoiturage;
@@ -87,7 +86,7 @@ public class AnnonceCovoiturage {
 	/**
 	 * @return the duree
 	 */
-	public LocalTime getDuree() {
+	public Integer getDuree() {
 		return duree;
 	}
 
@@ -97,7 +96,7 @@ public class AnnonceCovoiturage {
 	 * @param duree
 	 *            the duree to set
 	 */
-	public void setDuree(LocalTime duree) {
+	public void setDuree(Integer duree) {
 		this.duree = duree;
 	}
 
@@ -211,6 +210,13 @@ public class AnnonceCovoiturage {
 	 */
 	public void setIdVehicule(Integer idVehicule) {
 		this.idVehicule = idVehicule;
+	}
+
+	/**
+	 * @return the idVehicule
+	 */
+	public Integer getIdVehicule() {
+		return idVehicule;
 	}
 
 }

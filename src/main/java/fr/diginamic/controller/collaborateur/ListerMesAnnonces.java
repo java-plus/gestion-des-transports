@@ -9,11 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
-import fr.diginamic.model.Employe;
 
 @WebServlet(urlPatterns = "/controllers/annonces/*")
 public class ListerMesAnnonces extends HttpServlet {
@@ -31,18 +29,32 @@ public class ListerMesAnnonces extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession(false);
-
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
-
+		// HttpSession session = req.getSession(false);
+		//
+		// Employe utilisateurCourant = (Employe)
+		// session.getAttribute("utilisateurCourant");
+		Integer idUtilisateurCourant = 1;
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(utilisateurCourant);
+		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(idUtilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/collaborateur/annonces.jsp");
+		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnonces) {
+			System.out.println(annonceCovoiturage.getDateDeDepart());
+			System.out.println(annonceCovoiturage.getIdAnnonceCovoiturage());
+			System.out.println(annonceCovoiturage.getNbPlacesDisponibles());
+			System.out.println(annonceCovoiturage.getDateDeDepart());
+			System.out.println(annonceCovoiturage.getLieuDeDepart());
+			System.out.println(annonceCovoiturage.getLieuDeDestination());
+			System.out.println(annonceCovoiturage.getDuree());
+			System.out.println(annonceCovoiturage.getDistanceEnKm());
+			System.out.println(annonceCovoiturage.getIdUtilisateur());
+			System.out.println(annonceCovoiturage.getIdVehicule());
+		}
+
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/annonces.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 

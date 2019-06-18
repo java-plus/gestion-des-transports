@@ -82,4 +82,21 @@ public class ReservationCovoiturage {
 		this.idUtilisateur = idUtilisateur;
 	}
 
+	/**
+	 * @return the annonceCovoiturage
+	 */
+	public AnnonceCovoiturage getAnnonceCovoiturage() {
+		return annonceCovoiturage;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param annonceCovoiturage
+	 *            the annonceCovoiturage to set
+	 */
+	public void setAnnonceCovoiturage(AnnonceCovoiturage annonceCovoiturage) {
+		this.annonceCovoiturage = annonceCovoiturage;
+	}
+
 }

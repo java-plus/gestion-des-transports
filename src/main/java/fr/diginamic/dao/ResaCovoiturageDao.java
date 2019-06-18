@@ -3,18 +3,18 @@ package fr.diginamic.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
-import fr.diginamic.model.Employe;
-import fr.diginamic.model.ReservationCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
 
 public class ResaCovoiturageDao {
 
-	public List<ReservationCovoiturage> recupererLesReservations(Employe utilisateurCourant) {
+	public List<AnnonceCovoiturage> recupererLesReservations(Integer idUtilisateurCourant) {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -22,29 +22,42 @@ public class ResaCovoiturageDao {
 		PreparedStatement preparedStatementAnnonceCovoiturage = null;
 		ResultSet resultSetAnnonceCovoiturage = null;
 
-		List<ReservationCovoiturage> listeDesReservations = new ArrayList<>();
+		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from resaCovoiturage where rco_idUtilisateur=" + utilisateurCourant.getId());
+					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
+							+ idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
-
+			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			ConnectionUtils.doCommit();
 
 			while (resultSet.next()) {
 
-				Integer idReservationCovoiturage = resultSet.getInt("rco_id");
-				Integer idCovoiturage = resultSet.getInt("rco_idCovoiturage");
-				Integer idUtilisateur = resultSet.getInt("rco_idUtilisateur");
+				Integer id_utilisateur = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_id");
 
-				CovoiturageDao coivoiturageDao = new CovoiturageDao();
-				AnnonceCovoiturage annonceCovoiturage = coivoiturageDao.retrouverAnnonceCovoiturage(idCovoiturage);
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
+						formatterDateTime);
+				String adresseDepart = resultSet.getString("cov_lieuDepart");
+				String adresseArrivee = resultSet.getString("cov_lieuArrive");
+				Integer duree = resultSet.getInt("cov_duree");
+				// Date duree =
+				// resultSet.getDate(resultSet.getString("cov_duree"));
+				// LocalTime duree2 = convertToLocalTimeViaInstant(duree);
 
-				listeDesReservations.add(new ReservationCovoiturage(idReservationCovoiturage, idCovoiturage,
-						idUtilisateur, annonceCovoiturage));
+				Integer distance = resultSet.getInt("cov_distance");
+				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
+				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
+				Integer idVehicule = resultSet.getInt("cov_idVehicule");
+
+				listeDesAnnonces
+						.add(new AnnonceCovoiturage(id_utilisateur, nbPlacesDispo, dateHeureDebut, adresseDepart,
+								adresseArrivee, duree, distance, idReservationVehicule, idUtilisateur, idVehicule));
+
 			}
 
-			return listeDesReservations;
+			return listeDesAnnonces;
 		} catch (SQLException e) {
 			// SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);

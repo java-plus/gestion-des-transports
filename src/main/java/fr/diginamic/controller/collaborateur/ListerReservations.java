@@ -6,16 +6,15 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.diginamic.dao.ResaCovoiturageDao;
-import fr.diginamic.model.Employe;
-import fr.diginamic.model.ReservationCovoiturage;
+import fr.diginamic.model.AnnonceCovoiturage;
 
-@WebServlet(urlPatterns = "/gestion-transports/collaborateur/reservations/*")
-public class ListerReservations {
+@WebServlet(urlPatterns = "/controllers/reservations/*")
+public class ListerReservations extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des reservationss) quand
@@ -35,22 +34,25 @@ public class ListerReservations {
 	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//
+		// HttpSession session = req.getSession(false);
+		//
+		// Employe utilisateurCourant = (Employe)
+		// session.getAttribute("utilisateurCourant");
 
-		HttpSession session = req.getSession(false);
-
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
-
+		Integer idUtilisateurCourant = 8;
 		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
-		List<ReservationCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
-				.recupererLesReservations(utilisateurCourant);
+		List<AnnonceCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
+				.recupererLesReservations(idUtilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
-		req.setAttribute("utilisateurCourant", utilisateurCourant);
+		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/reservationsCovoiturage.jsp");
+		RequestDispatcher requestDispatcher = req
+				.getRequestDispatcher("/WEB-INF/collaborateur/reservationsCovoiturage.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 

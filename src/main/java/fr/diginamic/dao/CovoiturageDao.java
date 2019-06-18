@@ -5,25 +5,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
-import fr.diginamic.model.Employe;
 import fr.diginamic.utils.ConnectionUtils;
 
 public class CovoiturageDao {
 
-	public List<AnnonceCovoiturage> recupererLesAnnonces(Employe utilisateurCourant) {
+	public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+	}
+
+	public static LocalTime convertToLocalTimeViaInstant(Date dateToConvert) {
+		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault()).toLocalTime();
+
+	}
+
+	public List<AnnonceCovoiturage> recupererLesAnnonces(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from covoiturage where idUtilisateur where cov_uti_id=" + utilisateurCourant.getId());
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -32,11 +42,16 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_id");
-				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov-dateTimeDebut"),
+
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
-				LocalTime duree = LocalTime.parse(resultSet.getString("cov_duree"), formatterTime);
+				Integer duree = resultSet.getInt("cov_duree");
+				// Date duree =
+				// resultSet.getDate(resultSet.getString("cov_duree"));
+				// LocalTime duree2 = convertToLocalTimeViaInstant(duree);
+
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
 				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
@@ -91,11 +106,14 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_id");
-				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov-dateTimeDebut"),
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_datetimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
-				LocalTime duree = LocalTime.parse(resultSet.getString("cov_duree"), formatterTime);
+				Integer duree = resultSet.getInt("cov_duree");
+				// LocalTime duree =
+				// LocalTime.parse(resultSet.getString("cov_duree"),
+				// formatterTime);
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
 				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
@@ -151,11 +169,14 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_id");
-				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov-dateTimeDebut"),
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
-				LocalTime duree = LocalTime.parse(resultSet.getString("cov_duree"), formatterTime);
+				Integer duree = resultSet.getInt("cov_duree");
+				// LocalTime duree =
+				// LocalTime.parse(resultSet.getString("cov_duree"),
+				// formatterTime);
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
 				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
