@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/controllers/administrateur/vehicules/*")
+@WebServlet(urlPatterns = "/controller/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
 	/**
@@ -38,6 +38,12 @@ public class ListerVehicules extends HttpServlet {
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules.jsp");
 		requestDispatcher.forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
 	}
 
 }
