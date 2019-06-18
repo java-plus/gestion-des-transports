@@ -23,7 +23,7 @@
                 <h2>GDT</h2>
                 <h5>Gestion du Transport</h5>
             </div>
-            <form method="POST" action="http://localhost:8080/gdt/login" class="container shadow p-4 bg-light" style="max-width: 500px;">
+            <form method="POST" action="/gdt/login" class="container shadow p-4 bg-light" style="max-width: 500px;">
                 <div class="form-group row container">
                     <label for="inputEmail" class="col-4 text-right m-0 p-2">Email</label>
                     <input name="inputEmail" type="email" class="form-control col-8" id="inputEmail" required>

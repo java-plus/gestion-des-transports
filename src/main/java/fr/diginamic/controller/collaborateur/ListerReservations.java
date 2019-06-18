@@ -6,21 +6,27 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.ReservationCovoiturage;
 
-@WebServlet(urlPatterns = "/gestion-transports/collaborateur/reservations/*")
-public class ListerReservations {
+@WebServlet(urlPatterns = "/controller/collaborateur/reservations")
+public class ListerReservations extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ListerReservations.class);
 
 	/**
 	 * Methode doGet qui recupère les données (liste des reservationss) quand
-	 * l'utilisateur accede à l'url
-	 * /gestion-transports/collaborateur/reservations/*
+	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/reservations/*
 	 * 
 	 * 
 	 *
@@ -34,6 +40,7 @@ public class ListerReservations {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
@@ -50,7 +57,8 @@ public class ListerReservations {
 		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
 		req.setAttribute("utilisateurCourant", utilisateurCourant);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/reservationsCovoiturage.jsp");
+		RequestDispatcher requestDispatcher = req
+				.getRequestDispatcher("/WEB-INF/collaborateur/reservationsCovoiturage.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 
