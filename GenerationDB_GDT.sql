@@ -25,8 +25,8 @@ CREATE TABLE `VEHICULE` (
 
 CREATE TABLE `RESAVEHICULE` (
  `rvh_id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
- `rvh_datetimeDebut` varchar(100) NOT NULL,
- `rvh_datetimeFin` varchar(200) NOT NULL,
+ `rvh_datetimeDebut` DATETIME NOT NULL,
+ `rvh_datetimeFin` DATETIME NOT NULL,
  `rvh_id_utilisateur` int(11) NOT NULL,
  `rvh_id_chauffeur` int(11) NOT NULL,
  `vhc_immatriculation` varchar(11) NOT NULL,
@@ -35,14 +35,14 @@ CREATE TABLE `RESAVEHICULE` (
  FOREIGN KEY (vhc_immatriculation) REFERENCES VEHICULE(vhc_immatriculation));
 
 
-CREATE TABLE `COVOITURAGE` (
+CREATE TABLE `COVOITURAGES` (
  `cov_id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
- `cov_nbPlacesDispo` varchar(45) NOT NULL,
- `cov_datetimeDebut` varchar(100) NOT NULL,
+ `cov_nbPlacesDispo` int(11) NOT NULL,
+ `cov_datetimeDebut` DATETIME NOT NULL,
  `cov_lieuDepart` varchar(200) NOT NULL,
  `cov_lieuArrive` varchar(200) DEFAULT NULL,
- `cov_duree` varchar(10) DEFAULT NULL,
- `cov_distance` varchar(25) DEFAULT NULL,
+ `cov_duree` TIME,
+ `cov_distance` int(11),
  `cov_idReservationVehicule` int(11) NOT NULL,
  `cov_uti_id` int(11) NOT NULL,
  `cov_idVehicule` varchar(11) NOT NULL,

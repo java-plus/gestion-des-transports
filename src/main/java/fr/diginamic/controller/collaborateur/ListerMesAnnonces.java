@@ -9,16 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
-import fr.diginamic.model.Employe;
 
-@WebServlet(urlPatterns = "/collaborateur/annonces/*")
+@WebServlet(urlPatterns = "/controller/collaborateur/annonces/*")
 public class ListerMesAnnonces extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
@@ -38,12 +36,13 @@ public class ListerMesAnnonces extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession(false);
-
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
-
+		// HttpSession session = req.getSession(false);
+		//
+		// Employe utilisateurCourant = (Employe)
+		// session.getAttribute("utilisateurCourant");
+		Integer idUtilisateurCourant = 1;
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(utilisateurCourant);
+		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(idUtilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
