@@ -9,14 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.diginamic.dao.CovoiturageDao;
-import fr.diginamic.model.Employe;
-import fr.diginamic.model.ReservationCovoiturage;
+import fr.diginamic.dao.ResaCovoiturageDao;
+import fr.diginamic.model.AnnonceCovoiturage;
 
 @WebServlet(urlPatterns = "/controller/collaborateur/reservations")
 public class ListerReservations extends HttpServlet {
@@ -26,7 +24,8 @@ public class ListerReservations extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des reservationss) quand
-	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/reservations/*
+	 * l'utilisateur accede à l'url
+	 * /gestion-transports/collaborateur/reservations/*
 	 * 
 	 * 
 	 *
@@ -42,20 +41,22 @@ public class ListerReservations extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//
+		// HttpSession session = req.getSession(false);
+		//
+		// Employe utilisateurCourant = (Employe)
+		// session.getAttribute("utilisateurCourant");
 
-		HttpSession session = req.getSession(false);
+		Integer idUtilisateurCourant = 8;
+		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
-		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateurCourant");
-
-		CovoiturageDao covoiturageDao = new CovoiturageDao();
-
-		List<ReservationCovoiturage> listeDesReservationsCovoiturage = covoiturageDao
-				.recupererLesReservations(utilisateurCourant);
+		List<AnnonceCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
+				.recupererLesReservations(idUtilisateurCourant);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
-		req.setAttribute("utilisateurCourant", utilisateurCourant);
+		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/reservationsCovoiturage.jsp");
