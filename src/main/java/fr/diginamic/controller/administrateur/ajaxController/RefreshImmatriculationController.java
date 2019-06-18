@@ -31,7 +31,12 @@ public class RefreshImmatriculationController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String immatriculation = req.getParameter("immatriculation");
 		VehiculeDao vehiculeDao = new VehiculeDao();
-		List<Vehicule> listeVehicule = vehiculeDao.recupererLesVehiculesParImmatriculation(immatriculation);
+		List<Vehicule> listeVehicule;
+		if (immatriculation.equals("")) {
+			listeVehicule = vehiculeDao.recupererLesVehiculesSociete();
+		} else {
+			listeVehicule = vehiculeDao.recupererLesVehiculesParImmatriculation(immatriculation);
+		}
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting();
 		Gson gson = builder.create();

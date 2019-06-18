@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="row flex-row-reverse mr-5 ">
-			<input type="button" id="ajouterVehicule" class="btn btn-dark "
+			<input type="button" id="ajouterVehicule" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal"
 				value="Ajouter un véhicule">
 		</div>
 	</div>
@@ -61,6 +61,64 @@
 
 		</div>
 	</div>
+	
+	<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajout d’un véhicule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="POST" action="/gdt/controller/administrateur/vehicules/">
+        <div class="form-group">
+            <label for="immatriculationModal">Immatriculation:</label>
+            <input type="text" class="form-control" id="immatriculationModal" name="immatriculationModal" placeholder="immatriculation (xx-123-xx)" pattern="[a-zA-Z]{2}-[0-9]{3}-[a-zA-Z]{2}" required>
+        </div>
+        <div class="form-group">
+            <label for="marqueModal">Marque:</label>
+            <input type="text" class="form-control" id="marqueModal" name="marqueModal" placeholder="marque" required>
+        </div>
+        <div class="form-group">
+            <label for="modeleModal">Modele:</label>
+            <input type="text" class="form-control" id="modeleModal" name="modeleModal" placeholder="modèle" required>
+        </div>
+        <div class="form-group">
+            <label for="categorieModal">Categorie:</label>
+            <select class="form-control" id="categorieModal" name="categorieModal" required>
+                <option value="Micro-urbaines">Micro-urbaines</option>
+                <option value="Mini-citadines">Mini-citadines</option>
+                <option value="Citadines polyvalentes">Citadines polyvalentes</option>
+                <option value="Compactes">Compactes</option>
+                <option value="Berlines Taille S">Berlines Taille S</option>
+                <option value="Berlines Taille M">Berlines Taille M</option>
+                <option value="Berlines Taille L">Berlines Taille L</option>
+                <option value="SUV, Tout-terrains et Pick-up">SUV, Tout-terrains et Pick-up</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="nbPlacesModal">Nombre de places:</label>
+            <input type="number" class="form-control" id="nbPlacesModal" name="nbPlacesModal" placeholder="nombre de place">
+        </div>
+
+        <div class="form-group">
+            <label for="photoModal">Photo:</label>
+            <input type="text" class="form-control" id="photoModal" name="photoModal" placeholder="url">
+        </div>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        <input type="submit" class="btn btn-success" value="Enregistrer" >
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
@@ -78,8 +136,9 @@
     		/-->
 	<script>
 	$("#immatriculation").change(function(){
+		console.log("j’ai changé");
 		    $.ajax({
-		        url: "/gdt/controllers/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
+		        url: "/gdt/controller/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
 		        dataType: "json",
 		        success: (result) => {
 		        	let html = '<div class="mx-5 mt-5 text-center" id="vehicules">';
@@ -107,7 +166,7 @@
 	<script>
 	$("#marque").change(function(){
 		    $.ajax({
-		        url: "/gdt/controllers/refreshMarque?marque="+document.getElementById('marque').value,
+		        url: "/gdt/controller/refreshMarque?marque="+document.getElementById('marque').value,
 		        dataType: "json",
 		        success: (result) => {
 		        	let html = '<div class="mx-5 mt-5 text-center" id="vehicules">';
