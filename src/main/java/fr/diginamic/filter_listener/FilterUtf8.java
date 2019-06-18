@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter("/*")
+@WebFilter("/controller")
 public class FilterUtf8 implements Filter {
 
 	public FilterUtf8() {

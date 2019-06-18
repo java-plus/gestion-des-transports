@@ -11,11 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
-@WebServlet(urlPatterns = "/controller/administrateur/vehicules/*")
+@WebServlet(urlPatterns = "/controller/administrateur/vehicules")
 public class ListerVehicules extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ListerVehicules.class);
 
 	/**
 	 * Methode doGet qui recupère les données (liste des vehicules) quand
@@ -27,9 +33,12 @@ public class ListerVehicules extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+
+		SERVICE_LOG.info("get de ListerVehicules lancé");
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();

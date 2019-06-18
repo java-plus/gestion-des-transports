@@ -34,28 +34,28 @@
 				<div class="navbar-nav text-center">
 					<!-- COLLAB + ADMIN -->
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/collaborateur/reservations">Vos
+						href="http://localhost:8080/gdt/controller/collaborateur/reservations">Vos
 						réservations</a> <a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/collaborateur/annonces">Vos
+						href="http://localhost:8080/gdt/controller/collaborateur/annonces">Vos
 						annonces</a> <a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/collaborateur/statistiques">Statistiques</a>
+						href="http://localhost:8080/gdt/controller/collaborateur/statistiques">Statistiques</a>
 					<!-- ADMIN SEULEMENT -->
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/administrateur/vehicules">Véhicules</a>
+						href="http://localhost:8080/gdt/controller/administrateur/vehicules">Véhicules</a>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/administrateur/chauffeurs">Chauffeurs</a>
+						href="http://localhost:8080/gdt/controller/administrateur/chauffeurs">Chauffeurs</a>
 					<!-- CHAUFFEUR SEULEMENT -->
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/chauffeur/planning">Planning</a>
+						href="http://localhost:8080/gdt/controller/chauffeur/planning">Planning</a>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gestion-transports/controller/chauffeur/occupation">Occupation</a>
+						href="http://localhost:8080/gdt/controller/chauffeur/occupation">Occupation</a>
 				</div>
 			</div>
 		</nav>
 		<div class="text-center col-4 bg-success p-2">
 			<p class="text-dark m-0">Bonjour NOM Prénom</p>
 			<a class="text-success bg-dark p-1"
-				href="http://localhost:8080/gestion-transports/logout">Se
+				href="http://localhost:8080/gdt/logout">Se
 				déconnecter</a>
 		</div>
 	</header>

@@ -8,16 +8,23 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.Planning;
 
-@WebServlet(urlPatterns = "/gestion-transports/chauffeur/planning/*")
-public class AfficherPlanningChauffeur {
+@WebServlet(urlPatterns = "/controller/chauffeur/planning")
+public class AfficherPlanningChauffeur extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherPlanningChauffeur.class);
 
 	/**
 	 * Methode doGet qui affiche les données quand l'utilisateur accede à l'url
@@ -28,8 +35,8 @@ public class AfficherPlanningChauffeur {
 	 * dans cette url se trouve: un attribut utilisateur sous la forme
 	 * ?utilisateur=toto
 	 * 
-	 * un jour courant sous la forme ?jourCourant=01062019 (pour 1er juin 2019)
-	 * donc exemple d'url
+	 * un jour courant sous la forme ?jourCourant=01062019 (pour 1er juin 2019) donc
+	 * exemple d'url
 	 * /gestion-transports/chauffeur/planning?utilisateur=JbSaitPasSoccuperDeSonBebe&jourCourant=06042019
 	 * pour une page occupation de l'utilisateur JbSaitPasSoccuperDeSonBebe
 	 * concernant la date du 6 avril 2019 (et donc un planning avec ces dates)
@@ -44,6 +51,7 @@ public class AfficherPlanningChauffeur {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
@@ -68,7 +76,7 @@ public class AfficherPlanningChauffeur {
 		req.setAttribute("listeDesTachesDuJourCourant", listeDesTachesDuJourCourant);
 		req.setAttribute("utilisateurCourant", utilisateurCourant);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/planning.jsp");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/chauffeur/planning.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 
