@@ -10,11 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Employe;
 
-@WebServlet(urlPatterns = "/gestion-transports/admin/vehicules/ajout/*")
+@WebServlet(urlPatterns = "/controller/administrateur/vehicules/ajout/*")
 public class AjouterVehicule extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AjouterVehicule.class);
 
 	/**
 	 * Methode doGet qui affiche les données quand l'utilisateur accede à l'url
@@ -26,8 +32,8 @@ public class AjouterVehicule extends HttpServlet {
 	 * ?utilisateur=toto une date de début et une date de fin sous la forme
 	 * ?dateDeDebut=01062019 (pour 1er juin 2019) donc exemple d'url
 	 * /gestion-transports/chauffeur/occupation?utilisateur=kevinAUnePetitePinne&dateDeDebut=03052019&dateDeFin=03062019
-	 * pour une page occupation de l'utilisateur kevinAUnePetitePinne concernant
-	 * des dates du 3 mai au 6 juin 2019 (et donc un graphique avec ces dates en
+	 * pour une page occupation de l'utilisateur kevinAUnePetitePinne concernant des
+	 * dates du 3 mai au 6 juin 2019 (et donc un graphique avec ces dates en
 	 * abscisse)
 	 *
 	 * 
@@ -39,6 +45,7 @@ public class AjouterVehicule extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
@@ -64,7 +71,7 @@ public class AjouterVehicule extends HttpServlet {
 		// vehiculeDao.ajouterVehicule(new Vehicule(immatriculation, marque,
 		// modele, categorie, nombreDePlaces, photo));
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/gestion-transports/administrateur/vehicules/");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules/");
 		requestDispatcher.forward(req, resp);
 	}
 

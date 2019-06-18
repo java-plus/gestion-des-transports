@@ -86,8 +86,8 @@ public class Authentifier extends HttpServlet {
 						endOfUrl = employe.getStatut().toLowerCase() + "/planning";
 					}
 					session.setAttribute("utilisateur", employe);
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/controller/" + endOfUrl);
-					dispatcher.forward(request, response);
+					SERVICE_LOG.info("Authentifier : Place l'objet utilisateur dans la session. Redirection...");
+					response.sendRedirect("/gdt/controller/" + endOfUrl);
 				} else {
 					SERVICE_LOG.error("Erreur d'identification. Email et/ou mot de passe inconnu(s).");
 					throw new AuthenticateException("Erreur d'identification. Email et/ou mot de passe inconnu(s).");
