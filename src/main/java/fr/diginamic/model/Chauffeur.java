@@ -16,6 +16,18 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param statut
+	 */
+	public Chauffeur(Integer id, String nom, String prenom, String statut) {
+		super(id, nom, prenom, statut);
+	}
+
+	/**
 	 * Constructeur
 	 * 
 	 * @param matricule
