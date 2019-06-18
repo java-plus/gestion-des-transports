@@ -1,111 +1,77 @@
-<%@ page language="java" pageEncoding="utf8" import=""%>
+<%@page import="fr.diginamic.model.Vehicule"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" pageEncoding="utf8"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
-<%@include file="../../jsp/layout_header.jsp" %>
+<%@include file="../../jsp/layout_header.jsp"%>
 
-<h1>Vehicules</h1>
+<h1>
+	<a href="/gdt/controller/collaborateur/vehicules" class="text-success">Vehicules</a>
+	> Immatriculation
+</h1>
 <div class="m-3 mt-4">
-    <div>
-            <div class="row ml-3">
-                <h5>Filtre</h5>
-            </div>
-            <div class="row ml-5">
-                <div class="col-lg-1">
-                    <p class="text-left">Immatriculation:</p>
-                </div>
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" name="immatriculation"
-                        placeholder="Entrez une immatriculation">
-                </div>
-            </div>
-            <div class="row form-group ml-5">
-                <div class="col-lg-1">
-                    <p class="text-left">Marque:</p>
-                </div>
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" name="marque" placeholder="Entrez une marque">
-                </div>
-            </div>
-            <div class="row flex-row-reverse mr-5 ">
-                <input type="button" id="ajouterVehicule" class="btn btn-dark "
-                    value="Ajouter un véhicule">
-            </div>
-        </div>
+	<div class="row mt-md-5 mb-md-5">
+		<div class="col-md-4">
+			<img
+				src="https://www.challenges.fr/assets/img/2018/08/27/cover-r4x3w1000-5b84072224873-pbc18-conference-09-jpg.jpg">
+		</div>
+		<div class="col-md-4 mt-md-0 mt-3">
+			<div class="row">
+				<p class="col-md-4 col-6">Marque</p>
+				<p class="col-md-8 col-6">LALALA</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4 col-6">Modèle</p>
+				<p class="col-md-8 col-6">LALALA</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4 col-6">Catégorie</p>
+				<p class="col-md-8 col-6">LALALA</p>
+			</div>
+		</div>
+	</div>
 
-        <div class="mx-5 mt-5 text-center">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div>
-                        <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                        <p> AB-123-CD <br>
-                            marque - modele <br>
-                            categorie
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3"><div>
-                        <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                        <p> AB-123-CD <br>
-                            marque - modele <br>
-                            categorie
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3"><div>
-                        <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                        <p> AB-123-CD <br>
-                            marque - modele <br>
-                            categorie
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-3"><div>
-                        <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                        <p> AB-123-CD <br>
-                            marque - modele <br>
-                            categorie
-                        </p>
-                    </div>
-                </div>
-            </div>
+	<h5 class="mb-3">Prochaines réservations</h5>
 
-            <div class="row">
-                    <div class="col-3 text-center">
-                        <div>
-                            <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                            <p> AB-123-CD <br>
-                                marque - modele <br>
-                                categorie
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-3"><div>
-                            <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                            <p> AB-123-CD <br>
-                                marque - modele <br>
-                                categorie
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-3"><div>
-                            <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                            <p> AB-123-CD <br>
-                                marque - modele <br>
-                                categorie
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-3"><div>
-                            <img  src="https://www.novethic.fr/fileadmin/voiture-electrique-volkswagen.jpg" alt="" class="img-thumbnail">
-                            <p> AB-123-CD <br>
-                                marque - modele <br>
-                                categorie
-                            </p>
-                        </div>
-                    </div>
-                </div>
+	<table class="table table-bordered table-striped table-dark">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col" class="p-2">Date / heure début</th>
+				<th scope="col" class="p-2">Date / heure fin</th>
+				<th scope="col" class="p-2">Responsable</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th class="p-1 pl-2">1</th>
+				<td class="p-1 pl-2">Mark</td>
+				<td class="p-1 pl-2">Otto</td>
+			</tr>
+		</tbody>
+	</table>
 
-        </div>
+	<h5 class="mb-3 mt-5">Historique des réservations</h5>
+
+	<table class="table table-bordered table-striped table-dark">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col" class="p-2">Date / heure début</th>
+				<th scope="col" class="p-2">Date / heure fin</th>
+				<th scope="col" class="p-2">Responsable</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th class="p-1 pl-2">1</th>
+				<td class="p-1 pl-2">Mark</td>
+				<td class="p-1 pl-2">Otto</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
+</body>
+</html>
+
 <%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
-<%@include file="../../jsp/layout_footer.jsp" %>
+<%@include file="../../jsp/layout_footer.jsp"%>
+<%@include file="../../jsp/dependanceScript.jsp"%>
