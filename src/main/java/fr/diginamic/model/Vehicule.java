@@ -11,6 +11,23 @@ public class Vehicule {
 	private String photo;
 	private String etat;
 	private String position;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 * @param proprietaire
+	 */
+	public Vehicule(String immatriculation, String marque, String modele, String proprietaire) {
+		super();
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.proprietaire = proprietaire;
+	}
+
 	private String proprietaire;
 	private Integer nbPlaces;
 	// private Integer nombreDePlaces;

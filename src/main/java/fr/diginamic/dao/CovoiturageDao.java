@@ -14,6 +14,7 @@ import java.util.List;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class CovoiturageDao {
 
@@ -24,6 +25,26 @@ public class CovoiturageDao {
 	public static LocalTime convertToLocalTimeViaInstant(Date dateToConvert) {
 		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault()).toLocalTime();
 
+	}
+
+	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
+
+		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		Integer nbPlacesDispo = annonceCovoiturage.getNbPlacesDisponibles();
+		Integer idUtilissateur = annonceCovoiturage.getIdUtilisateur();
+		String lieuDepart = annonceCovoiturage.getLieuDeDepart();
+		String lieuArrive = annonceCovoiturage.getLieuDeDestination();
+		// System.out.println(dateDeDepart);
+		// System.out.println(nbPlacesDispo);
+		// System.out.println(lieuDepart);
+		// System.out.println(lieuArrive);
+
+		QueryUtils.updateQuery(
+
+				"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id) values ("
+						+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive + "\",\""
+						+ idUtilissateur + "\")");
 	}
 
 	public List<AnnonceCovoiturage> recupererLesAnnoncesAvecCritere(String lieuDeDepart, String lieuDeDestination) {
