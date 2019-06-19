@@ -129,7 +129,10 @@ public class VehiculeDao {
 				String modele = resultSet.getString("vhc_modele");
 				String categorie = resultSet.getString("vhc_categorie");
 				String photo = resultSet.getString("vhc_photo");
-				listeDesVehicules.add(new Vehicule(immat, marque, modele, categorie, photo));
+
+				String etat = resultSet.getString("vhc_etat");
+				listeDesVehicules.add(new Vehicule(immat, marque, modele, categorie, photo, etat));
+
 			}
 
 			return listeDesVehicules;
@@ -220,6 +223,7 @@ public class VehiculeDao {
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
+
 				String immatriculation = resultSet.getString("vhc_immatriculation");
 				String marque = resultSet.getString("vhc_marque");
 				String modele = resultSet.getString("vhc_modele");
