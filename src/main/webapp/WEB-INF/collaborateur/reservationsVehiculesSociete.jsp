@@ -17,6 +17,7 @@
 
                 <div id="accordion">
                     <div class="car ">
+                        <a href="/gdt/collaborateur/annonces/creer">
                         <div class="card-header bg-dark text-light" id="headingOne">
                             <h5 class="mb-0">
                                 <button class="btn btn-link collapsed text-light" data-toggle="collapse"
@@ -25,7 +26,7 @@
                                 </button>
                             </h5>
                         </div>
-
+						</a>
                         <div id="collapseOne" class="collapse " aria-labelledby="headingOne"
                             data-parent="#accordion">
                             <div class="card-body">
@@ -208,21 +209,7 @@
 
                         </div>
                     </div>
-                    <div class="card ">
-                        <div class="card-header bg-dark" id="headingThree">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed text-light" data-toggle="collapse"
-                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Véhicule avec chauffeur privé
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#accordion">
-                            <div class="card-body">
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
 
 
