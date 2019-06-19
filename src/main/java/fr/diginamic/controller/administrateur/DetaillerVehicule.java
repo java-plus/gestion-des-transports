@@ -1,6 +1,7 @@
 package fr.diginamic.controller.administrateur;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.dao.VehiculeDao;
+import fr.diginamic.model.ReservationVoiture;
 import fr.diginamic.model.Vehicule;
 
 /**
@@ -29,19 +32,28 @@ public class DetaillerVehicule extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		SERVICE_LOG.info("Servlet DetaillerVehicule lancée : doGet");
-
-		String immatriculation = req.getAttribute("immatriculation").toString();
+		String immatriculation = req.getPathInfo().substring(1);
 		VehiculeDao vehiculeDao = new VehiculeDao();
-
 		Vehicule vehicule = null;
+
 		if (vehiculeDao.recupererLesVehiculesParImmatriculation(immatriculation) != null) {
 			vehicule = vehiculeDao.recupererLesVehiculesParImmatriculation(immatriculation).get(0);
 		}
 
+		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
+		Map<ReservationVoiture, String> mapDesReservationsFutures = resaVehiculeDao
+				.recupererReservationsFuturesDUneVoiture(immatriculation);
+		Map<ReservationVoiture, String> mapDesReservationsPassees = resaVehiculeDao
+				.recupererReservationsPasseesDUneVoiture(immatriculation);
+
+		req.setAttribute("mapResaFutures", mapDesReservationsFutures);
 		req.setAttribute("vehicule", vehicule);
+		req.setAttribute("mapResaPassees", mapDesReservationsPassees);
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicule.jsp");
+
 		requestDispatcher.forward(req, resp);
+
 	}
 
 }
