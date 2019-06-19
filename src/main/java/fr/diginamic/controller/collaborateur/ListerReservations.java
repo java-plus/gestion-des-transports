@@ -1,7 +1,9 @@
 package fr.diginamic.controller.collaborateur;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,6 +41,7 @@ public class ListerReservations extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//
@@ -46,7 +49,7 @@ public class ListerReservations extends HttpServlet {
 		//
 		// Employe utilisateurCourant = (Employe)
 		// session.getAttribute("utilisateurCourant");
-
+		Set<String> h = new HashSet<String>();
 		Integer idUtilisateurCourant = 8;
 		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
