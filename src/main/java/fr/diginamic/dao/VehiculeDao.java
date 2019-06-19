@@ -46,8 +46,8 @@ public class VehiculeDao {
 		List<Vehicule> listeDesVehicules = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from vehicule where vhc_immatriculation=?");
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("select * from vehicule where vhc_immatriculation=?");
 			preparedStatement.setString(1, immatriculation);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -57,8 +57,8 @@ public class VehiculeDao {
 				String modele = resultSet.getString("vhc_modele");
 				String categorie = resultSet.getString("vhc_categorie");
 				String photo = resultSet.getString("vhc_photo");
-				listeDesVehicules.add(
-						new Vehicule(immat, marque, modele, categorie, photo));
+				String etat = resultSet.getString("vhc_etat");
+				listeDesVehicules.add(new Vehicule(immat, marque, modele, categorie, photo, etat));
 			}
 
 			return listeDesVehicules;
@@ -96,8 +96,8 @@ public class VehiculeDao {
 		List<Vehicule> listeDesVehicules = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from vehicule where vhc_marque=?");
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("select * from vehicule where vhc_marque=?");
 			preparedStatement.setString(1, marque);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -107,8 +107,7 @@ public class VehiculeDao {
 				String modele = resultSet.getString("vhc_modele");
 				String categorie = resultSet.getString("vhc_categorie");
 				String photo = resultSet.getString("vhc_photo");
-				listeDesVehicules.add(
-						new Vehicule(immat, marq, modele, categorie, photo));
+				listeDesVehicules.add(new Vehicule(immat, marq, modele, categorie, photo));
 			}
 
 			return listeDesVehicules;

@@ -33,6 +33,7 @@ public class ReservationVoiture {
 	 * @param dateTimeDeFin
 	 * @param vehicule
 	 */
+
 	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur,
 			LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, Vehicule vehicule) {
 		super();
@@ -65,8 +66,12 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
+	 * <<<<<<< HEAD
+	 * 
 	 * @param id
-	 *            the id to set
+	 *            the id to set =======
+	 * @param id
+	 *            the id to set >>>>>>> master
 	 */
 	public void setId(Integer id) {
 		this.id = id;
@@ -141,8 +146,11 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
+	 * 
 	 * @param dateTimeDeFin
-	 *            the dateTimeDeFin to set
+	 *            the dateTimeDeFin to set =======
+	 * @param dateTimeDeFin
+	 *            the dateTimeDeFin to set >>>>>>> master
 	 */
 	public void setDateTimeDeFin(LocalDateTime dateTimeDeFin) {
 		this.dateTimeDeFin = dateTimeDeFin;

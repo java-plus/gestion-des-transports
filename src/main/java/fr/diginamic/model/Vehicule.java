@@ -57,6 +57,17 @@ public class Vehicule {
 		this.id = id;
 	}
 
+	public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat) {
+		super();
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.categorie = categorie;
+		this.photo = photo;
+		this.etat = etat;
+
+	}
+
 	/**
 	 * @return the immatriculation
 	 */

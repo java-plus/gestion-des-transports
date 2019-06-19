@@ -40,7 +40,7 @@
 				List<Vehicule> listeVehicule = (List<Vehicule>) request.getAttribute("listeDesVehicules");
 				for (Vehicule vehicule : listeVehicule) {
 			%>
-			<div class="col-md-3">
+			<a class="col-md-3 text-dark btn" href="/gdt/controller/administrateur/vehicules/vehicule/<%= vehicule.getImmatriculation() %>">
 				<div>
 					<img src=<%=vehicule.getPhoto()%> alt="" class="img-thumbnail">
 					<p>
@@ -53,7 +53,7 @@
 						<%=vehicule.getCategorie()%>
 					</p>
 				</div>
-			</div>
+			</a>
 			<%
 				}
 			%>
