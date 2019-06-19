@@ -13,6 +13,7 @@ public class ReservationVoiture {
 	protected LocalDateTime dateTimeDeDebut;
 	protected LocalDateTime dateTimeDeFin;
 	protected Vehicule vehicule;
+	protected Integer besoinChauffeur;
 
 	/**
 	 * Constructor
@@ -173,6 +174,25 @@ public class ReservationVoiture {
 	 */
 	public void setVehicule(Vehicule vehicule) {
 		this.vehicule = vehicule;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the besoinChauffeur
+	 */
+	public Integer getBesoinChauffeur() {
+		return besoinChauffeur;
+	}
+
+	/**
+	 * Setters
+	 * 
+	 * @param besoinChauffeur
+	 *            the besoinChauffeur to set
+	 */
+	public void setBesoinChauffeur(Integer besoinChauffeur) {
+		this.besoinChauffeur = besoinChauffeur;
 	}
 
 }

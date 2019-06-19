@@ -93,6 +93,10 @@
                                                 <option value="50">50</option>
                                             </select>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <input type="checkbox" class="form-check-input " name="chauffeur" id="checkboxChauffeur" value="1">
+                                            <label class="form-check-label" for="checkboxChauffeur">Avec chauffeur</label>
+                                        </div>
 
                                     </div>
 

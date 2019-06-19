@@ -45,6 +45,12 @@ public class ReserverVehiculeSociete extends HttpServlet {
 		String heureArrive = req.getParameter("heurearrive");
 		String minuteDepart = req.getParameter("minutedepart");
 		String minuteArrive = req.getParameter("minutearrive");
+		Integer besoinChauffeur;
+		if (req.getParameter("chauffeur") != null) {
+			besoinChauffeur = Integer.parseInt(req.getParameter("chauffeur"));
+		} else {
+			besoinChauffeur = 0;
+		}
 
 		Employe employe = (Employe) req.getSession(false).getAttribute("utilisateur");
 		Integer idEmploye = employe.getId();
@@ -56,7 +62,7 @@ public class ReserverVehiculeSociete extends HttpServlet {
 
 		ReservationVoiture reservationVoiture = new ReservationVoiture(idEmploye, dateHeureDepart, dateHeureArrive,
 				new Vehicule(idVehicule));
-
+		reservationVoiture.setBesoinChauffeur(besoinChauffeur);
 		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
 		resaVehiculeDao.ajoutResaVehicule(reservationVoiture);
 		resp.sendRedirect("/gdt/controller/collaborateur/reservations/");
