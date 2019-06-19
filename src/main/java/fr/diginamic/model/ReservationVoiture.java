@@ -1,98 +1,156 @@
 package fr.diginamic.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+/**
+ * Représente une réservation d'un voiture de société.
+ */
 public class ReservationVoiture {
 
-	private Date dateDeDebut;
-	private Date dateDeFin;
-	private Date heureDeDebut;
-	private Date heureDeFin;
-	private Vehicule vehicule;
+	protected Integer id;
+	protected Integer idUtilisateur;
+	protected Integer idChauffeur;
+	protected LocalDateTime dateTimeDeDebut;
+	protected LocalDateTime dateTimeDeFin;
+	protected Vehicule vehicule;
 
 	/**
-	 * Constructeur
+	 * Constructor
 	 * 
-	 * @param dateDeDebut
-	 * @param dateDeFin
-	 * @param heureDeDebut
-	 * @param heureDeFin
+	 */
+	public ReservationVoiture() {
+		super();
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param idUtilisateur
+	 * @param idChauffeur
+	 * @param idVehicule
+	 * @param dateTimeDeDebut
+	 * @param dateTimeDeFin
 	 * @param vehicule
 	 */
-	public ReservationVoiture(Date dateDeDebut, Date dateDeFin, Date heureDeDebut, Date heureDeFin, Vehicule vehicule) {
+	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur,
+			LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, Vehicule vehicule) {
 		super();
-		this.dateDeDebut = dateDeDebut;
-		this.dateDeFin = dateDeFin;
-		this.heureDeDebut = heureDeDebut;
-		this.heureDeFin = heureDeFin;
+		this.id = id;
+		this.idUtilisateur = idUtilisateur;
+		this.idChauffeur = idChauffeur;
+		this.dateTimeDeDebut = dateTimeDeDebut;
+		this.dateTimeDeFin = dateTimeDeFin;
+		this.vehicule = vehicule;
+	}
+
+	public ReservationVoiture(Integer idUtilisateur, LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin,
+			Vehicule vehicule) {
+		super();
+		this.idUtilisateur = idUtilisateur;
+		this.dateTimeDeDebut = dateTimeDeDebut;
+		this.dateTimeDeFin = dateTimeDeFin;
 		this.vehicule = vehicule;
 	}
 
 	/**
-	 * @return the dateDeDebut
+	 * Getter
+	 * 
+	 * @return the id
 	 */
-	public Date getDateDeDebut() {
-		return dateDeDebut;
+	public Integer getId() {
+		return id;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param dateDeDebut the dateDeDebut to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setDateDeDebut(Date dateDeDebut) {
-		this.dateDeDebut = dateDeDebut;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**
-	 * @return the dateDeFin
+	 * Getter
+	 * 
+	 * @return the idUtilisateur
 	 */
-	public Date getDateDeFin() {
-		return dateDeFin;
+	public Integer getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param dateDeFin the dateDeFin to set
+	 * @param idUtilisateur
+	 *            the idUtilisateur to set
 	 */
-	public void setDateDeFin(Date dateDeFin) {
-		this.dateDeFin = dateDeFin;
+	public void setIdUtilisateur(Integer idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
 	/**
-	 * @return the heureDeDebut
+	 * Getter
+	 * 
+	 * @return the idChauffeur
 	 */
-	public Date getHeureDeDebut() {
-		return heureDeDebut;
+	public Integer getIdChauffeur() {
+		return idChauffeur;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param heureDeDebut the heureDeDebut to set
+	 * @param idChauffeur
+	 *            the idChauffeur to set
 	 */
-	public void setHeureDeDebut(Date heureDeDebut) {
-		this.heureDeDebut = heureDeDebut;
+	public void setIdChauffeur(Integer idChauffeur) {
+		this.idChauffeur = idChauffeur;
 	}
 
 	/**
-	 * @return the heureDeFin
+	 * Getter
+	 * 
+	 * @return the dateTimeDeDebut
 	 */
-	public Date getHeureDeFin() {
-		return heureDeFin;
+	public LocalDateTime getDateTimeDeDebut() {
+		return dateTimeDeDebut;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param heureDeFin the heureDeFin to set
+	 * @param dateTimeDeDebut
+	 *            the dateTimeDeDebut to set
 	 */
-	public void setHeureDeFin(Date heureDeFin) {
-		this.heureDeFin = heureDeFin;
+	public void setDateTimeDeDebut(LocalDateTime dateTimeDeDebut) {
+		this.dateTimeDeDebut = dateTimeDeDebut;
 	}
 
 	/**
+	 * Getter
+	 * 
+	 * @return the dateTimeDeFin
+	 */
+	public LocalDateTime getDateTimeDeFin() {
+		return dateTimeDeFin;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param dateTimeDeFin
+	 *            the dateTimeDeFin to set
+	 */
+	public void setDateTimeDeFin(LocalDateTime dateTimeDeFin) {
+		this.dateTimeDeFin = dateTimeDeFin;
+	}
+
+	/**
+	 * Getter
+	 * 
 	 * @return the vehicule
 	 */
 	public Vehicule getVehicule() {
@@ -102,7 +160,8 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param vehicule the vehicule to set
+	 * @param vehicule
+	 *            the vehicule to set
 	 */
 	public void setVehicule(Vehicule vehicule) {
 		this.vehicule = vehicule;

@@ -4,6 +4,7 @@ public class Vehicule {
 
 	// private Integer idVehicule;
 	// private StatutVehicule statutVehicule;
+	private Integer id;
 	private String immatriculation;
 	private String marque;
 	private String modele;
@@ -27,9 +28,11 @@ public class Vehicule {
 	 * @param position
 	 * @param proprietaire
 	 */
-	public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
+	public Vehicule(Integer id, String immatriculation, String marque, String modele, String categorie, String photo,
+			String etat,
 			String position, String proprietaire) {
 		super();
+		this.id = id;
 		this.immatriculation = immatriculation;
 		this.marque = marque;
 		this.modele = modele;
@@ -47,6 +50,11 @@ public class Vehicule {
 		this.modele = modele;
 		this.categorie = categorie;
 		this.photo = photo;
+	}
+
+	public Vehicule(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	/**
@@ -202,6 +210,25 @@ public class Vehicule {
 	 */
 	public void setNbPlaces(Integer nbPlaces) {
 		this.nbPlaces = nbPlaces;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * Setters
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
