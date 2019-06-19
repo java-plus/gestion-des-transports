@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
+<%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
+<%@include file="../../jsp/layout_header.jsp"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -199,7 +201,9 @@
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
 
-
+		<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
+	<%@include file="../../jsp/layout_footer.jsp"%>
+	<%@include file="../../jsp/dependanceScript.jsp"%>
 
 </body>
 </html>

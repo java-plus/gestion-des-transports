@@ -226,5 +226,10 @@ function modifierStatutVehicule() {
 
 	}
     </script>
+    
+    		<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
+	<%@include file="../../jsp/layout_footer.jsp"%>
+	<%@include file="../../jsp/dependanceScript.jsp"%>
+	
 	</body>
 	</html>

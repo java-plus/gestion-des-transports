@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur"%>
-
+<%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
+<%@include file="../../jsp/layout_header.jsp"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,7 +12,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>"/collaborateur/annonces"</h1>
     
     
     
@@ -72,6 +72,10 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	
+		<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
+	<%@include file="../../jsp/layout_footer.jsp"%>
+	<%@include file="../../jsp/dependanceScript.jsp"%>
     
 </body>
 </html>

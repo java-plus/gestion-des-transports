@@ -57,7 +57,8 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
-
+				// TODO PRENDRE EN COMPTE CHANGEMENT DE FORMAT cov_dateTimeDebut
+				// EN DATE DANS BDD
 				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");

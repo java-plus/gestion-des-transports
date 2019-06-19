@@ -11,12 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
+import fr.diginamic.model.Employe;
 
 @WebServlet(urlPatterns = "/controller/collaborateur/reservations")
 public class ListerReservations extends HttpServlet {
@@ -44,13 +46,12 @@ public class ListerReservations extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//
-		// HttpSession session = req.getSession(false);
-		//
-		// Employe utilisateurCourant = (Employe)
-		// session.getAttribute("utilisateurCourant");
+
+		HttpSession session = req.getSession(false);
+
+		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		Set<String> h = new HashSet<String>();
-		Integer idUtilisateurCourant = 8;
+		Integer idUtilisateurCourant = utilisateurCourant.getId();
 		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
 		List<AnnonceCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
