@@ -10,7 +10,6 @@ public class ReservationVoiture {
 	protected Integer id;
 	protected Integer idUtilisateur;
 	protected Integer idChauffeur;
-	protected Integer idVehicule;
 	protected LocalDateTime dateTimeDeDebut;
 	protected LocalDateTime dateTimeDeFin;
 	protected Vehicule vehicule;
@@ -34,13 +33,22 @@ public class ReservationVoiture {
 	 * @param dateTimeDeFin
 	 * @param vehicule
 	 */
-	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur, Integer idVehicule,
+
+	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur,
 			LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, Vehicule vehicule) {
 		super();
 		this.id = id;
 		this.idUtilisateur = idUtilisateur;
 		this.idChauffeur = idChauffeur;
-		this.idVehicule = idVehicule;
+		this.dateTimeDeDebut = dateTimeDeDebut;
+		this.dateTimeDeFin = dateTimeDeFin;
+		this.vehicule = vehicule;
+	}
+
+	public ReservationVoiture(Integer idUtilisateur, LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin,
+			Vehicule vehicule) {
+		super();
+		this.idUtilisateur = idUtilisateur;
 		this.dateTimeDeDebut = dateTimeDeDebut;
 		this.dateTimeDeFin = dateTimeDeFin;
 		this.vehicule = vehicule;
@@ -58,7 +66,12 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param id the id to set
+	 * <<<<<<< HEAD
+	 * 
+	 * @param id
+	 *            the id to set =======
+	 * @param id
+	 *            the id to set >>>>>>> master
 	 */
 	public void setId(Integer id) {
 		this.id = id;
@@ -76,7 +89,8 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param idUtilisateur the idUtilisateur to set
+	 * @param idUtilisateur
+	 *            the idUtilisateur to set
 	 */
 	public void setIdUtilisateur(Integer idUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
@@ -94,28 +108,11 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param idChauffeur the idChauffeur to set
+	 * @param idChauffeur
+	 *            the idChauffeur to set
 	 */
 	public void setIdChauffeur(Integer idChauffeur) {
 		this.idChauffeur = idChauffeur;
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the idVehicule
-	 */
-	public Integer getIdVehicule() {
-		return idVehicule;
-	}
-
-	/**
-	 * Setter
-	 * 
-	 * @param idVehicule the idVehicule to set
-	 */
-	public void setIdVehicule(Integer idVehicule) {
-		this.idVehicule = idVehicule;
 	}
 
 	/**
@@ -130,7 +127,8 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param dateTimeDeDebut the dateTimeDeDebut to set
+	 * @param dateTimeDeDebut
+	 *            the dateTimeDeDebut to set
 	 */
 	public void setDateTimeDeDebut(LocalDateTime dateTimeDeDebut) {
 		this.dateTimeDeDebut = dateTimeDeDebut;
@@ -148,7 +146,11 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param dateTimeDeFin the dateTimeDeFin to set
+	 * 
+	 * @param dateTimeDeFin
+	 *            the dateTimeDeFin to set =======
+	 * @param dateTimeDeFin
+	 *            the dateTimeDeFin to set >>>>>>> master
 	 */
 	public void setDateTimeDeFin(LocalDateTime dateTimeDeFin) {
 		this.dateTimeDeFin = dateTimeDeFin;
@@ -166,7 +168,8 @@ public class ReservationVoiture {
 	/**
 	 * Setter
 	 * 
-	 * @param vehicule the vehicule to set
+	 * @param vehicule
+	 *            the vehicule to set
 	 */
 	public void setVehicule(Vehicule vehicule) {
 		this.vehicule = vehicule;

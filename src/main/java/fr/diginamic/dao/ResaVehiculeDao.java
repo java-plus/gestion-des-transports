@@ -19,6 +19,7 @@ import fr.diginamic.model.Occupation;
 import fr.diginamic.model.Planning;
 import fr.diginamic.model.ReservationVoiture;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class ResaVehiculeDao {
 
@@ -26,8 +27,8 @@ public class ResaVehiculeDao {
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ResaVehiculeDao.class);
 
 	/**
-	 * Methode requetant la base de donnée pour retourner la liste des occupations
-	 * d'un chauffeur entre deux dates
+	 * Methode requetant la base de donnée pour retourner la liste des
+	 * occupations d'un chauffeur entre deux dates
 	 * 
 	 * @param dateDeDebut
 	 * @param dateDeFin
@@ -40,8 +41,8 @@ public class ResaVehiculeDao {
 	}
 
 	/**
-	 * Methode requetant la base de donnée pour retourner la liste des taches d'un
-	 * jour pour un chauffeur
+	 * Methode requetant la base de donnée pour retourner la liste des taches
+	 * d'un jour pour un chauffeur
 	 * 
 	 * @param jourCourant
 	 * @param utilisateurCourant
@@ -51,14 +52,29 @@ public class ResaVehiculeDao {
 		return null;
 	}
 
+	public void ajoutResaVehicule(ReservationVoiture reservationVoiture) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(
+				"INSERT INTO `RESAVEHICULE`(`rvh_datetimeDebut`,`rvh_datetimeFin`,`rvh_id_utilisateur`,`rvh_id_vehicule`) VALUES (");
+		sb.append("'").append(reservationVoiture.getDateTimeDeDebut().format(DateTimeFormatter.ofPattern(
+				"yyyy-MM-dd HH:mm"))).append("',");
+		sb.append("'").append(reservationVoiture.getDateTimeDeFin().format(DateTimeFormatter.ofPattern(
+				"yyyy-MM-dd HH:mm"))).append("',");
+		sb.append("'").append(reservationVoiture.getIdUtilisateur()).append("',");
+		sb.append("'").append(reservationVoiture.getVehicule().getId()).append("'");
+		sb.append(")");
+		QueryUtils.updateQuery(sb.toString());
+	}
+
 	/**
 	 * Méthode qui retourne la map des réservations futures d'un véhicule par
 	 * rapport à la date actuelle.
 	 * 
-	 * @param immatriculation : String immatriculation du véhicule
+	 * @param immatriculation
+	 *            : String immatriculation du véhicule
 	 * @return Map<ReservationVoiture, String> : map contenant les réservations
-	 *         futures par rapport à la date actuelle et le responsable de chaque
-	 *         réservation
+	 *         futures par rapport à la date actuelle et le responsable de
+	 *         chaque réservation
 	 */
 	public Map<ReservationVoiture, String> recupererReservationsFuturesDUneVoiture(String immatriculation) {
 
@@ -122,10 +138,11 @@ public class ResaVehiculeDao {
 	 * Méthode qui retourne la map des réservations passées d'un véhicule par
 	 * rapport à la date actuelle.
 	 * 
-	 * @param immatriculation : String immatriculation du véhicule
+	 * @param immatriculation
+	 *            : String immatriculation du véhicule
 	 * @return Map<ReservationVoiture, String> : map contenant les réservations
-	 *         futures par rapport à la date actuelle et le responsable de chaque
-	 *         réservation
+	 *         futures par rapport à la date actuelle et le responsable de
+	 *         chaque réservation
 	 */
 	public Map<ReservationVoiture, String> recupererReservationsPasseesDUneVoiture(String immatriculation) {
 
@@ -152,7 +169,8 @@ public class ResaVehiculeDao {
 			SERVICE_LOG.info("Requête de recupererReservationsPasseesDUneVoiture(String immatriculation) lancée.");
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
-				// rvh_id, rvh_datetimeDebut, rvh_datetimeFin, rvh_id_utilisateur,
+				// rvh_id, rvh_datetimeDebut, rvh_datetimeFin,
+				// rvh_id_utilisateur,
 				// rvh_id_chauffeur, rvh_id_vehicule
 				dateDeFin = LocalDateTime.parse(resultSet.getString("rvh_datetimeFin"), inputFormatter);
 				dateDeDebut = LocalDateTime.parse(resultSet.getString("rvh_datetimeDebut"), inputFormatter);
@@ -163,7 +181,8 @@ public class ResaVehiculeDao {
 				mapDesReservations.put(reservation, nomPrenomDuResponsable);
 
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-				String formattedDateTime = dateDeDebut.format(formatter); // "1986-04-08 12:30"
+				String formattedDateTime = dateDeDebut.format(formatter); // "1986-04-08
+																			// 12:30"
 			}
 
 			return mapDesReservations;
@@ -189,6 +208,7 @@ public class ResaVehiculeDao {
 			}
 			ConnectionUtils.doClose();
 		}
+
 	}
 
 }
