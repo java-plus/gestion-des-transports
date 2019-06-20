@@ -55,13 +55,14 @@ public class ResaVehiculeDao {
 	public void ajoutResaVehicule(ReservationVoiture reservationVoiture) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				"INSERT INTO `RESAVEHICULE`(`rvh_datetimeDebut`,`rvh_datetimeFin`,`rvh_id_utilisateur`,`rvh_id_vehicule`) VALUES (");
+				"INSERT INTO `RESAVEHICULE`(`rvh_datetimeDebut`,`rvh_datetimeFin`,`rvh_id_utilisateur`,`rvh_id_vehicule`,`rvh_besoin_chauffeur`) VALUES (");
 		sb.append("'").append(reservationVoiture.getDateTimeDeDebut().format(DateTimeFormatter.ofPattern(
 				"yyyy-MM-dd HH:mm"))).append("',");
 		sb.append("'").append(reservationVoiture.getDateTimeDeFin().format(DateTimeFormatter.ofPattern(
 				"yyyy-MM-dd HH:mm"))).append("',");
 		sb.append("'").append(reservationVoiture.getIdUtilisateur()).append("',");
-		sb.append("'").append(reservationVoiture.getVehicule().getId()).append("'");
+		sb.append("'").append(reservationVoiture.getVehicule().getId()).append("',");
+		sb.append("'").append(reservationVoiture.getBesoinChauffeur()).append("'");
 		sb.append(")");
 		QueryUtils.updateQuery(sb.toString());
 	}
