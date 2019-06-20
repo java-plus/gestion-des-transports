@@ -12,14 +12,71 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.Chauffeur;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class UtilisateurDao {
 
 	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(UtilisateurDao.class);
 
+	/**
+	 * Récupère tous les chauffeurs de la base de données.
+	 * 
+	 * @return List<Chauffeur> Tous les chauffeurs de la base de données (avec
+	 *         prénom, nom, email, permis, photo, téléphone).
+	 */
 	public List<Chauffeur> recupererListeDesChauffeurs() {
-		return null;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Chauffeur> listeDesChauffeurs = new ArrayList<>();
+		StringBuilder selectQuery = new StringBuilder();
+
+		try {
+			selectQuery.append(
+					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM gestion_transport.UTILISATEUR WHERE uti_statut = 'chauffeur';");
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				String prenom = resultSet.getString("uti_prenom");
+				String nom = resultSet.getString("uti_nom");
+				String email = resultSet.getString("uti_email");
+				String permis = resultSet.getString("uti_permis");
+				String photo = resultSet.getString("uti_photo");
+				String tel = resultSet.getString("uti_tel");
+				Chauffeur chauffeur = new Chauffeur();
+				chauffeur.setPrenom(prenom);
+				chauffeur.setEmail(email);
+				chauffeur.setNom(nom);
+				chauffeur.setPermis(permis);
+				chauffeur.setPhoto(photo);
+				chauffeur.setTelephone(tel);
+				listeDesChauffeurs.add(chauffeur);
+			}
+			return listeDesChauffeurs;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
 	}
 
 	/**
@@ -167,6 +224,53 @@ public class UtilisateurDao {
 			}
 			ConnectionUtils.doClose();
 		}
+
+	}
+
+	/**
+	 * Ajoute un chauffeur dans la base de données.
+	 * 
+	 * @param chauffeur : objet contenant tous les différents attributs de
+	 *                  l'utilisateur chauffeur, sauf l'id
+	 */
+
+	// INSERT INTO
+	// `UTILISATEUR`(`uti_statut`,`uti_nom`,`uti_prenom`,`uti_email`,`uti_mdp`,
+	// `uti_matricule`, `uti_permis`, `uti_photo`, `uti_tel`)
+	// VALUES (`uti_statut`,`uti_nom`,`uti_prenom`,`uti_email`,`uti_mdp`,
+	// `uti_matricule`, `uti_permis`, `uti_photo`, `uti_tel`);
+	public void ajouterChauffeur(Chauffeur chauffeur) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(
+				"INSERT INTO `UTILISATEUR`(`uti_statut`,`uti_nom`,`uti_prenom`,`uti_email`,`uti_mdp`, `uti_matricule`, `uti_permis`, `uti_photo`, `uti_tel`) VALUES (");
+		sb.append("'chauffeur',");
+		sb.append("'");
+		sb.append(chauffeur.getNom());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getPrenom());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getEmail());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getMdp());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getMatricule());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getPermis());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getPhoto());
+		sb.append("', ");
+		sb.append("'");
+		sb.append(chauffeur.getTelephone());
+		sb.append("');");
+
+		SERVICE_LOG.info("REQUETE : " + sb);
+		QueryUtils.updateQuery(sb.toString());
 	}
 
 }

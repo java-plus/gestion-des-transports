@@ -4,6 +4,8 @@
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
+<% List<Chauffeur> listeDesChauffeurs = (List<Chauffeur>) request.getAttribute("listeDesChauffeurs"); %>
+
             <h1>Gérer les chauffeurs</h1>
             <div class="m-3 mt-4"></div>
             <!-- HERE -->
@@ -30,13 +32,16 @@
             </div>
 
             <div class="row mt-5">
-                <div class="col-12 col-xl-6">
+            
+            <% for (Chauffeur chauffeur : listeDesChauffeurs) {  %>
+                <div class="col-12 col-xl-6 mb-3">
                     <div class="card pb-3 shadow">
                         <div class="card-header bg-white">
-                            NOM Prénom
+                            <%= chauffeur.getNom().toUpperCase() %>
+                            <%= chauffeur.getPrenom() %>
                         </div>
                         <div class="card-body row">
-                            <img src="https://www.vtc-solutions.com/vtc-assets/uploads/2016/04/Formation-vtc.jpg"
+                            <img src="<%= chauffeur.getPhoto() %>"
                                 alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>
                             <div class="col-12 col-sm-7 pr-0">
                                 <div class="row">
@@ -44,7 +49,7 @@
                                         Nom
                                     </p>
                                     <p class="col-8 pr-0">
-                                        Loyde
+                                        <%= chauffeur.getNom() %>
                                     </p>
                                 </div>
                                 <div class="row">
@@ -52,7 +57,7 @@
                                         Prénom
                                     </p>
                                     <p class="col-8 pr-0">
-                                        Arthur
+                                        <%= chauffeur.getPrenom() %>
                                     </p>
                                 </div>
                                 <div class="row">
@@ -60,31 +65,33 @@
                                         Permis
                                     </p>
                                     <p class="col-8 pr-0">
-                                        KDJHFKJDBFS
+                                        <%= chauffeur.getPermis() %>
                                     </p>
                                 </div>
                                 <div class="row">
                                     <p class="col-4 pr-0">
                                         Email
                                     </p>
-                                    <p class="col-8 pr-0">
-                                        kdsjf@dskhf.com
-                                    </p>
+                                    <a href="mailto:<%= chauffeur.getEmail() %>" class="text-success"><small class="col-8 pr-0">
+                                        <%= chauffeur.getEmail() %>
+                                    </small></a>
                                 </div>
                                 <div class="row">
                                     <p class="col-4 pr-0">
                                         Téléphone
                                     </p>
                                     <p class="col-8 pr-0">
-                                        06.89.03.03.24
+                                        <%= chauffeur.getTelephone() %>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+                
+             <% } %>
             </div>
-        </div>
 
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
@@ -100,24 +107,32 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form method="POST" action="/gdt/controller/administrateur/chauffeurs/ajouter"
-                            class="text-left container">
+                    <form method="POST" action="/gdt/controller/administrateur/chauffeurs/ajouter">
+                    	<div class="modal-body text-left container">
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="matriculeModal" class="p-2">Matricule</label>
                                 <input style="width: 75%" type="text" class="form-control w-10" id="matriculeModal"
                                     name="matriculeModal" placeholder="numéro de matricule" required>
                             </div>
+                            
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="nomModal" class="p-2">Nom</label>
                                 <input style="width: 75%" type="text" class="form-control" id="nomModal" name="nomModal"
                                     placeholder="Dupuis" required>
                             </div>
+                            
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="prenomModal" class="p-2">Prénom</label>
                                 <input style="width: 75%" type="text" class="form-control" id="prenomModal"
                                     name="prenomModal" placeholder="Jean" required>
                             </div>
+                            
+                            <div class="form-group d-flex">
+                                <label style="width: 35%" for="mdpModal" class="p-2">Mot de passe</label>
+                                <input style="width: 75%" type="password" class="form-control" id="mdpModal"
+                                    name="mdpModal" placeholder="6 caractères ou plus" pattern=".{6,}" required>
+                            </div>
+                            
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="permisModal" class="p-2">Permis</label>
                                 <input style="width: 75%" type="text" class="form-control" id="permisModal"
@@ -127,26 +142,27 @@
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="emailModal" class="p-2">Email</label>
                                 <input style="width: 75%" type="email" class="form-control" id="emailModal"
-                                    name="emailModal" placeholder="exemple@mail.com">
+                                    name="emailModal" placeholder="exemple@mail.com" required>
                             </div>
 
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="telephoneModal" class="p-2">Téléphone</label>
                                 <input style="width: 75%" type="tel" class="form-control" id="telephoneModal"
-                                    name="telephoneModal" placeholder="06.24.24.24.24" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}">
+                                    name="telephoneModal" placeholder="06.24.24.24.24" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}" required>
                             </div>
 
                             <div class="form-group d-flex">
                                 <label style="width: 35%" for="photoModal" class="p-2">Photographie</label>
                                 <input style="width: 75%" type="url" class="form-control" id="photoModal"
-                                    name="photoModal" placeholder="lien url de l'image">
+                                    name="photoModal" placeholder="lien url de l'image" required>
                             </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-                        <input type="submit" class="btn btn-success" value="Ajouter">
-                    </div>
+                    	</div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+	                        <input type="submit" class="btn btn-success">
+	                    </div>
+                    </form>
                 </div>
             </div>
         </div>
