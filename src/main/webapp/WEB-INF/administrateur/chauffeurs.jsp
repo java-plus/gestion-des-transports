@@ -13,17 +13,16 @@
                 <div class="col-12 col-md-6" style="max-width: 500px;">
                     <h5 class="p-2">Filtre</h5>
                     <div class="form-group text-left row container">
-                        <label for="inputMatricule" class="col-4 m-0 p-2">Matricule</label>
-                        <input name="inputMatricule" type="text" class="form-control col-8" id="inputMatricule"
-                            required>
+                        <label for="matricule" class="col-4 m-0 p-2">Matricule</label>
+                        <input name="matricule" type="text" class="form-control col-8" id="matricule">
                     </div>
                     <div class="form-group row container">
-                        <label for="inputNom" class="col-4 m-0 p-2">Nom</label>
-                        <input name="inputNom" type="text" class="form-control col-8" id="inputNom" required>
+                        <label for="nom" class="col-4 m-0 p-2">Nom</label>
+                        <input name="nom" type="text" class="form-control col-8" id="nom">
                     </div>
                     <div class="form-group row container">
-                        <label for="inputPrenom" class="col-4 m-0 p-2">Prenom</label>
-                        <input name="inputPrenom" type="text" class="form-control col-8" id="inputPrenom" required>
+                        <label for="prenom" class="col-4 m-0 p-2">Prenom</label>
+                        <input name="prenom" type="text" class="form-control col-8" id="prenom">
                     </div>
                 </div>
                 <div class="text-right col-12 col-md-6 d-flex justify-content-end">
@@ -31,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="row mt-5">
+            <div class="row mt-5" id="chauffeurs">
             
             <% for (Chauffeur chauffeur : listeDesChauffeurs) {  %>
                 <div class="col-12 col-xl-6 mb-3">
@@ -169,6 +168,145 @@
         <!-- FIN MODALE -->
         
 	<%@include file="../../jsp/dependanceScript.jsp"%>
+	
+	<!-- JS : REQUETES AJAX POUR LE FILTRE -->
+	
+	<script>
+	$("#matricule").change(function(){
+		    $.ajax({
+		        url: "/gdt/controller/refreshMatriculeChauffeur?matricule="+document.getElementById('matricule').value,
+		        dataType: "json",
+		        success: (result) => {
+		        	let html = '';
+		        	result.forEach((chauffeur)=>
+		        	{
+		        		html += '<div class="col-12 col-xl-6 mb-3">';
+	                    	html+= '<div class="card pb-3 shadow">';
+	                    		html+= '<div class="card-header bg-white">' + chauffeur.nom + ' ' + chauffeur.prenom + '</div>'
+	                    		html+= '<div class="card-body row">'
+	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Nom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.nom + '</p>'
+                    					html+= '</div>'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Prénom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.prenom + '</p>'
+                       					html+= '</div>'
+                       					html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Permis</p>'
+    	                        			html+= '<p class="col-8 pr-0">' + chauffeur.permis + '</p>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Email</p>'
+    	                        			html+= '<a href="mailto:' + chauffeur.email + '"class="text-success">'
+    	                        				html+= '<small class="col-8 pr-0">' + chauffeur.email + '</small>'
+    	                        			html+= '</a>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+        	                        		html+= '<p class="col-4 pr-0">Téléphone</p>'
+        	                        		html+= '<p class="col-8 pr-0">' + chauffeur.telephone + '</p>'
+                               			html+= '</div>'
+                               			html+= '</div></div></div></div>'
+	                });
+
+		            $("#chauffeurs").html(html);
+		        }
+		    });
+	
+	})
+	
+	$("#prenom").change(function(){
+		    $.ajax({
+		        url: "/gdt/controller/refreshPrenomChauffeur?prenom="+document.getElementById('prenom').value,
+		        dataType: "json",
+		        success: (result) => {
+		        	let html = '';
+		        	result.forEach((chauffeur)=>
+		        	{
+		        		html += '<div class="col-12 col-xl-6 mb-3">';
+	                    	html+= '<div class="card pb-3 shadow">';
+	                    		html+= '<div class="card-header bg-white">' + (chauffeur.nom).toUpperCase() + ' ' + chauffeur.prenom + '</div>'
+	                    		html+= '<div class="card-body row">'
+	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Nom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.nom + '</p>'
+                    					html+= '</div>'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Prénom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.prenom + '</p>'
+                       					html+= '</div>'
+                       					html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Permis</p>'
+    	                        			html+= '<p class="col-8 pr-0">' + chauffeur.permis + '</p>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Email</p>'
+    	                        			html+= '<a href="mailto:' + chauffeur.email + '"class="text-success">'
+    	                        				html+= '<small class="col-8 pr-0">' + chauffeur.email + '</small>'
+    	                        			html+= '</a>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+        	                        		html+= '<p class="col-4 pr-0">Téléphone</p>'
+        	                        		html+= '<p class="col-8 pr-0">' + chauffeur.telephone + '</p>'
+                               			html+= '</div>'
+                               			html+= '</div></div></div></div>'
+	                });
+
+		            $("#chauffeurs").html(html);
+		        }
+		    });
+	
+	})
+	
+	$("#nom").change(function(){
+		    $.ajax({
+		        url: "/gdt/controller/refreshNomChauffeur?nom="+document.getElementById('nom').value,
+		        dataType: "json",
+		        success: (result) => {
+		        	let html = '';
+		        	result.forEach((chauffeur)=>
+		        	{
+		        		html += '<div class="col-12 col-xl-6 mb-3">';
+	                    	html+= '<div class="card pb-3 shadow">';
+	                    		html+= '<div class="card-header bg-white">' + (chauffeur.nom).toUpperCase() + ' ' + chauffeur.prenom + '</div>'
+	                    		html+= '<div class="card-body row">'
+	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Nom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.nom + '</p>'
+                    					html+= '</div>'
+	                        			html+= '<div class="row">'
+	                        				html+= '<p class="col-4 pr-0">Prénom</p>'
+	                        				html+= '<p class="col-8 pr-0">' + chauffeur.prenom + '</p>'
+                       					html+= '</div>'
+                       					html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Permis</p>'
+    	                        			html+= '<p class="col-8 pr-0">' + chauffeur.permis + '</p>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+    	                        			html+= '<p class="col-4 pr-0">Email</p>'
+    	                        			html+= '<a href="mailto:' + chauffeur.email + '"class="text-success">'
+    	                        				html+= '<small class="col-8 pr-0">' + chauffeur.email + '</small>'
+    	                        			html+= '</a>'
+                           				html+= '</div>'
+                           				html+= '<div class="row">'
+        	                        		html+= '<p class="col-4 pr-0">Téléphone</p>'
+        	                        		html+= '<p class="col-8 pr-0">' + chauffeur.telephone + '</p>'
+                               			html+= '</div>'
+                               			html+= '</div></div></div></div>'
+	                });
+
+		            $("#chauffeurs").html(html);
+		        }
+		    });
+	
+	})
+	</script>
 	
 	</body>
 	</html>
