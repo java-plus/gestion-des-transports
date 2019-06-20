@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.Occupation;
-import fr.diginamic.model.Planning;
 import fr.diginamic.model.ReservationVoiture;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
@@ -48,8 +49,70 @@ public class ResaVehiculeDao {
 	 * @param utilisateurCourant
 	 * @return
 	 */
-	public List<Planning> recupererLesTachesDuJourCourant(LocalDate jourCourant, Employe utilisateurCourant) {
-		return null;
+	public List<ReservationVoiture> recupererLesTachesDuJourCourant(LocalDate jourCourant, Integer idUtilisateur) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<ReservationVoiture> listResa = new ArrayList<>();
+		LocalDateTime debutJour = LocalDateTime.of(jourCourant, LocalTime.parse("00:00:00"));
+		String debut = debutJour.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime finJour = LocalDateTime.of(jourCourant, LocalTime.parse("23:59:00"));
+		String fin = finJour.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"SELECT * FROM gestion_transport.resavehicule where ((rvh_datetimeDebut between ? and ?)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((rvh_datetimeFin between ? and ?) and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((? between rvh_datetimeDebut and rvh_datetimeFin)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1))");
+			preparedStatement.setString(1, debut);
+			preparedStatement.setString(2, fin);
+			preparedStatement.setInt(3, idUtilisateur);
+			preparedStatement.setString(4, debut);
+			preparedStatement.setString(5, fin);
+			preparedStatement.setInt(6, idUtilisateur);
+			preparedStatement.setString(7, debut);
+			preparedStatement.setInt(8, idUtilisateur);
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+
+			while (resultSet.next()) {
+				String debutResa = resultSet.getString("rvh_datetimeDebut");
+				String finResa = resultSet.getString("rvh_datetimeFin");
+				Integer besoinChauffeur = resultSet.getInt("rvh_besoin_chauffeur");
+				LocalDateTime dtDebutResa = LocalDateTime.parse(debutResa, DateTimeFormatter.ofPattern(
+						"yyyy-MM-dd HH:mm:ss"));
+				LocalDateTime dtFinResa = LocalDateTime.parse(finResa, DateTimeFormatter.ofPattern(
+						"yyyy-MM-dd HH:mm:ss"));
+				ReservationVoiture resaVoiture = new ReservationVoiture();
+				resaVoiture.setDateTimeDeDebut(dtDebutResa);
+				resaVoiture.setDateTimeDeFin(dtFinResa);
+				resaVoiture.setBesoinChauffeur(besoinChauffeur);
+
+				listResa.add(resaVoiture);
+
+			}
+			return listResa;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
 	}
 
 	public void ajoutResaVehicule(ReservationVoiture reservationVoiture) {
