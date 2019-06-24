@@ -13,6 +13,8 @@ public class AnnonceCovoiturage {
 	private Integer distanceEnKm;
 	private Integer idReservationVehicule;
 	private Integer idVehiculeUtilisePourCovoiturage;
+	private Integer idUtilisateur;
+	private Integer idVehicule;
 
 	/**
 	 * Constructeur
@@ -36,8 +38,17 @@ public class AnnonceCovoiturage {
 		this.idReservationVehicule = idReservationVehicule;
 	}
 
-	private Integer idUtilisateur;
-	private Integer idVehicule;
+	public AnnonceCovoiturage(Integer nbPlacesDisponibles, LocalDateTime dateDeDepart, String lieuDeDepart,
+			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage) {
+		super();
+		this.nbPlacesDisponibles = nbPlacesDisponibles;
+		this.dateDeDepart = dateDeDepart;
+		this.lieuDeDepart = lieuDeDepart;
+		this.lieuDeDestination = lieuDeDestination;
+		this.idUtilisateur = idUtilisateur;
+		this.idVehiculeUtilisePourCovoiturage = idVehiculeUtilisePourCovoiturage;
+
+	}
 
 	/**
 	 * Constructeur
