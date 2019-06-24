@@ -60,7 +60,7 @@ public class ResaVehiculeDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"SELECT * FROM gestion_transport.resavehicule where ((rvh_datetimeDebut between ? and ?)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((rvh_datetimeFin between ? and ?) and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((? between rvh_datetimeDebut and rvh_datetimeFin)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1))");
+					"SELECT rvh_id,rvh_datetimeDebut,rvh_datetimeFin,rvh_besoin_chauffeur,uti_nom,uti_prenom,vhc_immatriculation FROM gestion_transport.resavehicule inner join utilisateur on resavehicule.rvh_id_utilisateur = uti_id inner join vehicule on rvh_id_vehicule = vhc_id where ((rvh_datetimeDebut between ? and ?)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((rvh_datetimeFin between ? and ?) and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1)) or ((? between rvh_datetimeDebut and rvh_datetimeFin)and (rvh_id_chauffeur=? or rvh_besoin_chauffeur=1))");
 			preparedStatement.setString(1, debut);
 			preparedStatement.setString(2, fin);
 			preparedStatement.setInt(3, idUtilisateur);
@@ -76,6 +76,10 @@ public class ResaVehiculeDao {
 				String debutResa = resultSet.getString("rvh_datetimeDebut");
 				String finResa = resultSet.getString("rvh_datetimeFin");
 				Integer besoinChauffeur = resultSet.getInt("rvh_besoin_chauffeur");
+				String nom = resultSet.getString("uti_nom");
+				String prenom = resultSet.getString("uti_prenom");
+				Integer id = resultSet.getInt("rvh_id");
+				String immatriculation = resultSet.getString("vhc_immatriculation");
 				LocalDateTime dtDebutResa = LocalDateTime.parse(debutResa, DateTimeFormatter.ofPattern(
 						"yyyy-MM-dd HH:mm:ss"));
 				LocalDateTime dtFinResa = LocalDateTime.parse(finResa, DateTimeFormatter.ofPattern(
@@ -84,6 +88,7 @@ public class ResaVehiculeDao {
 				resaVoiture.setDateTimeDeDebut(dtDebutResa);
 				resaVoiture.setDateTimeDeFin(dtFinResa);
 				resaVoiture.setBesoinChauffeur(besoinChauffeur);
+				resaVoiture.setId(id);
 
 				listResa.add(resaVoiture);
 
@@ -127,6 +132,15 @@ public class ResaVehiculeDao {
 		sb.append("'").append(reservationVoiture.getVehicule().getId()).append("',");
 		sb.append("'").append(reservationVoiture.getBesoinChauffeur()).append("'");
 		sb.append(")");
+		QueryUtils.updateQuery(sb.toString());
+	}
+
+	public void accepterReservation(Integer idResa, Integer idChauffeur) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE resavehicule SET rvh_id_chauffeur =");
+		sb.append(idChauffeur);
+		sb.append(", rvh_besoin_chauffeur = 0 WHERE rvh_id = ");
+		sb.append(idResa);
 		QueryUtils.updateQuery(sb.toString());
 	}
 

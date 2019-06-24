@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class RefreshPlanning extends HttpServlet {
 		LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		if (demande.equals("precedent")) {
 			localDate = localDate.minusDays(1);
-		} else {
+		} else if (demande.equals("suivant")) {
 			localDate = localDate.plusDays(1);
 		}
 
@@ -51,6 +52,7 @@ public class RefreshPlanning extends HttpServlet {
 
 	private List<ReservationVoiture> traitementReservation(List<ReservationVoiture> listeResa,
 			LocalDate jourCourant) {
+		supprimerDemandeCreneauxIndisponible(listeResa);
 		LocalDateTime debutJour = LocalDateTime.of(jourCourant, LocalTime.parse("00:00:00"));
 		LocalDateTime finJour = LocalDateTime.of(jourCourant, LocalTime.parse("23:59:59"));
 
@@ -81,8 +83,23 @@ public class RefreshPlanning extends HttpServlet {
 		return listeResa;
 	}
 
-	public String creerJson(List<ReservationVoiture> listeResa) {
-
-		return "";
+	private void supprimerDemandeCreneauxIndisponible(List<ReservationVoiture> listeResa) {
+		Iterator<ReservationVoiture> it = listeResa.iterator();
+		while (it.hasNext()) {
+			ReservationVoiture resa = it.next();
+			if (resa.getBesoinChauffeur().equals(1)) {
+				for (ReservationVoiture reservationAComparer : listeResa) {
+					boolean commenceDedans = (resa.getDateTimeDeDebut().isAfter(reservationAComparer
+							.getDateTimeDeDebut()) && resa.getDateTimeDeDebut().isBefore(reservationAComparer
+									.getDateTimeDeFin()));
+					boolean finiDedans = (resa.getDateTimeDeFin().isAfter(reservationAComparer.getDateTimeDeDebut())
+							&& resa.getDateTimeDeFin().isBefore(reservationAComparer.getDateTimeDeFin()));
+					if (commenceDedans || finiDedans) {
+						it.remove();
+					}
+				}
+			}
+		}
 	}
+
 }
