@@ -14,6 +14,7 @@ import java.util.List;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class CovoiturageDao {
 
@@ -23,6 +24,56 @@ public class CovoiturageDao {
 
 	public static LocalTime convertToLocalTimeViaInstant(Date dateToConvert) {
 		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault()).toLocalTime();
+
+	}
+
+	public void unePlaceReserve(Integer idAnnonceCovoiturage) {
+
+		QueryUtils.updateQuery(
+
+				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo -1 where cov_id="
+						+ idAnnonceCovoiturage);
+
+	}
+
+	public void unePlaceReserveEnMoins(Integer idAnnonceCovoiturage) {
+
+		QueryUtils.updateQuery(
+
+				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo +1 where cov_id="
+						+ idAnnonceCovoiturage);
+
+	}
+
+	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
+
+		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		Integer nbPlacesDispo = annonceCovoiturage.getNbPlacesDisponibles();
+		Integer idUtilissateur = annonceCovoiturage.getIdUtilisateur();
+		String lieuDepart = annonceCovoiturage.getLieuDeDepart();
+		Integer idVehicule = annonceCovoiturage.getIdVehicule();
+		Integer idReservationVehiculeSociete = annonceCovoiturage.getIdReservationVehicule();
+		String lieuArrive = annonceCovoiturage.getLieuDeDestination();
+		// System.out.println(dateDeDepart);
+		// System.out.println(nbPlacesDispo);
+		// System.out.println(lieuDepart);
+		// System.out.println(lieuArrive);
+		System.out.println(idReservationVehiculeSociete);
+		if (idReservationVehiculeSociete == null) {
+			QueryUtils.updateQuery(
+
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
+		} else {
+			QueryUtils.updateQuery(
+
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\",\"" + idReservationVehiculeSociete
+							+ "\")");
+		}
 
 	}
 
@@ -57,7 +108,8 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
-
+				// TODO PRENDRE EN COMPTE CHANGEMENT DE FORMAT cov_dateTimeDebut
+				// EN DATE DANS BDD
 				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
@@ -171,13 +223,15 @@ public class CovoiturageDao {
 
 	}
 
-	public List<AnnonceCovoiturage> recupererLesAnnonces() {
+	public List<AnnonceCovoiturage> recupererLesAnnoncesDisponiblesPourUtilisateur(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from covoiturage");
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select * from gestion_transport.covoiturage WHERE cov_id not in (select cov_id from gestion_transport.covoiturage inner join gestion_transport.resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
+							+ idUtilisateurCourant + ") and cov_datetimeDebut > CURDATE()");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

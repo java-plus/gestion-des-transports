@@ -11,8 +11,28 @@ import java.util.List;
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
+import fr.diginamic.utils.QueryUtils;
 
 public class ResaCovoiturageDao {
+
+	public void reserverCovoiturage(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
+
+		QueryUtils.updateQuery(
+
+				"INSERT INTO RESACOVOITURAGE (`rco_idCovoiture`,`rco_idUtilisateur`) VALUES (" + idAnnonceCovoiturage
+						+ "," + idUtilisateur + ")");
+
+	}
+
+	public void annulerCovoiturage(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
+		System.out.println(idAnnonceCovoiturage);
+		System.out.println(idUtilisateur);
+		QueryUtils.updateQuery(
+
+				"DELETE from RESACOVOITURAGE where rco_idCovoiture=" + idAnnonceCovoiturage + " and rco_idUtilisateur="
+						+ idUtilisateur);
+
+	}
 
 	public List<AnnonceCovoiturage> recupererLesReservations(Integer idUtilisateurCourant) {
 
@@ -35,7 +55,7 @@ public class ResaCovoiturageDao {
 			while (resultSet.next()) {
 
 				Integer id_utilisateur = resultSet.getInt("cov_id");
-				Integer nbPlacesDispo = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
 
 				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);

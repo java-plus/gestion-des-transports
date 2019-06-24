@@ -12,6 +12,23 @@ public class Vehicule {
 	private String photo;
 	private String etat;
 	private String position;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 * @param proprietaire
+	 */
+	public Vehicule(String immatriculation, String marque, String modele, String proprietaire) {
+		super();
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.proprietaire = proprietaire;
+	}
+
 	private String proprietaire;
 	private Integer nbPlaces;
 	// private Integer nombreDePlaces;
@@ -19,6 +36,7 @@ public class Vehicule {
 	/**
 	 * Constructeur
 	 * 
+   * @param id
 	 * @param immatriculation
 	 * @param marque
 	 * @param modele
@@ -31,7 +49,32 @@ public class Vehicule {
 	public Vehicule(Integer id, String immatriculation, String marque, String modele, String categorie, String photo,
 			String etat, String position, String proprietaire) {
 		super();
-		this.id = id;
+    this.id = id;
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.categorie = categorie;
+		this.photo = photo;
+		this.etat = etat;
+		this.position = position;
+		this.proprietaire = proprietaire;
+	}
+  
+  /**
+	 * Constructeur
+	 * 
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 * @param categorie
+	 * @param photo
+	 * @param etat
+	 * @param position
+	 * @param proprietaire
+	 */
+  public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
+			String position, String proprietaire) {
+		super();
 		this.immatriculation = immatriculation;
 		this.marque = marque;
 		this.modele = modele;

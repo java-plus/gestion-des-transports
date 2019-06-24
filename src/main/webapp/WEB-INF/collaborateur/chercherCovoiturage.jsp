@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
+<%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
+<%@include file="../../jsp/layout_header.jsp"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -39,6 +41,8 @@
 							List<AnnonceCovoiturage> listeDesAnnonces = (List<AnnonceCovoiturage>) request
 									.getAttribute("listeDesAnnonces");
 							String lieuDeDepart = (String) request.getAttribute("lieuDeDepart");
+								
+								Integer idUtilisateur = (Integer)request.getAttribute("idUtilisateur");
 							Set<String> listeDesLieuDeDepart = new HashSet<String>();
 							for (AnnonceCovoiturage annonce : listeDesAnnonces) {
 								listeDesLieuDeDepart.add(annonce.getLieuDeDepart());
@@ -146,7 +150,7 @@
 							<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
 							<td><%=annonceCovoiturage.getIdVehicule()%></td>
 							<td>
-								<button type="submit" class="btn btn-primary center-block">Reserver</button>
+								<button type="submit" class="btn btn-primary center-block" onclick="reserverCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Reserver</button>
 							</td>
 						</tr>
 						<%
@@ -160,31 +164,38 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
-
+	
 	<script type="text/javascript">
-		function rechercheAvecCritere() {
+        function rechercheAvecCritere() {
 
-			lieuDeDestination = "";
-			lieuDeDepart = "";
+            lieuDeDestination = "";
+            lieuDeDepart = "";
 
-			if (document.forms[0].selectedLieuDeDestination.value == "indeterminé") {
-				lieuDeDestination = "indeterminé";
+            if (document.forms[0].selectedLieuDeDestination.value == "indeterminé") {
+                lieuDeDestination = "indeterminé";
 
-			} else {
-				lieuDeDestination = document.forms[0].selectedLieuDeDestination.value;
-			}
-			if (document.forms[0].selectedLieuDeDepart.value == "indeterminé") {
-				lieuDeDepart = "indeterminé";
+            } else {
+                lieuDeDestination = document.forms[0].selectedLieuDeDestination.value;
+            }
+            if (document.forms[0].selectedLieuDeDepart.value == "indeterminé") {
+                lieuDeDepart = "indeterminé";
 
-			} else {
-				lieuDeDepart = document.forms[0].selectedLieuDeDepart.value;
-			}
+            } else {
+                lieuDeDepart = document.forms[0].selectedLieuDeDepart.value;
+            }
 
-			document.location.href = "http://localhost:8080/gdt/controller/collaborateur/chercherannoncesAvecCritere?lieuDeDestination="
-					+ lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart;
+            document.location.href = "http://localhost:8080/gdt/controller/collaborateur/chercherannoncesAvecCritere?lieuDeDestination="
+                    + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart;
+
+        }
+    
+        function reserverCovoiturage(idAnnonceCovoiturage) {
+
+
+			document.location.href = "http://localhost:8080/gdt/controller/collaborateur/reserverCovoiturage?idAnnonceCovoiturage="
+					+ idAnnonceCovoiturage;
 
 		}
-	</script>
 
 
 	<script
@@ -199,7 +210,9 @@
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
 
-
+		<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
+	<%@include file="../../jsp/layout_footer.jsp"%>
+	<%@include file="../../jsp/dependanceScript.jsp"%>
 
 </body>
 </html>

@@ -9,12 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
+import fr.diginamic.model.Employe;
 
 @WebServlet(urlPatterns = "/controller/collaborateur/chercherannonces/*")
 public class ChercherCovoiturage extends HttpServlet {
@@ -35,20 +37,23 @@ public class ChercherCovoiturage extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODOOOOOOOOOOOOOOOOOOOOOO
+		HttpSession session = req.getSession(false);
 
-		// HttpSession session = req.getSession(false);
-		//
-		// Employe utilisateurCourant = (Employe)
-		// session.getAttribute("utilisateurCourant");
+		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		String lieuDeDestination = "indeterminé";// req.getParameter("lieuDeDestination");
 		String lieuDeDepart = "indeterminé";// req.getParameter("lieuDeDestination");
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces();
+		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao
+				.recupererLesAnnoncesDisponiblesPourUtilisateur(utilisateurCourant.getId());
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
+		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
+		Integer idUtilisateur = utilisateurCourant.getId();
+		req.setAttribute("idUtilisateur", idUtilisateur);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/chercherCovoiturage.jsp");

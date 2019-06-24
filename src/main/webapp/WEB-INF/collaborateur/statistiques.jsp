@@ -1,3 +1,12 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
+	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
+<%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
+<%@include file="../../jsp/layout_header.jsp"%>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,5 +17,11 @@
 </head>
 <body>
     <h1>"/collaborateur/statistiques"</h1>
+    
+    <%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
+	<%@include file="../../jsp/layout_footer.jsp"%>
+	<%@include file="../../jsp/dependanceScript.jsp"%>
+	
+	
 </body>
 </html>

@@ -12,6 +12,30 @@ public class AnnonceCovoiturage {
 	private Integer duree;
 	private Integer distanceEnKm;
 	private Integer idReservationVehicule;
+	private Integer idVehiculeUtilisePourCovoiturage;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param nbPlacesDisponibles
+	 * @param dateDeDepart
+	 * @param lieuDeDepart
+	 * @param lieuDeDestination
+	 * @param idUtilisateur
+	 */
+	public AnnonceCovoiturage(Integer nbPlacesDisponibles, LocalDateTime dateDeDepart, String lieuDeDepart,
+			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage,
+			Integer idReservationVehicule) {
+		super();
+		this.nbPlacesDisponibles = nbPlacesDisponibles;
+		this.dateDeDepart = dateDeDepart;
+		this.lieuDeDepart = lieuDeDepart;
+		this.lieuDeDestination = lieuDeDestination;
+		this.idUtilisateur = idUtilisateur;
+		this.idVehiculeUtilisePourCovoiturage = idVehiculeUtilisePourCovoiturage;
+		this.idReservationVehicule = idReservationVehicule;
+	}
+
 	private Integer idUtilisateur;
 	private Integer idVehicule;
 
@@ -42,7 +66,7 @@ public class AnnonceCovoiturage {
 		this.distanceEnKm = distanceEnKm;
 		this.idReservationVehicule = idReservationVehicule;
 		this.idUtilisateur = idUtilisateur;
-		this.idVehicule = idVehicule;
+		this.idVehiculeUtilisePourCovoiturage = idVehicule;
 	}
 
 	/**
@@ -209,14 +233,31 @@ public class AnnonceCovoiturage {
 	 *            the idVehicule to set
 	 */
 	public void setIdVehicule(Integer idVehicule) {
-		this.idVehicule = idVehicule;
+		this.idVehiculeUtilisePourCovoiturage = idVehicule;
 	}
 
 	/**
 	 * @return the idVehicule
 	 */
 	public Integer getIdVehicule() {
-		return idVehicule;
+		return idVehiculeUtilisePourCovoiturage;
+	}
+
+	/**
+	 * @return the idVehiculeUtilisePourCovoiturage
+	 */
+	public Integer getIdVehiculeUtilisePourCovoiturage() {
+		return idVehiculeUtilisePourCovoiturage;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param idVehiculeUtilisePourCovoiturage
+	 *            the idVehiculeUtilisePourCovoiturage to set
+	 */
+	public void setIdVehiculeUtilisePourCovoiturage(Integer idVehiculeUtilisePourCovoiturage) {
+		this.idVehiculeUtilisePourCovoiturage = idVehiculeUtilisePourCovoiturage;
 	}
 
 }
