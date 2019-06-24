@@ -34,17 +34,29 @@ public class CovoiturageDao {
 		Integer nbPlacesDispo = annonceCovoiturage.getNbPlacesDisponibles();
 		Integer idUtilissateur = annonceCovoiturage.getIdUtilisateur();
 		String lieuDepart = annonceCovoiturage.getLieuDeDepart();
+		Integer idVehicule = annonceCovoiturage.getIdVehicule();
+		Integer idReservationVehiculeSociete = annonceCovoiturage.getIdReservationVehicule();
 		String lieuArrive = annonceCovoiturage.getLieuDeDestination();
 		// System.out.println(dateDeDepart);
 		// System.out.println(nbPlacesDispo);
 		// System.out.println(lieuDepart);
 		// System.out.println(lieuArrive);
+		System.out.println(idReservationVehiculeSociete);
+		if (idReservationVehiculeSociete == null) {
+			QueryUtils.updateQuery(
 
-		QueryUtils.updateQuery(
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
+		} else {
+			QueryUtils.updateQuery(
 
-				"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id) values ("
-						+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive + "\",\""
-						+ idUtilissateur + "\")");
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\",\"" + idReservationVehiculeSociete
+							+ "\")");
+		}
+
 	}
 
 	public List<AnnonceCovoiturage> recupererLesAnnoncesAvecCritere(String lieuDeDepart, String lieuDeDestination) {

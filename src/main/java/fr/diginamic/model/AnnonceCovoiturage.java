@@ -24,7 +24,8 @@ public class AnnonceCovoiturage {
 	 * @param idUtilisateur
 	 */
 	public AnnonceCovoiturage(Integer nbPlacesDisponibles, LocalDateTime dateDeDepart, String lieuDeDepart,
-			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage) {
+			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage,
+			Integer idReservationVehicule) {
 		super();
 		this.nbPlacesDisponibles = nbPlacesDisponibles;
 		this.dateDeDepart = dateDeDepart;
@@ -32,6 +33,7 @@ public class AnnonceCovoiturage {
 		this.lieuDeDestination = lieuDeDestination;
 		this.idUtilisateur = idUtilisateur;
 		this.idVehiculeUtilisePourCovoiturage = idVehiculeUtilisePourCovoiturage;
+		this.idReservationVehicule = idReservationVehicule;
 	}
 
 	private Integer idUtilisateur;
