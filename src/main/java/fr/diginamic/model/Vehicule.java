@@ -12,11 +12,55 @@ public class Vehicule {
 	private String photo;
 	private String etat;
 	private String position;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 * @param proprietaire
+	 */
+	public Vehicule(String immatriculation, String marque, String modele, String proprietaire) {
+		super();
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.proprietaire = proprietaire;
+	}
+
 	private String proprietaire;
 	private Integer nbPlaces;
 	// private Integer nombreDePlaces;
 
 	/**
+	 * Constructeur
+	 * 
+   * @param id
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 * @param categorie
+	 * @param photo
+	 * @param etat
+	 * @param position
+	 * @param proprietaire
+	 */
+	public Vehicule(Integer id, String immatriculation, String marque, String modele, String categorie, String photo,
+			String etat, String position, String proprietaire) {
+		super();
+    this.id = id;
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
+		this.categorie = categorie;
+		this.photo = photo;
+		this.etat = etat;
+		this.position = position;
+		this.proprietaire = proprietaire;
+	}
+  
+  /**
 	 * Constructeur
 	 * 
 	 * @param immatriculation
@@ -28,11 +72,9 @@ public class Vehicule {
 	 * @param position
 	 * @param proprietaire
 	 */
-	public Vehicule(Integer id, String immatriculation, String marque, String modele, String categorie, String photo,
-			String etat,
+  public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
 			String position, String proprietaire) {
 		super();
-		this.id = id;
 		this.immatriculation = immatriculation;
 		this.marque = marque;
 		this.modele = modele;
@@ -78,8 +120,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param immatriculation
-	 *            the immatriculation to set
+	 * @param immatriculation the immatriculation to set
 	 */
 	public void setImmatriculation(String immatriculation) {
 		this.immatriculation = immatriculation;
@@ -95,8 +136,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param marque
-	 *            the marque to set
+	 * @param marque the marque to set
 	 */
 	public void setMarque(String marque) {
 		this.marque = marque;
@@ -112,8 +152,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param modele
-	 *            the modele to set
+	 * @param modele the modele to set
 	 */
 	public void setModele(String modele) {
 		this.modele = modele;
@@ -129,8 +168,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param categorie
-	 *            the categorie to set
+	 * @param categorie the categorie to set
 	 */
 	public void setCategorie(String categorie) {
 		this.categorie = categorie;
@@ -146,8 +184,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param photo
-	 *            the photo to set
+	 * @param photo the photo to set
 	 */
 	public void setPhoto(String photo) {
 		this.photo = photo;
@@ -163,8 +200,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param etat
-	 *            the etat to set
+	 * @param etat the etat to set
 	 */
 	public void setEtat(String etat) {
 		this.etat = etat;
@@ -180,8 +216,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param position
-	 *            the position to set
+	 * @param position the position to set
 	 */
 	public void setPosition(String position) {
 		this.position = position;
@@ -197,8 +232,7 @@ public class Vehicule {
 	/**
 	 * Setter
 	 * 
-	 * @param proprietaire
-	 *            the proprietaire to set
+	 * @param proprietaire the proprietaire to set
 	 */
 	public void setProprietaire(String proprietaire) {
 		this.proprietaire = proprietaire;
@@ -216,8 +250,7 @@ public class Vehicule {
 	/**
 	 * Setters
 	 * 
-	 * @param nbPlaces
-	 *            the nbPlaces to set
+	 * @param nbPlaces the nbPlaces to set
 	 */
 	public void setNbPlaces(Integer nbPlaces) {
 		this.nbPlaces = nbPlaces;
@@ -235,8 +268,7 @@ public class Vehicule {
 	/**
 	 * Setters
 	 * 
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
