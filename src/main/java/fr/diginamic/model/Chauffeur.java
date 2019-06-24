@@ -44,6 +44,27 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
+	 * Constructor
+	 * 
+	 * @param matricule
+	 * @param permis
+	 * @param photo
+	 * @param telephone
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param mdp
+	 */
+	public Chauffeur(String matricule, String permis, String photo, String telephone, String nom, String prenom,
+			String email, String mdp) {
+		super(nom, prenom, email, mdp);
+		this.matricule = matricule;
+		this.permis = permis;
+		this.photo = photo;
+		this.telephone = telephone;
+	}
+
+	/**
 	 * @return the matricule
 	 */
 	public String getMatricule() {

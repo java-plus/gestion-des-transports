@@ -136,7 +136,6 @@
     		/-->
 	<script>
 	$("#immatriculation").change(function(){
-		console.log("j’ai changé");
 		    $.ajax({
 		        url: "/gdt/controller/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
 		        dataType: "json",
