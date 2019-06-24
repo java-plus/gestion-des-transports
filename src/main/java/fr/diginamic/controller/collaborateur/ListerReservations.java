@@ -28,8 +28,7 @@ public class ListerReservations extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des reservationss) quand
-	 * l'utilisateur accede à l'url
-	 * /gestion-transports/collaborateur/reservations/*
+	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/reservations/*
 	 * 
 	 * 
 	 *
