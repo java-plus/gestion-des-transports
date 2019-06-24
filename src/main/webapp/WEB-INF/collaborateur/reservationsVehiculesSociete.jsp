@@ -150,9 +150,16 @@
                                         </div>
 
                                     </div>
+                                    
+                                    <% if(request.getParameter("statut") != null && !request.getParameter("statut").equals("ok")) { %>
+                                    <div class="text-danger">
+                                    	<p>Ce véhicule est indisponible pour la période indiquée. Veuillez en choisir un autre.</p>
+                                    </div>
+                                    <% } %>
+                                    
 									<% List<Vehicule> listeVehicule=(List<Vehicule>)request.getAttribute("listeVehicule"); %>
                                     <div class="row mt-5 d-flex justify-content-center">
-                                        <div class="col-6 ">
+                                        <div class="col-6 pb-5">
                                             <div class="bd-example">
                                                 <div id="carouselExampleCaptions" class="carousel slide"
                                                     data-interval="false">
@@ -164,19 +171,27 @@
                                                             data-id="<%=listeVehicule.get(i).getId() %>"></li>
                                                             <%} %>               
                                                     </ol>
-                                                    <div class="carousel-inner">
-                                                        <div class="carousel-item active">
+                                                    <div class="carousel-inner" style="padding-bottom: 100px">
+                                                        <div class="carousel-item active" style="position: relative;">
                                                             <img src="<%=listeVehicule.get(0).getPhoto() %>"
                                                                 class="d-block w-100" alt="">
                                                             <div
                                                                 class="carousel-caption d-none d-block bg-dark mb-4 py-0">
                                                                 <p class="m-0"><%=listeVehicule.get(0).getImmatriculation() %></p>
                                                                 <p class="m-0"><%=listeVehicule.get(0).getMarque() %> - <%=listeVehicule.get(0).getModele() %></p>
-                                                                <p class="pb-2"><%=listeVehicule.get(0).getCategorie() %></p>
+                                                                <p class="pb-2" style="position: relative;"><%=listeVehicule.get(0).getCategorie() %></p>
+	                                                            <div class="container p-3" style="position: absolute; bottom: -100px; z-index:200000;">
+	                                        						<% if (listeVehicule.get(0).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
+                                        							<input type="submit" class="btn btn-success" value="Reserver">
+                                        							<% } else { %>
+                                        							<p class="text-danger">NON DISPONIBLE</p>
+                                    								<% } %>
+	                                    						</div>
                                                             </div>
+                                                            
                                                         </div>
                                                         <%for(int i=1;i<listeVehicule.size();i++){ %>
-                                                        <div class="carousel-item">
+                                                        <div class="carousel-item" style="position: relative;">
                                                             <img src="<%=listeVehicule.get(i).getPhoto() %>"
                                                                 class="d-block w-100" alt="">
                                                             <div
@@ -184,9 +199,21 @@
                                                                 <p class="m-0"><%=listeVehicule.get(i).getImmatriculation() %></p>
                                                                 <p class="m-0"><%=listeVehicule.get(i).getMarque() %> - <%=listeVehicule.get(i).getModele()%></p>
                                                                 <p class="pb-2"><%=listeVehicule.get(i).getCategorie() %></p>
+                                                                
+                                                                <div class="container p-3" style="position: absolute; bottom: -100px; z-index:200000;">
+                                        							<% if (listeVehicule.get(i).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
+                                        							<input type="submit" class="btn btn-success" value="Reserver">
+                                        							<% } else { %>
+                                        							<p class="text-danger">NON DISPONIBLE</p>
+                                    								<% } %>
+                                    							</div>
+                                    							
                                                             </div>
+                                                            
                                                         </div>
+                                                        
                                                         <%} %>
+                                                           
                                                       
                                                     </div>
                                                     <a class="carousel-control-prev" href="#carouselExampleCaptions"
@@ -205,9 +232,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-1 container">
-                                        <input type="submit" class="btn btn-success" value="Reserver">
-                                    </div>
+                                  
                                 </form>
                             </div>
 
@@ -218,7 +243,6 @@
 
 
             </div>
-            
             
 <%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 <%@include file="../../jsp/layout_footer.jsp"%>

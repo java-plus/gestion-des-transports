@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Employe;
@@ -20,6 +23,9 @@ import fr.diginamic.model.Vehicule;
 
 @WebServlet(urlPatterns = "/controller/collaborateur/reserverVehiculeSociete/*")
 public class ReserverVehiculeSociete extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ReserverVehiculeSociete.class);
 
 	public ReserverVehiculeSociete() {
 		// TODO Auto-generated constructor stub
@@ -31,8 +37,8 @@ public class ReserverVehiculeSociete extends HttpServlet {
 		List<Vehicule> listeVehicule = vehiculeDao.recupererLesVehiculesSociete();
 		req.setAttribute("listeVehicule", listeVehicule);
 
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher(
-				"/WEB-INF/collaborateur/reservationsVehiculesSociete.jsp");
+		RequestDispatcher requestDispatcher = req
+				.getRequestDispatcher("/WEB-INF/collaborateur/reservationsVehiculesSociete.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 
@@ -64,8 +70,16 @@ public class ReserverVehiculeSociete extends HttpServlet {
 				new Vehicule(idVehicule));
 		reservationVoiture.setBesoinChauffeur(besoinChauffeur);
 		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
-		resaVehiculeDao.ajoutResaVehicule(reservationVoiture);
-		resp.sendRedirect("/gdt/controller/collaborateur/reservations/");
+
+		// vérifier véhicule disponible
+		if (resaVehiculeDao.isVehiculeDisponible(idVehicule, dateHeureDepart, dateHeureArrive)) {
+			SERVICE_LOG.info("Vehicule disponible.");
+			resaVehiculeDao.ajoutResaVehicule(reservationVoiture);
+			resp.sendRedirect("/gdt/controller/collaborateur/reservations/");
+		} else {
+			SERVICE_LOG.info("Vehicule non disponible.");
+			resp.sendRedirect("/gdt/controller/collaborateur/reserverVehiculeSociete?statut=dejareserve");
+		}
 
 	}
 

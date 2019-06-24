@@ -159,9 +159,8 @@ public class VehiculeDao {
 				String position = resultSet.getString("vhc_position");
 				String proprietaire = resultSet.getString("vhc_proprietaire");
 
-				listeDesVehicules.add(
-						new Vehicule(id, immatriculation, marque, modele, categorie, photo, etat, position,
-								proprietaire));
+				listeDesVehicules.add(new Vehicule(id, immatriculation, marque, modele, categorie, photo, etat,
+						position, proprietaire));
 			}
 
 			return listeDesVehicules;

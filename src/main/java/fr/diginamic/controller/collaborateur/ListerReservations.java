@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 
-@WebServlet(urlPatterns = "/controller/collaborateur/reservations")
+@WebServlet(urlPatterns = "/controller/collaborateur/reservations/*")
 public class ListerReservations extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
@@ -26,8 +26,7 @@ public class ListerReservations extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des reservationss) quand
-	 * l'utilisateur accede à l'url
-	 * /gestion-transports/collaborateur/reservations/*
+	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/reservations/*
 	 * 
 	 * 
 	 *
