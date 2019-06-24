@@ -21,16 +21,18 @@
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-4">
-			<a href="/gdt/controller/collaborateur/creerannonce/"><button type="submit" class="btn btn-success center-block">Creer une nouvelle annonce</button></a>
-							
+				<a href="/gdt/controller/collaborateur/creerannonce/"><button
+						type="submit" class="btn btn-success center-block">Creer
+						une nouvelle annonce</button></a>
+
 			</div>
 			<div class="col-4"></div>
 		</div>
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-4">
-			
-<p></p>				
+
+				<p></p>
 			</div>
 			<div class="col-4"></div>
 		</div>
