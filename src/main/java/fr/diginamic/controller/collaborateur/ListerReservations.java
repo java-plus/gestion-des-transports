@@ -20,7 +20,7 @@ import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
-@WebServlet(urlPatterns = "/controller/collaborateur/reservations/")
+@WebServlet(urlPatterns = "/controller/collaborateur/reservations/*")
 public class ListerReservations extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
@@ -60,6 +60,8 @@ public class ListerReservations extends HttpServlet {
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
+		Integer idUtilisateur = utilisateurCourant.getId();
+		req.setAttribute("idUtilisateur", idUtilisateur);
 		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 
 		RequestDispatcher requestDispatcher = req

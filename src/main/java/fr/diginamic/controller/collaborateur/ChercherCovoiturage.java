@@ -44,12 +44,16 @@ public class ChercherCovoiturage extends HttpServlet {
 		String lieuDeDestination = "indeterminé";// req.getParameter("lieuDeDestination");
 		String lieuDeDepart = "indeterminé";// req.getParameter("lieuDeDestination");
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces();
+		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao
+				.recupererLesAnnoncesDisponiblesPourUtilisateur(utilisateurCourant.getId());
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
+		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
+		Integer idUtilisateur = utilisateurCourant.getId();
+		req.setAttribute("idUtilisateur", idUtilisateur);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/chercherCovoiturage.jsp");

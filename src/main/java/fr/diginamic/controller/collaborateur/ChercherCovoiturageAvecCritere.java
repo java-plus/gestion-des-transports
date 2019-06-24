@@ -52,6 +52,8 @@ public class ChercherCovoiturageAvecCritere extends HttpServlet {
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);
+		Integer idUtilisateur = utilisateurCourant.getId();
+		req.setAttribute("idUtilisateur", idUtilisateur);
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/chercherCovoiturage.jsp");
 		requestDispatcher.forward(req, resp);

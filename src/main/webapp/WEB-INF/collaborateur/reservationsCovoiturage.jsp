@@ -16,10 +16,28 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>"/collaborateur/reservationsCovoiturage"</h1>
-    <h1>liste des réservation faites par l'utilisateur courant</h1>
+    
+    <h1>liste de vos réservations</h1>
     
     <div class="container mt-5">
+    
+    <div class="row">
+			<div class="col-4"></div>
+			<div class="col-4">
+				<a href="/gdt/controller/collaborateur/chercherannonces/"><button
+						type="submit" class="btn btn-success center-block">Chercher un covoiturage pour réserver</button></a>
+
+			</div>
+			<div class="col-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-4"></div>
+			<div class="col-4">
+
+				<p></p>
+			</div>
+			<div class="col-4"></div>
+		</div>
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-10">
@@ -47,7 +65,7 @@
 
 						<%
 							List<AnnonceCovoiturage> listeDesReservationsCovoiturage = (List<AnnonceCovoiturage>) request.getAttribute("listeDesReservationsCovoiturage");
-						
+						Integer idUtilisateur = (Integer)request.getAttribute("idUtilisateur");
 								for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
 							%>
 							<tr>
@@ -62,6 +80,10 @@
 								<td><%=annonceCovoiturage.getDistanceEnKm()%></td>
 								<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
 								<td><%=annonceCovoiturage.getIdVehicule()%></td>
+								<td>
+								<button
+						type="submit" class="btn btn-success center-block" onclick="annulerReservation(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">annuler ma reservation</button>
+						</td>
 							</tr>
 							<%
 								}
@@ -74,8 +96,16 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	function annulerReservation(idAnnonceCovoiturage) {
+
+	alert("jnklnlkn");
+			document.location.href = "http://localhost:8080/gdt/controller/collaborateur/annulerReservation?idAnnonceCovoiturage="
+					+ idAnnonceCovoiturage;
+
+		}
 	
-	
+	</script>
 			<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
 	<%@include file="../../jsp/dependanceScript.jsp"%>

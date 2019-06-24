@@ -27,6 +27,24 @@ public class CovoiturageDao {
 
 	}
 
+	public void unePlaceReserve(Integer idAnnonceCovoiturage) {
+
+		QueryUtils.updateQuery(
+
+				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo -1 where cov_id="
+						+ idAnnonceCovoiturage);
+
+	}
+
+	public void unePlaceReserveEnMoins(Integer idAnnonceCovoiturage) {
+
+		QueryUtils.updateQuery(
+
+				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo +1 where cov_id="
+						+ idAnnonceCovoiturage);
+
+	}
+
 	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
 
 		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
@@ -205,13 +223,15 @@ public class CovoiturageDao {
 
 	}
 
-	public List<AnnonceCovoiturage> recupererLesAnnonces() {
+	public List<AnnonceCovoiturage> recupererLesAnnoncesDisponiblesPourUtilisateur(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from covoiturage");
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select * from gestion_transport.covoiturage WHERE cov_id not in (select cov_id from gestion_transport.covoiturage inner join gestion_transport.resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
+							+ idUtilisateurCourant + ") and cov_datetimeDebut > CURDATE()");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
