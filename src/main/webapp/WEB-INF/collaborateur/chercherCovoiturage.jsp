@@ -94,7 +94,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label for="exampleFormControlSelect3">Destination</label> <input
+						<label for="exampleFormControlSelect3">Date</label> <input
 							type="date" class="form-control" name="date"
 							id="dateReservationVehiculeSociete" required>
 					</div>
@@ -163,6 +163,8 @@
 			</div>
 			<div class="col-1"></div>
 		</div>
+		<button type="submit" class="btn btn-primary center-block" onclick="voirdate()">voir date</button>
+							
 	</div>
 	
 	<script type="text/javascript">
@@ -188,6 +190,13 @@
                     + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart;
 
         }
+        function voirdate() {
+if(document.forms[0].date.value==""){alert("ok")
+}
+
+alert(document.forms[0].date.value);
+
+		}
     
         function reserverCovoiturage(idAnnonceCovoiturage) {
 
@@ -197,7 +206,7 @@
 
 		}
 
-
+        </script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
