@@ -375,4 +375,54 @@ public class VehiculeDao {
 		}
 
 	}
+
+	public List<Vehicule> recupererVehiculesIdImmat() {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Vehicule> listeDesVehicules = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("SELECT * FROM VEHICULE;");
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt("vhc_id");
+				String immatriculation = resultSet.getString("vhc_immatriculation");
+
+				Vehicule vehicule = new Vehicule(id);
+				vehicule.setImmatriculation(immatriculation);
+
+				listeDesVehicules.add(vehicule);
+			}
+
+			return listeDesVehicules;
+		} catch (SQLException e) {
+			// SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le resultSet",
+					// e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le statement",
+					// e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
 }
