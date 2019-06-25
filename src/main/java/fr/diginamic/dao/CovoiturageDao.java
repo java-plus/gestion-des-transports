@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
 public class CovoiturageDao {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(CovoiturageDao.class);
 
 	public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
 		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -176,7 +182,7 @@ public class CovoiturageDao {
 
 			return listeDesAnnonces;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -184,8 +190,7 @@ public class CovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -193,8 +198,7 @@ public class CovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -249,8 +253,7 @@ public class CovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -258,8 +261,129 @@ public class CovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	public List<AnnonceCovoiturage> recupererLesAnnoncesEnCours(Integer idUtilisateurCourant) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
+
+		try {
+			SERVICE_LOG.info("QUERYYYYYYY = " + "select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+					+ " AND cov_datetimeDebut >= NOW();");
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+							+ " AND cov_datetimeDebut >= NOW();");
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+
+			while (resultSet.next()) {
+				Integer id_utilisateur = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
+
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
+						formatterDateTime);
+				String adresseDepart = resultSet.getString("cov_lieuDepart");
+				String adresseArrivee = resultSet.getString("cov_lieuArrive");
+				Integer duree = resultSet.getInt("cov_duree");
+				Integer distance = resultSet.getInt("cov_distance");
+				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
+				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
+				Integer idVehicule = resultSet.getInt("cov_idVehicule");
+
+				listeDesAnnonces
+						.add(new AnnonceCovoiturage(id_utilisateur, nbPlacesDispo, dateHeureDebut, adresseDepart,
+								adresseArrivee, duree, distance, idReservationVehicule, idUtilisateur, idVehicule));
+			}
+
+			return listeDesAnnonces;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	public List<AnnonceCovoiturage> recupererLesAnnoncesPassees(Integer idUtilisateurCourant) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+							+ " AND cov_datetimeDebut < NOW();");
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+
+			while (resultSet.next()) {
+				Integer id_utilisateur = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
+
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
+						formatterDateTime);
+				String adresseDepart = resultSet.getString("cov_lieuDepart");
+				String adresseArrivee = resultSet.getString("cov_lieuArrive");
+				Integer duree = resultSet.getInt("cov_duree");
+				Integer distance = resultSet.getInt("cov_distance");
+				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
+				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
+				Integer idVehicule = resultSet.getInt("cov_idVehicule");
+
+				listeDesAnnonces
+						.add(new AnnonceCovoiturage(id_utilisateur, nbPlacesDispo, dateHeureDebut, adresseDepart,
+								adresseArrivee, duree, distance, idReservationVehicule, idUtilisateur, idVehicule));
+			}
+
+			return listeDesAnnonces;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -313,8 +437,7 @@ public class CovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -322,8 +445,7 @@ public class CovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -368,7 +490,7 @@ public class CovoiturageDao {
 
 			return annonceCovoiturage;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -376,8 +498,7 @@ public class CovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -385,8 +506,7 @@ public class CovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
