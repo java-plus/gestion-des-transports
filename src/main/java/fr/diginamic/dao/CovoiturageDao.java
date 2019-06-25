@@ -45,6 +45,14 @@ public class CovoiturageDao {
 
 	}
 
+	public void annulerAnnonce(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
+
+		QueryUtils.updateQuery(
+
+				"delete from covoiturage where cov_id=" + idAnnonceCovoiturage + " and cov_uti_id=" + idUtilisateur);
+
+	}
+
 	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
 
 		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
