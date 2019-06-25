@@ -20,7 +20,7 @@ import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
-@WebServlet(urlPatterns = "/controller/collaborateur/reservations/*")
+@WebServlet(urlPatterns = "/controller/collaborateur/reservations/creer")
 public class ListerReservations extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
