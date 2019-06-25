@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
@@ -155,7 +156,7 @@
 
 							<td><%=annonceCovoiturage.getIdAnnonceCovoiturage()%></td>
 							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
-							<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+							<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 							<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
 							<td><%=annonceCovoiturage.getDuree()%></td>
