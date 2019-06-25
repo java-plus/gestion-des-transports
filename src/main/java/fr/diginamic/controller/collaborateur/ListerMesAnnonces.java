@@ -45,17 +45,28 @@ public class ListerMesAnnonces extends HttpServlet {
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		Integer idUtilisateurCourant = utilisateurCourant.getId();
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(idUtilisateurCourant);
-		List<Integer> listeDesNombresDeReservations = new ArrayList<>();
-		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnonces) {
+		List<AnnonceCovoiturage> listeDesAnnoncesEnCours = covoiturageDao
+				.recupererLesAnnoncesEnCours(idUtilisateurCourant);
+		List<AnnonceCovoiturage> listeDesAnnoncesPassees = covoiturageDao
+				.recupererLesAnnoncesPassees(idUtilisateurCourant);
+		List<Integer> listeDesNombresDeReservationsEnCours = new ArrayList<>();
+		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesEnCours) {
 			ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
-			listeDesNombresDeReservations
+			listeDesNombresDeReservationsEnCours
+					.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage()));
+		}
+		List<Integer> listeDesNombresDeReservationsPassees = new ArrayList<>();
+		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesEnCours) {
+			ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
+			listeDesNombresDeReservationsPassees
 					.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage()));
 		}
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
-		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
-		req.setAttribute("listeDesNombresDeReservations", listeDesNombresDeReservations);
+		req.setAttribute("listeDesAnnoncesEnCours", listeDesAnnoncesEnCours);
+		req.setAttribute("listeDesAnnoncesPassees", listeDesAnnoncesPassees);
+		req.setAttribute("listeDesNombresDeReservationsEnCours", listeDesNombresDeReservationsEnCours);
+		req.setAttribute("listeDesNombresDeReservationsEnCours", listeDesNombresDeReservationsPassees);
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/annonces.jsp");
 		requestDispatcher.forward(req, resp);
