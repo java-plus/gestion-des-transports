@@ -55,10 +55,7 @@ public class CovoiturageDao {
 		Integer idVehicule = annonceCovoiturage.getIdVehicule();
 		Integer idReservationVehiculeSociete = annonceCovoiturage.getIdReservationVehicule();
 		String lieuArrive = annonceCovoiturage.getLieuDeDestination();
-		// System.out.println(dateDeDepart);
-		// System.out.println(nbPlacesDispo);
-		// System.out.println(lieuDepart);
-		// System.out.println(lieuArrive);
+
 		System.out.println(idReservationVehiculeSociete);
 		if (idReservationVehiculeSociete == null) {
 			QueryUtils.updateQuery(
