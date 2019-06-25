@@ -1,6 +1,7 @@
 package fr.diginamic.controller.collaborateur;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
+import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
@@ -43,13 +45,21 @@ public class ListerMesAnnonces extends HttpServlet {
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		Integer idUtilisateurCourant = utilisateurCourant.getId();
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
+
 		List<AnnonceCovoiturage> listeDesFuturesAnnonces = covoiturageDao.recupererFuturesAnnonces(idUtilisateurCourant);
 		List<AnnonceCovoiturage> listeDesAnciennesAnnonces = covoiturageDao.recupererHistoriqueAnnonces(idUtilisateurCourant);
+		List<Integer> listeDesNombresDeReservations = new ArrayList<>();
 		
+		for (AnnonceCovoiturage annonceFuturCovoiturage : listeDesFuturesAnnonces) {
+			ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
+			listeDesNombresDeReservations.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceFuturCovoiturage.getIdAnnonceCovoiturage()));
+		}
 		
 		req.setAttribute("listeDesFuturesAnnonces", listeDesFuturesAnnonces);
 		req.setAttribute("listeDesAnciennesAnnonces", listeDesAnciennesAnnonces);
+		req.setAttribute("listeDesNombresDeReservations", listeDesNombresDeReservations);
 		
+
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/annonces.jsp");
 		requestDispatcher.forward(req, resp);
 	}

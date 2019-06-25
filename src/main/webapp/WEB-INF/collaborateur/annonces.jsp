@@ -41,15 +41,12 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">id</th>
-							<th scope="col">places disponibles</th>
-							<th scope="col">date départ</th>
-							<th scope="col">lieu départ</th>
-							<th scope="col">lieu arrivée</th>
-							<th scope="col">durée</th>
-							<th scope="col">distance</th>
-							<th scope="col">id utilisateur</th>
-							<th scope="col">id vehicule</th>
+							<th scope="col">Date départ</th>
+							<th scope="col">Lieu départ</th>
+							<th scope="col">Lieu arrivée</th>
+							<th scope="col">Nombre de voyageurs</th>
+							
+							
 
 						</tr>
 					</thead>
@@ -58,24 +55,24 @@
 
 
 						<%
+
 							List<AnnonceCovoiturage> listeFuturesAnnonces = (List<AnnonceCovoiturage>) request.getAttribute("listeDesFuturesAnnonces");
+							List<Integer> listeDesNombresDeReservations = (List<Integer>) request.getAttribute("listeDesNombresDeReservations");
+							Integer n = 0;
 
 							for (AnnonceCovoiturage futurAnnonceCovoiturage : listeFuturesAnnonces) {
 						%>
 						<tr>
 
 
-							<td><%=futurAnnonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-							<td><%=futurAnnonceCovoiturage.getNbPlacesDisponibles()%></td>
+
 							<td><%=futurAnnonceCovoiturage.getDateDeDepart()%></td>
 							<td><%=futurAnnonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=futurAnnonceCovoiturage.getLieuDeDestination()%></td>
-							<td><%=futurAnnonceCovoiturage.getDuree()%></td>
-							<td><%=futurAnnonceCovoiturage.getDistanceEnKm()%></td>
-							<td><%=futurAnnonceCovoiturage.getIdUtilisateur()%></td>
-							<td><%=futurAnnonceCovoiturage.getIdVehicule()%></td>
+							<td><%=listeDesNombresDeReservations.get(n)%></td>
+							
 							<td>
-								<button type="submit" class="btn btn-primary center-block">Supprimer</button>
+								<button type="submit" class="btn btn-primary center-block" onclick="annulerCovoiturage(<%=futurAnnonceCovoiturage.getIdAnnonceCovoiturage()%>)">Supprimer</button>
 							</td>
 						</tr>
 						<%
@@ -89,15 +86,10 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">id</th>
-							<th scope="col">places disponibles</th>
-							<th scope="col">date départ</th>
-							<th scope="col">lieu départ</th>
-							<th scope="col">lieu arrivée</th>
-							<th scope="col">durée</th>
-							<th scope="col">distance</th>
-							<th scope="col">id utilisateur</th>
-							<th scope="col">id vehicule</th>
+							<th scope="col">Date départ</th>
+							<th scope="col">Lieu départ</th>
+							<th scope="col">Lieu arrivée</th>
+							<th scope="col">Nombre de voyageurs</th>
 
 						</tr>
 					</thead>
@@ -105,27 +97,28 @@
 
 						<%
 							List<AnnonceCovoiturage> listeAnciennesAnnonces = (List<AnnonceCovoiturage>) request.getAttribute("listeDesAnciennesAnnonces");
-
+						List<Integer> listeDesNombresDeReservations2 = (List<Integer>) request
+								.getAttribute("listeDesNombresDeReservations");
+						Integer n2 = 0;
 							for (AnnonceCovoiturage ancienneAnnonceCovoiturage : listeAnciennesAnnonces) {
+
+				
+
 						%>
 						<tr>
 
-
-							<td><%=ancienneAnnonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-							<td><%=ancienneAnnonceCovoiturage.getNbPlacesDisponibles()%></td>
 							<td><%=ancienneAnnonceCovoiturage.getDateDeDepart()%></td>
 							<td><%=ancienneAnnonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=ancienneAnnonceCovoiturage.getLieuDeDestination()%></td>
-							<td><%=ancienneAnnonceCovoiturage.getDuree()%></td>
-							<td><%=ancienneAnnonceCovoiturage.getDistanceEnKm()%></td>
-							<td><%=ancienneAnnonceCovoiturage.getIdUtilisateur()%></td>
-							<td><%=ancienneAnnonceCovoiturage.getIdVehicule()%></td>
+							<td><%=listeDesNombresDeReservations2.get(n)%></td>
+
 							<td>
-								<button type="submit" class="btn btn-primary center-block">Supprimer</button>
+								<button type="submit" class="btn btn-primary center-block" onclick="annulerCovoiturage(<%=ancienneAnnonceCovoiturage.getIdAnnonceCovoiturage()%>)">Supprimer</button>
 							</td>
 						</tr>
 						<%
-							}
+							n2++;
+						}
 						%>
 
 					</tbody>
@@ -135,7 +128,14 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	function annulerCovoiturage(idAnnonceCovoiturage) {
 
+		document.location.href = "http://localhost:8080/gdt/controller/collaborateur/annulerAnnonce?idAnnonce="
+					+ idAnnonceCovoiturage;
+
+		}
+	</script>
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
 	<%@include file="../../jsp/dependanceScript.jsp"%>

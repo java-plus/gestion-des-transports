@@ -43,15 +43,18 @@ public class ChercherCovoiturageAvecCritere extends HttpServlet {
 
 		String lieuDeDestination = (String) req.getParameter("lieuDeDestination");
 		String lieuDeDepart = (String) req.getParameter("lieuDeDepart");
+		String dateDeDepart = (String) req.getParameter("dateDeDepart");
+		System.out.println(dateDeDepart);
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnoncesAvecCritere(lieuDeDepart,
-				lieuDeDestination);
+				lieuDeDestination, dateDeDepart);
 
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);
+		req.setAttribute("dateDeDepart", dateDeDepart);
 		Integer idUtilisateur = utilisateurCourant.getId();
 		req.setAttribute("idUtilisateur", idUtilisateur);
 		RequestDispatcher requestDispatcher = req

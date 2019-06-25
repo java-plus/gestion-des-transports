@@ -203,14 +203,14 @@ public class VehiculeDao {
 	public void ajouterVehiculePersonnel(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_etat`,`vhc_proprietaire`) VALUES (");
+				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_proprietaire`) VALUES (");
 		sb.append("'").append(vehicule.getImmatriculation()).append("',");
 		sb.append("'").append(vehicule.getMarque()).append("',");
 		sb.append("'").append(vehicule.getModele()).append("',");
 		sb.append("'").append(vehicule.getCategorie()).append("',");
 		sb.append("'").append(vehicule.getPhoto()).append("',");
 		sb.append(5).append(",");
-		sb.append("'").append("inconnu").append("',");
+		// sb.append("'").append("inconnu").append("',");
 		sb.append("'").append(vehicule.getProprietaire()).append("'");
 		sb.append(")");
 
@@ -331,6 +331,7 @@ public class VehiculeDao {
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
 
+				Integer id = resultSet.getInt("vhc_id");
 				String immatriculation = resultSet.getString("vhc_immatriculation");
 				String marque = resultSet.getString("vhc_marque");
 				String modele = resultSet.getString("vhc_modele");
@@ -340,8 +341,10 @@ public class VehiculeDao {
 				String position = resultSet.getString("vhc_position");
 				String proprietaire = resultSet.getString("vhc_proprietaire");
 
-				listeDesVehicules.add(
-						new Vehicule(immatriculation, marque, modele, categorie, photo, etat, position, proprietaire));
+				Vehicule vehicule = new Vehicule(immatriculation, marque, modele, categorie, photo, etat, position,
+						proprietaire);
+				vehicule.setId(id);
+				listeDesVehicules.add(vehicule);
 			}
 
 			return listeDesVehicules;

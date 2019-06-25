@@ -36,7 +36,7 @@ public class Vehicule {
 	/**
 	 * Constructeur
 	 * 
-   * @param id
+	 * @param id
 	 * @param immatriculation
 	 * @param marque
 	 * @param modele
@@ -49,7 +49,7 @@ public class Vehicule {
 	public Vehicule(Integer id, String immatriculation, String marque, String modele, String categorie, String photo,
 			String etat, String position, String proprietaire) {
 		super();
-    this.id = id;
+		this.id = id;
 		this.immatriculation = immatriculation;
 		this.marque = marque;
 		this.modele = modele;
@@ -59,8 +59,8 @@ public class Vehicule {
 		this.position = position;
 		this.proprietaire = proprietaire;
 	}
-  
-  /**
+
+	/**
 	 * Constructeur
 	 * 
 	 * @param immatriculation
@@ -72,7 +72,7 @@ public class Vehicule {
 	 * @param position
 	 * @param proprietaire
 	 */
-  public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
+	public Vehicule(String immatriculation, String marque, String modele, String categorie, String photo, String etat,
 			String position, String proprietaire) {
 		super();
 		this.immatriculation = immatriculation;

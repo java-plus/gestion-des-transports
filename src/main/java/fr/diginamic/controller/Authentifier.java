@@ -107,6 +107,12 @@ public class Authentifier extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		if (request.isRequestedSessionIdValid()) {
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+		}
+		request.getSession(true);
 		request.getRequestDispatcher("/index.jsp").include(request, response);
 	}
 }

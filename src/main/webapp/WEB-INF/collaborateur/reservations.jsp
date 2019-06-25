@@ -16,21 +16,27 @@
 
 
 
-	<h1>
-		Vos réservations
-
-		<div class="float-right">
-			<a href="/gdt/controller/collaborateur/reservations/creer">
-				<button type="submit" class="btn btn-success center-block">Réserver
-					un transport</button>
-			</a>
-		</div>
-	</h1>
-	<div class="m-3 mt-4">
-		<div id="accordion">
-			<div class="car ">
-				<a href="/gdt/collaborateur/annonces/creer">
-					<div class="card-header bg-dark text-light" id="headingOne">
+		<h1>Vos réservations</h1>
+		<div class="m-3 mt-4">
+			<div id="accordion">
+				<div class="car ">
+					<a href="/gdt/controller/collaborateur/reservations/creer">
+						<div class="card-header bg-dark text-light" id="headingOne">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed text-light"
+									data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="false" aria-controls="collapseOne">
+									Covoiturage</button>
+							</h5>
+						</div>
+					</a>
+					<div id="collapseOne" class="collapse "
+						aria-labelledby="headingOne" data-parent="#accordion">
+						<div class="card-body"></div>
+					</div>
+				</div>
+				<div class="card ">
+					<div class="card-header bg-dark " id="headingTwo">
 						<h5 class="mb-0">
 							<button class="btn btn-link collapsed text-light"
 								data-toggle="collapse" data-target="#collapseOne"
@@ -38,25 +44,15 @@
 								Covoiturage</button>
 						</h5>
 					</div>
-				</a>
-				<div id="collapseOne" class="collapse " aria-labelledby="headingOne"
-					data-parent="#accordion">
-					<div class="card-body"></div>
-				</div>
-			</div>
-			<div class="card ">
-				<div class="card-header bg-dark " id="headingTwo">
-					<h5 class="mb-0">
-						<button class="btn btn-link text-light show"
-							data-toggle="collapse" data-target="#collapseTwo "
-							aria-expanded="true" aria-controls="collapseTwo">
-							Véhicule de société</button>
-					</h5>
-				</div>
-				<div id="collapseTwo" class="collapse show"
-					aria-labelledby="headingTwo" data-parent="#accordion">
-					<div class="card-body container ">
 
+					<div id="collapseTwo" class="collapse show"
+						aria-labelledby="headingTwo" data-parent="#accordion">
+						<div class="card-body container ">
+							<div class="float-right">
+	<a href="/gdt/controller/collaborateur/reserverVehiculeSociete">
+		<button type="submit" class="btn btn-success center-block mb-3">Réserver un transport</button>
+	</a>
+</div>
 						<div>
 							<b>Réservations en cours</b>
 						</div>
@@ -74,8 +70,7 @@
 							<tbody>
 
 								<%
-									List<ReservationVoiture> listeDesReservationsVehiculeFutur = (List<ReservationVoiture>) request
-											.getAttribute("listeDesReservationsVehiculeFutur");
+									List<ReservationVoiture> listeDesReservationsVehiculeFutur = (List<ReservationVoiture>) request.getAttribute("listeDesReservationsVehiculeFutur");
 									for (int i = 0; i < listeDesReservationsVehiculeFutur.size(); i++) {
 								%>
 								<tr>
@@ -115,8 +110,7 @@
 
 
 								<%
-									List<ReservationVoiture> listeDesReservationsVehiculePassees = (List<ReservationVoiture>) request
-											.getAttribute("listeDesReservationsVehiculePassees");
+									List<ReservationVoiture> listeDesReservationsVehiculePassees = (List<ReservationVoiture>) request.getAttribute("listeDesReservationsVehiculePassees");
 									for (int i = 0; i < listeDesReservationsVehiculeFutur.size(); i++) {
 								%>
 								<tr>
@@ -152,25 +146,10 @@
 		</div>
 	</div>
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
-	<%@include file="../../jsp/layout_footer.jsp"%>
-	<%@include file="../../jsp/dependanceScript.jsp"%>
 
+<%@include file="../../jsp/layout_footer.jsp"%>
+<%@include file="../../jsp/dependanceScript.jsp"%>
+           
 
-	<script>
-		$("#form")
-				.submit(
-						function(eventObj) {
-							$("<input />")
-									.attr("type", "hidden")
-									.attr("name", "id")
-									.attr(
-											"value",
-											$(
-													'#carouselExampleCaptions .carousel-indicators li.active')
-													.data('id')).appendTo(
-											"#form");
-							return true;
-						});
-	</script>
 </body>
 </html>

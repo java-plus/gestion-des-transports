@@ -25,12 +25,19 @@ public class ResaCovoiturageDao {
 	}
 
 	public void annulerCovoiturage(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
-		System.out.println(idAnnonceCovoiturage);
-		System.out.println(idUtilisateur);
+
 		QueryUtils.updateQuery(
 
 				"DELETE from RESACOVOITURAGE where rco_idCovoiture=" + idAnnonceCovoiturage + " and rco_idUtilisateur="
 						+ idUtilisateur);
+
+	}
+
+	public void annulerToutesLesReservations(Integer idAnnonceCovoiturage) {
+
+		QueryUtils.updateQuery(
+
+				"DELETE from RESACOVOITURAGE where rco_idCovoiture=" + idAnnonceCovoiturage);
 
 	}
 
@@ -78,6 +85,56 @@ public class ResaCovoiturageDao {
 			}
 
 			return listeDesAnnonces;
+		} catch (SQLException e) {
+			// SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le resultSet",
+					// e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le statement",
+					// e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	public Integer combienDePersonnesOntReserve(Integer idAnnonceCovoiturage) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		PreparedStatement preparedStatementAnnonceCovoiturage = null;
+		ResultSet resultSetAnnonceCovoiturage = null;
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select count(rco_id) from resacovoiturage where rco_idCovoiture=" + idAnnonceCovoiturage);
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+
+			Integer nbReservations = 0;
+			while (resultSet.next()) {
+
+				nbReservations = resultSet.getInt("count(rco_id)");
+
+			}
+
+			return nbReservations;
 		} catch (SQLException e) {
 			// SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);

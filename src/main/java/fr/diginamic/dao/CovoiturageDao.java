@@ -45,6 +45,14 @@ public class CovoiturageDao {
 
 	}
 
+	public void annulerAnnonce(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
+
+		QueryUtils.updateQuery(
+
+				"delete from covoiturage where cov_id=" + idAnnonceCovoiturage + " and cov_uti_id=" + idUtilisateur);
+
+	}
+
 	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
 
 		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
@@ -55,11 +63,9 @@ public class CovoiturageDao {
 		Integer idVehicule = annonceCovoiturage.getIdVehicule();
 		Integer idReservationVehiculeSociete = annonceCovoiturage.getIdReservationVehicule();
 		String lieuArrive = annonceCovoiturage.getLieuDeDestination();
-		// System.out.println(dateDeDepart);
-		// System.out.println(nbPlacesDispo);
-		// System.out.println(lieuDepart);
-		// System.out.println(lieuArrive);
+
 		System.out.println(idReservationVehiculeSociete);
+
 		if (idReservationVehiculeSociete == null) {
 			System.out.println("ok1");
 			System.out.println(
@@ -88,24 +94,52 @@ public class CovoiturageDao {
 
 	}
 
-	public List<AnnonceCovoiturage> recupererLesAnnoncesAvecCritere(String lieuDeDepart, String lieuDeDestination) {
+	public List<AnnonceCovoiturage> recupererLesAnnoncesAvecCritere(String lieuDeDepart, String lieuDeDestination,
+			String dateDeDepart) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
-			if (!lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")) {
+			if (!lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
+					&& !dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
 						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
-								+ "\" and cov_lieuArrive=\"" + lieuDeDestination + "\"");
+								+ "\" and cov_lieuArrive=\"" + lieuDeDestination + "\" and cov_datetimeDebut>\""
+								+ dateDeDepart + "\"");
 
-			} else if (lieuDeDestination.equals("indeterminé") && !lieuDeDepart.equals("indeterminé")) {
+			} else if (lieuDeDestination.equals("indeterminé") && !lieuDeDepart.equals("indeterminé")
+					&& dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
 						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart + "\"");
 
-			} else if (lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")) {
+			} else if (!lieuDeDestination.equals("indeterminé") && lieuDeDepart.equals("indeterminé")
+					&& dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance().prepareStatement(
 						"select * from covoiturage where cov_lieuArrive=\"" + lieuDeDestination + "\"");
+
+			} else if (lieuDeDestination.equals("indeterminé") && lieuDeDepart.equals("indeterminé")
+					&& !dateDeDepart.equals("indeterminé")) {
+				preparedStatement = ConnectionUtils.getInstance()
+						.prepareStatement("select * from covoiturage where cov_datetimeDebut>\"" + dateDeDepart + "\"");
+
+			} else if (lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
+					&& !dateDeDepart.equals("indeterminé")) {
+				preparedStatement = ConnectionUtils.getInstance()
+						.prepareStatement("select * from covoiturage where cov_lieuArrive=\"" + lieuDeDestination
+								+ "\" and cov_datetimeDebut>\"" + dateDeDepart + "\"");
+
+			} else if (!lieuDeDepart.equals("indeterminé") && lieuDeDestination.equals("indeterminé")
+					&& !dateDeDepart.equals("indeterminé")) {
+				preparedStatement = ConnectionUtils.getInstance()
+						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
+								+ "\" and cov_datetimeDebut>\"" + dateDeDepart + "\"");
+
+			} else if (!lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
+					&& dateDeDepart.equals("indeterminé")) {
+				preparedStatement = ConnectionUtils.getInstance()
+						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
+								+ "\" and cov_lieuArrive=\"" + lieuDeDestination + "\"");
 
 			} else {
 				preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from covoiturage");

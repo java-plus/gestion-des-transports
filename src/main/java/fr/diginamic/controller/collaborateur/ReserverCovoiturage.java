@@ -34,7 +34,7 @@ public class ReserverCovoiturage extends HttpServlet {
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
 
-		resp.sendRedirect("http://localhost:8080/gdt/controller/collaborateur/reservations");
+		resp.sendRedirect("/gdt/controller/collaborateur/reservations/creer");
 	}
 
 }

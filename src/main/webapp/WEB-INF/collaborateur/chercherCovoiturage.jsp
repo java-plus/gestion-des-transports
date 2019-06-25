@@ -70,6 +70,7 @@
 						<label for="exampleFormControlSelect2">Destination</label>
 						<%
 							String lieuDeDestination = (String) request.getAttribute("lieuDeDestination");
+								
 							Set<String> listeDesLieuDeDestination = new HashSet<String>();
 							for (AnnonceCovoiturage annonce : listeDesAnnonces) {
 								listeDesLieuDeDestination.add(annonce.getLieuDeDestination());
@@ -94,9 +95,19 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group">
-						<label for="exampleFormControlSelect3">Date</label> <input
-							type="date" class="form-control" name="date"
-							id="dateReservationVehiculeSociete" required>
+					<%
+								String dateDeDepart = (String) request.getAttribute("dateDeDepart");
+								//dateDeDepart = "\"" + dateDeDepart + "\"";
+						%>
+						<label for="exampleFormControlSelect3">Date</label>
+						 <input
+							type="date" class="form-control" 
+							
+							<%if (!dateDeDepart.equals("indeterminé")) {%>
+								value="<%=dateDeDepart%>" <%}%>
+								 
+								 name="date"
+							id="dateReservationVehiculeSociete" required onChange="rechercheAvecCritere()">
 					</div>
 				</div>
 			</div>
@@ -172,6 +183,7 @@
 
             lieuDeDestination = "";
             lieuDeDepart = "";
+            dateDeDepart="";
 
             if (document.forms[0].selectedLieuDeDestination.value == "indeterminé") {
                 lieuDeDestination = "indeterminé";
@@ -185,16 +197,22 @@
             } else {
                 lieuDeDepart = document.forms[0].selectedLieuDeDepart.value;
             }
+            if (document.forms[0].date.value=="") {
+            	dateDeDepart = "indeterminé";
+
+            } else {
+            	dateDeDepart = document.forms[0].date.value;
+            }
 
             document.location.href = "http://localhost:8080/gdt/controller/collaborateur/chercherannoncesAvecCritere?lieuDeDestination="
-                    + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart;
+                    + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart+ "&dateDeDepart=" + dateDeDepart;
 
         }
         function voirdate() {
 if(document.forms[0].date.value==""){alert("ok")
 }
 
-alert(document.forms[0].date.value);
+alert(dateDeDepart);
 
 		}
     
