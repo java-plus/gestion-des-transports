@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Controller permettant d’extraire des données
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/extraire/*")
-
 public class ExtraireDonneesController extends HttpServlet {
 
 	@Override

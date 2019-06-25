@@ -17,6 +17,12 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.model.ReservationVoiture;
 
+/**
+ * Controller permettant de lister les reservations de véhicules
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/reservations/*")
 public class ListerReservationsVehicules extends HttpServlet {
 
@@ -24,11 +30,13 @@ public class ListerReservationsVehicules extends HttpServlet {
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ListerReservationsVehicules.class);
 
 	/**
-	 * Methode doGet qui recupère les données (liste des reservations V�hicules)
-	 * quand l'utilisateur accede � l'url
+	 * Methode doGet qui recupère les données (liste des reservations Véhicules)
+	 * quand l'utilisateur accede à l'url
 	 * /gestion-transports/collaborateur/reservations
 	 * 
-	 * @param req  r�cupere les donn�es depuis la DAO et l'envoie � la JSP
+	 * @param req
+	 *            récupere les données depuis la DAO et l’envoie à la JSP
+	 * 
 	 * @param resp
 	 * @throws ServletException
 	 * @throws IOException
@@ -36,12 +44,7 @@ public class ListerReservationsVehicules extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// HttpSession session = req.getSession(false);
-		//
-		// Employe utilisateurCourant = (Employe)
-		// session.getAttribute("utilisateurCourant");
 
-		// Integer idUtilisateurCourant = 8;
 		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
 
 		List<ReservationVoiture> listeDesReservationsVehiculeFutur = new ArrayList<ReservationVoiture>();
@@ -51,12 +54,12 @@ public class ListerReservationsVehicules extends HttpServlet {
 		listeDesReservationsVehiculePassees = resaVehiculeDao.recupererReservationsPasseesDUneVoiture();
 
 		// Afficher les reservations futures et passées via les listes
-		// listeDesReservationsVehiculeFutur et listeDesReservationsVehiculePassees java
+		// listeDesReservationsVehiculeFutur et
+		// listeDesReservationsVehiculePassees java
 		// dans la JSP
 		req.setAttribute("listeDesReservationsVehiculeFutur", listeDesReservationsVehiculeFutur);
 		req.setAttribute("listeDesReservationsVehiculePassees", listeDesReservationsVehiculePassees);
 
-		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/reservations.jsp");
 		requestDispatcher.forward(req, resp);
 	}

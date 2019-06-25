@@ -20,6 +20,12 @@ import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
+/**
+ * Controller permettant de lister les annonces d’un utilisateur
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/annonces/*")
 public class ListerMesAnnonces extends HttpServlet {
 
@@ -73,8 +79,7 @@ public class ListerMesAnnonces extends HttpServlet {
 			listeDesNombresDeReservationsPassees
 					.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage()));
 		}
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
+
 		req.setAttribute("listeDesAnnoncesEnCours", listeDesAnnoncesEnCours);
 		req.setAttribute("listeDesAnnoncesPassees", listeDesAnnoncesPassees);
 		req.setAttribute("listeDesNombresDeReservationsEnCours", listeDesNombresDeReservationsEnCours);

@@ -17,6 +17,12 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
+/**
+ * Controller permettant de lister les véhicules et d’ajouter un véhicule
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/administrateur/vehicules/*")
 public class ListerVehicules extends HttpServlet {
 
@@ -25,7 +31,8 @@ public class ListerVehicules extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des vehicules) quand
-	 * l'utilisateur accede à l'url /gestion-transports/administrateur/vehicules/*
+	 * l'utilisateur accede à l'url
+	 * /gestion-transports/administrateur/vehicules/*
 	 * 
 	 * @param req
 	 * @param resp
@@ -41,7 +48,6 @@ public class ListerVehicules extends HttpServlet {
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeDesVehiculesSociete = vehiculeDao.recupererLesVehiculesSociete();
-		// ou alors via (cf ligne) + java dans JSP
 		req.setAttribute("listeDesVehicules", listeDesVehiculesSociete);
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules.jsp");

@@ -21,6 +21,12 @@ import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.Vehicule;
 
+/**
+ * Controller permettant de creer une annonce
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/creerannonce/*")
 public class CreerAnnonce extends HttpServlet {
 
@@ -72,7 +78,7 @@ public class CreerAnnonce extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODOOOOOOOOOOOOOOOOOOOOOO
+
 		HttpSession session = req.getSession(false);
 
 		String adresseDeDepart = req.getParameter("adresseDeDepart");

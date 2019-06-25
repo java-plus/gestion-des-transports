@@ -82,8 +82,6 @@ public class ChercherCovoiturageAvecCritere extends HttpServlet {
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeVehicule = vehiculeDao.recupererVehiculesIdImmat();
 
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 		req.setAttribute("listeVehicule", listeVehicule);
 		req.setAttribute("listeEmploye", listeEmploye);
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
