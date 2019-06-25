@@ -3,24 +3,27 @@
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
 
-</head>
-<body>
+<a href="/gdt/controller/collaborateur/reservations/creer" class="text-success font-weight-bold" >
+        << Retour à la liste</a> <h1>Réserver un véhicule</h1>
+            <div class="m-3 mt-4">
 
-
-
-	<form method="POST" action="http://localhost:8080/gdt/controller/collaborateur/chercherannonces/">
+                <div id="accordion">
+                    <div class="card ">
+                        
+                        <div class="card-header bg-dark text-light " id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Covoiturage
+                                </button>
+                            </h5>
+                        </div>
+						
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                            <form method="POST" action="http://localhost:8080/gdt/controller/collaborateur/chercherannonces/">
 		<div class="container ">
 			<div class="row">
 
@@ -29,7 +32,7 @@
 			</div>
 			<div class="row d-flex justify-content-center">
 
-				<h1>Liste complète des annonces de covoiturages</h1>
+				<h1>Liste des covoiturages</h1>
 
 			</div>
 			<div class="row ">
@@ -119,9 +122,8 @@
 
 
 	<div class="container mt-5">
-		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10">
+		
+			
 
 
 
@@ -171,12 +173,41 @@
 					</tbody>
 				</table>
 
-			</div>
-			<div class="col-1"></div>
-		</div>
-		<button type="submit" class="btn btn-primary center-block" onclick="voirdate()">voir date</button>
+			
+			
+		
+		
 							
 	</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card ">
+                    <a href="/gdt/controller/collaborateur/reserverVehiculeSociete">
+                        <div class="card-header bg-dark " id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-light " data-toggle="collapse"
+                                    data-target="#collapseTwo " aria-expanded="false" aria-controls="collapseTwo">
+                                    Véhicule de société
+                                </button>
+                            </h5>
+                        </div>
+                        </a>
+                        <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body container ">
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+
+
+	
 	
 	<script type="text/javascript">
         function rechercheAvecCritere() {
@@ -208,13 +239,7 @@
                     + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart+ "&dateDeDepart=" + dateDeDepart;
 
         }
-        function voirdate() {
-if(document.forms[0].date.value==""){alert("ok")
-}
-
-alert(dateDeDepart);
-
-		}
+        
     
         function reserverCovoiturage(idAnnonceCovoiturage) {
 
