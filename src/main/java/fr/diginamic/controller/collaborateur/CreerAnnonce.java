@@ -156,7 +156,7 @@ public class CreerAnnonce extends HttpServlet {
 			Integer idVehicule = vehiculeDao.retrouverIdVehicule(vehicule);
 
 			AnnonceCovoiturage annonceCovoiturage = new AnnonceCovoiturage(nbPlacesVehicule, dateHeureDepartEffective,
-					adresseDeDepart, adresseDeDestination, idUtilisateur, idVehicule, idReservationVehiculeSociete);
+					adresseDeDepart, adresseDeDestination, idUtilisateur, idVehicule);
 			CovoiturageDao covoiturageDao = new CovoiturageDao();
 			covoiturageDao.insererNouvelleAnnonce(annonceCovoiturage);
 			req.setAttribute("utilisateur", utilisateur);
