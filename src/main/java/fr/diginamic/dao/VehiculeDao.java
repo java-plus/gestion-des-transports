@@ -23,15 +23,14 @@ public class VehiculeDao {
 	public void ajouterVehicule(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_etat`) VALUES (");
+				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`) VALUES (");
 		sb.append("'").append(vehicule.getImmatriculation()).append("',");
 		sb.append("'").append(vehicule.getMarque()).append("',");
 		sb.append("'").append(vehicule.getModele()).append("',");
 		sb.append("'").append(vehicule.getCategorie()).append("',");
 		sb.append("'").append(vehicule.getPhoto()).append("',");
-		sb.append(vehicule.getNbPlaces()).append(",");
-		sb.append("'").append("inconnu").append("'");
-		sb.append(")");
+		sb.append(vehicule.getNbPlaces());
+		sb.append(");");
 
 		SERVICE_LOG.info(sb.toString());
 		QueryUtils.updateQuery(sb.toString());
@@ -326,7 +325,8 @@ public class VehiculeDao {
 		List<Vehicule> listeDesVehicules = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from vehicule");
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("SELECT * FROM VEHICULE ve WHERE ve.vhc_proprietaire = \"societe\";");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {

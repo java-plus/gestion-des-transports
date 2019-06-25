@@ -25,8 +25,7 @@ public class ListerVehicules extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère les données (liste des vehicules) quand
-	 * l'utilisateur accede à l'url
-	 * /gestion-transports/administrateur/vehicules/*
+	 * l'utilisateur accede à l'url /gestion-transports/administrateur/vehicules/*
 	 * 
 	 * @param req
 	 * @param resp
@@ -59,6 +58,7 @@ public class ListerVehicules extends HttpServlet {
 		String photo = req.getParameter("photoModal");
 
 		Vehicule vehicule = new Vehicule(immatriculation, marque, modele, categorie, photo);
+		vehicule.setProprietaire("societe");
 		vehicule.setNbPlaces(nbPlaces);
 
 		VehiculeDao vehiculeDao = new VehiculeDao();
