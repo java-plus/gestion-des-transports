@@ -43,12 +43,13 @@ public class ListerMesAnnonces extends HttpServlet {
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		Integer idUtilisateurCourant = utilisateurCourant.getId();
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
-		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnonces(idUtilisateurCourant);
-
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
-		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
-
+		List<AnnonceCovoiturage> listeDesFuturesAnnonces = covoiturageDao.recupererFuturesAnnonces(idUtilisateurCourant);
+		List<AnnonceCovoiturage> listeDesAnciennesAnnonces = covoiturageDao.recupererHistoriqueAnnonces(idUtilisateurCourant);
+		
+		
+		req.setAttribute("listeDesFuturesAnnonces", listeDesFuturesAnnonces);
+		req.setAttribute("listeDesAnciennesAnnonces", listeDesAnciennesAnnonces);
+		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/annonces.jsp");
 		requestDispatcher.forward(req, resp);
 	}
