@@ -26,7 +26,7 @@
 		<div class="m-3 mt-4">
 			<div id="accordion">
 				<div class="car ">
-					<a href="/gdt/collaborateur/annonces/creer">
+					<a href="/gdt/controller/collaborateur/reservations/creer">
 						<div class="card-header bg-dark text-light" id="headingOne">
 							<h5 class="mb-0">
 								<button class="btn btn-link collapsed text-light"
@@ -136,16 +136,6 @@
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 <%@include file="../../jsp/layout_footer.jsp"%>
 <%@include file="../../jsp/dependanceScript.jsp"%>
-
-
-            <script>
-                $("#form").submit(function (eventObj) {
-                    $("<input />").attr("type", "hidden")
-                        .attr("name", "id")
-                        .attr("value", $('#carouselExampleCaptions .carousel-indicators li.active').data('id'))
-                        .appendTo("#form");
-                    return true;
-                });
-            </script>
+           
 </body>
 </html>
