@@ -2,9 +2,7 @@ package fr.diginamic.controller.collaborateur;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,18 +17,18 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.model.ReservationVoiture;
 
-@WebServlet(urlPatterns = "/controller/collaborateur/reservations")
+@WebServlet(urlPatterns = "/controller/collaborateur/reservations/*")
 public class ListerReservationsVehicules extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ListerReservationsVehicules.class);
 
 	/**
-	 * Methode doGet qui recupÃ¨re les donnÃ©es (liste des reservations
-	 * Véhicules) quand l'utilisateur accede Ã  l'url
+	 * Methode doGet qui recupÃ¨re les donnÃ©es (liste des reservations Vï¿½hicules)
+	 * quand l'utilisateur accede ï¿½ l'url
 	 * /gestion-transports/collaborateur/reservations
 	 * 
-	 * @param req récupere les données depuis la DAO et l'envoie à la JSP
+	 * @param req  rï¿½cupere les donnï¿½es depuis la DAO et l'envoie ï¿½ la JSP
 	 * @param resp
 	 * @throws ServletException
 	 * @throws IOException
@@ -48,14 +46,16 @@ public class ListerReservationsVehicules extends HttpServlet {
 
 		List<ReservationVoiture> listeDesReservationsVehiculeFutur = new ArrayList<ReservationVoiture>();
 		List<ReservationVoiture> listeDesReservationsVehiculePassees = new ArrayList<ReservationVoiture>();
-		
+
 		listeDesReservationsVehiculeFutur = resaVehiculeDao.recupererReservationsFuturesDUneVoiture();
 		listeDesReservationsVehiculePassees = resaVehiculeDao.recupererReservationsPasseesDUneVoiture();
 
-		// Afficher les reservations futures et passées via les listes listeDesReservationsVehiculeFutur et listeDesReservationsVehiculePassees java dans la JSP
+		// Afficher les reservations futures et passÃ©es via les listes
+		// listeDesReservationsVehiculeFutur et listeDesReservationsVehiculePassees java
+		// dans la JSP
 		req.setAttribute("listeDesReservationsVehiculeFutur", listeDesReservationsVehiculeFutur);
 		req.setAttribute("listeDesReservationsVehiculePassees", listeDesReservationsVehiculePassees);
-		
+
 		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/reservations.jsp");
 		requestDispatcher.forward(req, resp);

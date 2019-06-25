@@ -181,7 +181,7 @@
                                                                 <p class="m-0"><%=listeVehicule.get(0).getMarque() %> - <%=listeVehicule.get(0).getModele() %></p>
                                                                 <p class="pb-2" style="position: relative;"><%=listeVehicule.get(0).getCategorie() %></p>
 	                                                            <div class="container p-3" style="position: absolute; bottom: -100px; z-index:200000;">
-	                                        						<% if (listeVehicule.get(0).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
+	                                        						<% if (listeVehicule.get(0).getEtat() != null && listeVehicule.get(0).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
                                         							<input type="submit" class="btn btn-success" value="Reserver">
                                         							<% } else { %>
                                         							<p class="text-danger">NON DISPONIBLE</p>
@@ -201,7 +201,7 @@
                                                                 <p class="pb-2"><%=listeVehicule.get(i).getCategorie() %></p>
                                                                 
                                                                 <div class="container p-3" style="position: absolute; bottom: -100px; z-index:200000;">
-                                        							<% if (listeVehicule.get(i).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
+                                        							<% if (listeVehicule.get(i).getEtat() != null && listeVehicule.get(i).getEtat().equalsIgnoreCase("EN SERVICE")) { %>
                                         							<input type="submit" class="btn btn-success" value="Reserver">
                                         							<% } else { %>
                                         							<p class="text-danger">NON DISPONIBLE</p>
