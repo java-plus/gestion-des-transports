@@ -13,6 +13,12 @@ import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.Employe;
 
+/**
+ * Controller permettant de suprimer une annonce
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/annulerAnnonce/*")
 public class SupprimerMonAnnonce extends HttpServlet {
 
@@ -32,9 +38,6 @@ public class SupprimerMonAnnonce extends HttpServlet {
 
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.annulerAnnonce(idAnnonceCovoiturage, idUtilisateur);
-
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 
 		resp.sendRedirect("http://localhost:8080/gdt/controller/collaborateur/annonces");
 	}

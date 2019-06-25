@@ -67,7 +67,7 @@ public class ChercherCovoiturage extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODOOOOOOOOOOOOOOOOOOOOOO
+
 		HttpSession session = req.getSession(false);
 
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
@@ -84,8 +84,6 @@ public class ChercherCovoiturage extends HttpServlet {
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		List<Vehicule> listeVehicule = vehiculeDao.recupererVehiculesIdImmat();
 
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 		req.setAttribute("listeVehicule", listeVehicule);
 		req.setAttribute("listeEmploye", listeEmploye);
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
