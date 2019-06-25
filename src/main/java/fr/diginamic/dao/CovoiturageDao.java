@@ -58,12 +58,23 @@ public class CovoiturageDao {
 
 		System.out.println(idReservationVehiculeSociete);
 		if (idReservationVehiculeSociete == null) {
+			System.out.println("ok1");
+			System.out.println(
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
 			QueryUtils.updateQuery(
 
 					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
 							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
 							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
 		} else {
+			System.out.println("ok2");
+			System.out.println(
+					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
+							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
+							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\",\"" + idReservationVehiculeSociete
+							+ "\")");
 			QueryUtils.updateQuery(
 
 					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
