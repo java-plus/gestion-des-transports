@@ -72,7 +72,6 @@ public class CreerAnnonce extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODOOOOOOOOOOOOOOOOOOOOOO
 		HttpSession session = req.getSession(false);
 
 		String adresseDeDepart = req.getParameter("adresseDeDepart");
@@ -115,7 +114,7 @@ public class CreerAnnonce extends HttpServlet {
 			idReservationVehiculeSociete = vehiculeDao.retrouverIdReservation(vehicule, dateHeureDepartEffective,
 					idUtilisateur);
 			System.out.println(idReservationVehiculeSociete);
-			if (idReservationVehiculeSociete != null) {
+			if (idReservationVehiculeSociete == 0) {
 				Integer idVehicule = vehiculeDao.retrouverIdVehicule(vehicule);
 
 				AnnonceCovoiturage annonceCovoiturage = new AnnonceCovoiturage(nbPlacesVehicule,
