@@ -16,17 +16,11 @@
 
 		
 
-		<h1>Vos réservations
-
-<div class="float-right">
-	<a href="/gdt/controller/collaborateur/reservations/creer">
-		<button type="submit" class="btn btn-success center-block">Réserver un transport</button>
-	</a>
-</div></h1>
+		<h1>Vos réservations</h1>
 		<div class="m-3 mt-4">
 			<div id="accordion">
 				<div class="car ">
-					<a href="/gdt/collaborateur/annonces/creer">
+					<a href="/gdt/controller/collaborateur/reservations/creer">
 						<div class="card-header bg-dark text-light" id="headingOne">
 							<h5 class="mb-0">
 								<button class="btn btn-link collapsed text-light"
@@ -53,7 +47,11 @@
 					<div id="collapseTwo" class="collapse show"
 						aria-labelledby="headingTwo" data-parent="#accordion">
 						<div class="card-body container ">
-
+							<div class="float-right">
+	<a href="/gdt/controller/collaborateur/reserverVehiculeSociete">
+		<button type="submit" class="btn btn-success center-block mb-3">Réserver un transport</button>
+	</a>
+</div>
 							<div><b>Réservations en cours</b></div>
 							<table class="table">
 								<thead class="thead-dark">
@@ -136,16 +134,6 @@
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 <%@include file="../../jsp/layout_footer.jsp"%>
 <%@include file="../../jsp/dependanceScript.jsp"%>
-
-
-            <script>
-                $("#form").submit(function (eventObj) {
-                    $("<input />").attr("type", "hidden")
-                        .attr("name", "id")
-                        .attr("value", $('#carouselExampleCaptions .carousel-indicators li.active').data('id'))
-                        .appendTo("#form");
-                    return true;
-                });
-            </script>
+           
 </body>
 </html>
