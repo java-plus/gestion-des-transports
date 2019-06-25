@@ -43,6 +43,7 @@ public class ChercherCovoiturage extends HttpServlet {
 		Employe utilisateurCourant = (Employe) session.getAttribute("utilisateur");
 		String lieuDeDestination = "indeterminé";// req.getParameter("lieuDeDestination");
 		String lieuDeDepart = "indeterminé";// req.getParameter("lieuDeDestination");
+		String dateDeDepart = "indeterminé";
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao
 				.recupererLesAnnoncesDisponiblesPourUtilisateur(utilisateurCourant.getId());
@@ -55,6 +56,7 @@ public class ChercherCovoiturage extends HttpServlet {
 		Integer idUtilisateur = utilisateurCourant.getId();
 		req.setAttribute("idUtilisateur", idUtilisateur);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);
+		req.setAttribute("dateDeDepart", dateDeDepart);
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/chercherCovoiturage.jsp");
 		requestDispatcher.forward(req, resp);
