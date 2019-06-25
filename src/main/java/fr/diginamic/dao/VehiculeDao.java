@@ -331,6 +331,7 @@ public class VehiculeDao {
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
 
+				Integer id = resultSet.getInt("vhc_id");
 				String immatriculation = resultSet.getString("vhc_immatriculation");
 				String marque = resultSet.getString("vhc_marque");
 				String modele = resultSet.getString("vhc_modele");
@@ -340,8 +341,10 @@ public class VehiculeDao {
 				String position = resultSet.getString("vhc_position");
 				String proprietaire = resultSet.getString("vhc_proprietaire");
 
-				listeDesVehicules.add(
-						new Vehicule(immatriculation, marque, modele, categorie, photo, etat, position, proprietaire));
+				Vehicule vehicule = new Vehicule(immatriculation, marque, modele, categorie, photo, etat, position,
+						proprietaire);
+				vehicule.setId(id);
+				listeDesVehicules.add(vehicule);
 			}
 
 			return listeDesVehicules;
