@@ -16,13 +16,7 @@
 
 		
 
-		<h1>Vos réservations
-
-<div class="float-right">
-	<a href="/gdt/controller/collaborateur/reservations/creer">
-		<button type="submit" class="btn btn-success center-block">Réserver un transport</button>
-	</a>
-</div></h1>
+		<h1>Vos réservations</h1>
 		<div class="m-3 mt-4">
 			<div id="accordion">
 				<div class="car ">
@@ -53,7 +47,11 @@
 					<div id="collapseTwo" class="collapse show"
 						aria-labelledby="headingTwo" data-parent="#accordion">
 						<div class="card-body container ">
-
+							<div class="float-right">
+	<a href="/gdt/controller/collaborateur/reserverVehiculeSociete">
+		<button type="submit" class="btn btn-success center-block mb-3">Réserver un transport</button>
+	</a>
+</div>
 							<div><b>Réservations en cours</b></div>
 							<table class="table">
 								<thead class="thead-dark">

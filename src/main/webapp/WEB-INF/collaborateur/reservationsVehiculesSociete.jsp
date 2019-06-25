@@ -11,7 +11,7 @@
 }
 </style>
 
-<a href="/controller/collaborateur/reservations/">
+<a href="/gdt/controller/collaborateur/reservations" class="text-success font-weight-bold" >
         << Retour à la liste</a> <h1>Réserver un véhicule</h1>
             <div class="m-3 mt-4">
 
