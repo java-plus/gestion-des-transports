@@ -14,6 +14,10 @@ public class ReservationVoiture {
 	protected LocalDateTime dateTimeDeFin;
 	protected Vehicule vehicule;
 	protected Integer besoinChauffeur;
+	protected String immatriculation;
+	protected String marque;
+	protected String modele;
+//	protected String nomChauffeur;
 
 	/**
 	 * Constructor
@@ -53,6 +57,16 @@ public class ReservationVoiture {
 		this.dateTimeDeDebut = dateTimeDeDebut;
 		this.dateTimeDeFin = dateTimeDeFin;
 		this.vehicule = vehicule;
+	}
+	
+	
+	public ReservationVoiture(LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, String immatriculation, String marque, String modele) {
+		super();
+		this.dateTimeDeDebut = dateTimeDeDebut;
+		this.dateTimeDeFin = dateTimeDeFin;
+		this.immatriculation = immatriculation;
+		this.marque = marque;
+		this.modele = modele;
 	}
 
 	/**
@@ -194,5 +208,39 @@ public class ReservationVoiture {
 	public void setBesoinChauffeur(Integer besoinChauffeur) {
 		this.besoinChauffeur = besoinChauffeur;
 	}
+
+	public String getImmatriculation() {
+		return immatriculation;
+	}
+
+	public void setImmatriculation(String immatriculation) {
+		this.immatriculation = immatriculation;
+	}
+
+	public String getMarque() {
+		return marque;
+	}
+
+	public void setMarque(String marque) {
+		this.marque = marque;
+	}
+
+	public String getModele() {
+		return modele;
+	}
+
+	public void setModele(String modele) {
+		this.modele = modele;
+	}
+
+//	public String getNomChauffeur() {
+//		return nomChauffeur;
+//	}
+//
+//	public void setNomChauffeur(String nomChauffeur) {
+//		this.nomChauffeur = nomChauffeur;
+//	}
+	
+	
 
 }
