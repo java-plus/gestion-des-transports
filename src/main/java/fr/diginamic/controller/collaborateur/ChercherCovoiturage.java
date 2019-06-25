@@ -18,6 +18,17 @@ import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
+/**
+ * est la classe permettant de lister les annonces de covoiturages disponibles
+ * pour l'utilisateur courant. comporte une methode doGet activée quand l'url
+ * "/controller/collaborateur/chercherannonces/*" est atteint.
+ * 
+ * Cette classe est "jumelle" de la classe ChercherCovoiturageAvecCritères
+ * 
+ * 
+ * @author Diginamic02
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/chercherannonces/*")
 public class ChercherCovoiturage extends HttpServlet {
 
@@ -25,9 +36,25 @@ public class ChercherCovoiturage extends HttpServlet {
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ChercherCovoiturage.class);
 
 	/**
-	 * Methode doGet qui recupère les données (liste des annonces) quand
+	 * Methode doGet qui recupère toutes les annonces de covoiturage quand
 	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/annonces/*
+	 * La liste des annonce retournée et traitée pour affichage par la JSP
+	 * contient toutes les annonces de covoiturages qui n'ont pas été émises par
+	 * l'utilisateur courant et dont la date de départ est antérieure à la date
+	 * du jour
 	 * 
+	 * Fonctionnement de la méthode: _ récupère l'éléments utilisateur courant
+	 * (pour savoir s'il est admin, collaborateur ou chauffeur) _ crée avec les
+	 * valeurs "indeterminé" les variables
+	 * lieuDeDestination,lieuDeDepart,dateDeDepart NOTA BENE : ces variables
+	 * correspondent aux critères utilisés dans la classe
+	 * ChercherCovoiturageAvecCritères _ instancie la DAO CovoiturageDao qui
+	 * appelera la méthode "recupererLesAnnoncesDisponiblesPourUtilisateur" pour
+	 * récupérer une liste d'annonces de covoiturage correspondant aux critères
+	 * evoqués plus haut. _stocke les variables
+	 * listeDesAnnonces,lieuDeDepart,lieuDeDestination,idUtilisateur,dateDeDepart
+	 * qui seront traités par la JSP
+	 * "/WEB-INF/collaborateur/chercherCovoiturage.jsp" pour affichage
 	 * 
 	 *
 	 * @param req
