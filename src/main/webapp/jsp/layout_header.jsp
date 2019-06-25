@@ -33,7 +33,7 @@
 	%>
 	<header class="row">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark col-8">
-			<a class="navbar-brand text-success ml-2 mr-2 bg-dark" href="#"
+			<a class="navbar-brand text-success ml-2 mr-2 bg-dark" href="/gdt/login"
 				id="logo">G.T.</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -49,8 +49,10 @@
 						href="http://localhost:8080/gdt/controller/collaborateur/reservations">Vos
 						réservations</a> <a class="nav-item nav-link"
 						href="http://localhost:8080/gdt/controller/collaborateur/annonces">Vos
-						annonces</a> <a class="nav-item nav-link"
+						annonces</a> 
+						<%-- <a class="nav-item nav-link"
 						href="http://localhost:8080/gdt/controller/collaborateur/statistiques">Statistiques</a>
+						 ---%>
 					<%
 						}
 					%>
@@ -69,8 +71,9 @@
 					%>
 					<a class="nav-item nav-link"
 						href="http://localhost:8080/gdt/controller/chauffeur/planning">Planning</a>
-					<a class="nav-item nav-link"
+					<%--<a class="nav-item nav-link"
 						href="http://localhost:8080/gdt/controller/chauffeur/occupation">Occupation</a>
+					--%>
 					<%
 						}
 					%>
