@@ -15,8 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
+import fr.diginamic.dao.UtilisateurDao;
+import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
+import fr.diginamic.model.Vehicule;
 
 @WebServlet(urlPatterns = "/controller/collaborateur/chercherannonces/*")
 public class ChercherCovoiturage extends HttpServlet {
@@ -48,9 +51,16 @@ public class ChercherCovoiturage extends HttpServlet {
 		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao
 				.recupererLesAnnoncesDisponiblesPourUtilisateur(utilisateurCourant.getId());
 
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
+		List<Employe> listeEmploye = utilisateurDao.recupererEmploye();
+
+		VehiculeDao vehiculeDao = new VehiculeDao();
+		List<Vehicule> listeVehicule = vehiculeDao.recupererVehiculesIdImmat();
+
 		// Afficher les reservations via la liste listeDesReservations
 		// et java dans JSP
-		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
+		req.setAttribute("listeVehicule", listeVehicule);
+		req.setAttribute("listeEmploye", listeEmploye);
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
 		Integer idUtilisateur = utilisateurCourant.getId();
