@@ -23,15 +23,14 @@ public class VehiculeDao {
 	public void ajouterVehicule(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_etat`) VALUES (");
+				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`) VALUES (");
 		sb.append("'").append(vehicule.getImmatriculation()).append("',");
 		sb.append("'").append(vehicule.getMarque()).append("',");
 		sb.append("'").append(vehicule.getModele()).append("',");
 		sb.append("'").append(vehicule.getCategorie()).append("',");
 		sb.append("'").append(vehicule.getPhoto()).append("',");
-		sb.append(vehicule.getNbPlaces()).append(",");
-		sb.append("'").append("inconnu").append("'");
-		sb.append(")");
+		sb.append(vehicule.getNbPlaces());
+		sb.append(");");
 
 		SERVICE_LOG.info(sb.toString());
 		QueryUtils.updateQuery(sb.toString());
@@ -326,7 +325,8 @@ public class VehiculeDao {
 		List<Vehicule> listeDesVehicules = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from vehicule");
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("SELECT * FROM VEHICULE ve WHERE ve.vhc_proprietaire = \"societe\";");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
@@ -344,6 +344,56 @@ public class VehiculeDao {
 				Vehicule vehicule = new Vehicule(immatriculation, marque, modele, categorie, photo, etat, position,
 						proprietaire);
 				vehicule.setId(id);
+				listeDesVehicules.add(vehicule);
+			}
+
+			return listeDesVehicules;
+		} catch (SQLException e) {
+			// SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le resultSet",
+					// e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// SERVICE_LOG.error("impossible de fermer le statement",
+					// e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	public List<Vehicule> recupererVehiculesIdImmat() {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Vehicule> listeDesVehicules = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance()
+					.prepareStatement("SELECT * FROM VEHICULE;");
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt("vhc_id");
+				String immatriculation = resultSet.getString("vhc_immatriculation");
+
+				Vehicule vehicule = new Vehicule(id);
+				vehicule.setImmatriculation(immatriculation);
+
 				listeDesVehicules.add(vehicule);
 			}
 

@@ -1,26 +1,31 @@
+<%@page import="fr.diginamic.model.Vehicule"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
 
-</head>
-<body>
+<a href="/gdt/controller/collaborateur/reservations/creer" class="text-success font-weight-bold" >
+        << Retour à la liste</a> <h1>Réserver un véhicule</h1>
+            <div class="m-3 mt-4">
 
-
-
-	<form method="POST" action="http://localhost:8080/gdt/controller/collaborateur/chercherannonces/">
+                <div id="accordion">
+                    <div class="card ">
+                        
+                        <div class="card-header bg-dark text-light " id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Covoiturage
+                                </button>
+                            </h5>
+                        </div>
+						
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                            <form method="POST" action="http://localhost:8080/gdt/controller/collaborateur/chercherannonces/">
 		<div class="container ">
 			<div class="row">
 
@@ -29,7 +34,7 @@
 			</div>
 			<div class="row d-flex justify-content-center">
 
-				<h1>Liste complète des annonces de covoiturages</h1>
+				<h1>Liste des covoiturages</h1>
 
 			</div>
 			<div class="row ">
@@ -119,31 +124,33 @@
 
 
 	<div class="container mt-5">
-		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10">
+		
+			
 
 
 
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">id</th>
-							<th scope="col">places disponibles</th>
-							<th scope="col">date départ</th>
-							<th scope="col">lieu départ</th>
-							<th scope="col">lieu arrivée</th>
-							<th scope="col">durée</th>
-							<th scope="col">distance</th>
-							<th scope="col">id utilisateur</th>
-							<th scope="col">id vehicule</th>
+						
+							
+							<th scope="col">Date départ</th>
+							<th scope="col">Lieu départ</th>
+							<th scope="col">Lieu arrivée</th>
+							
+							
+							<th scope="col">Responsable</th>
+							<th scope="col">Immatriculation</th>
+							<th scope="col">Places disponibles</th>
 							<th scope="col"></th>
 
 						</tr>
 					</thead>
 					<tbody>
 
-
+						<%List<Employe> listeEmploye = (List<Employe>) request.getAttribute("listeEmploye");
+						  List<Vehicule> listeVehicule = (List<Vehicule>) request.getAttribute("listeVehicule");
+						%>
 
 						<%
 							for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnonces) {
@@ -151,17 +158,24 @@
 						<tr>
 
 
-							<td><%=annonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
-							<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+							
+							
+							<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 							<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
-							<td><%=annonceCovoiturage.getDuree()%></td>
-							<td><%=annonceCovoiturage.getDistanceEnKm()%></td>
-							<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
-							<td><%=annonceCovoiturage.getIdVehicule()%></td>
+							
+							<%for(Employe e:listeEmploye){
+								if(e.getId().equals(annonceCovoiturage.getIdUtilisateur())){%>
+							<td><%=e.getPrenom()%> <%=e.getNom() %></td>
+							<%} }%>
+							
+							<%for(Vehicule v: listeVehicule){ 
+							if(v.getId().equals(annonceCovoiturage.getIdVehicule())){%>
+							<td><%=v.getImmatriculation()%></td>
+							<%}} %>
+							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
 							<td>
-								<button type="submit" class="btn btn-primary center-block" onclick="reserverCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Reserver</button>
+								<button type="submit" class="btn btn-success center-block" onclick="reserverCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Reserver</button>
 							</td>
 						</tr>
 						<%
@@ -171,12 +185,41 @@
 					</tbody>
 				</table>
 
-			</div>
-			<div class="col-1"></div>
-		</div>
-		<button type="submit" class="btn btn-primary center-block" onclick="voirdate()">voir date</button>
+			
+			
+		
+		
 							
 	</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card ">
+                    <a href="/gdt/controller/collaborateur/reserverVehiculeSociete">
+                        <div class="card-header bg-dark " id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-light " data-toggle="collapse"
+                                    data-target="#collapseTwo " aria-expanded="false" aria-controls="collapseTwo">
+                                    Véhicule de société
+                                </button>
+                            </h5>
+                        </div>
+                        </a>
+                        <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body container ">
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+
+
+	
 	
 	<script type="text/javascript">
         function rechercheAvecCritere() {
@@ -208,13 +251,7 @@
                     + lieuDeDestination + "&lieuDeDepart=" + lieuDeDepart+ "&dateDeDepart=" + dateDeDepart;
 
         }
-        function voirdate() {
-if(document.forms[0].date.value==""){alert("ok")
-}
-
-alert(dateDeDepart);
-
-		}
+        
     
         function reserverCovoiturage(idAnnonceCovoiturage) {
 
