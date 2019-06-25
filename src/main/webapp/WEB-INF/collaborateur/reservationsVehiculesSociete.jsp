@@ -17,7 +17,7 @@
 
                 <div id="accordion">
                     <div class="car ">
-                        <a href="/gdt/collaborateur/annonces/creer">
+                        <a href="/gdt/controller/collaborateur/chercherannonces">
                         <div class="card-header bg-dark text-light" id="headingOne">
                             <h5 class="mb-0">
                                 <button class="btn btn-link collapsed text-light" data-toggle="collapse"
