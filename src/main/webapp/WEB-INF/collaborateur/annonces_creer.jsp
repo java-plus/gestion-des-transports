@@ -3,17 +3,6 @@
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-</head>
-<body>
 	<%
 		String lieuDepart = (String) request.getAttribute("lieuDepart");
 		String lieuArrive = (String) request.getAttribute("lieuArrive");
@@ -23,37 +12,48 @@
 		String messageErreur = (String) request.getAttribute("messageErreur");
 		Integer nbPlaceDispo = (Integer) request.getAttribute("nbPlaceDispo");
 	%>
-	<h1>Creer une annonce de covoiturage</h1>
-	<form method="POST"
-		action="/gdt/controller/collaborateur/creerannonce/">
+	
+	<a href="/gdt/controller/collaborateur/annonces" class="text-success p-2 btn mb-3"> << Retour à la liste</a>
+        
+	<h1 class="mb-4">Publier une annonce</h1>
+	<form method="POST" action="/gdt/controller/collaborateur/creerannonce/">
 		<div class="container">
-			<div class="card">
-
-
+			<div class="card mb-1">
+				<div class="card-header bg-dark text-light">
+					<h5>Itinéraire</h5>
+				</div>
 				<div class="card-body">
-					<div class="card-header">Itineraire</div>
-
-
-					<div class="form-group">
-						<label for="adresseDeDepart">Adresse de départ</label> <input
-							type="text" class="form-control" id="adresseDeDepart"
-							name="adresseDeDepart"
-							placeholder="adresse (ex: Nantes, Bordeaux...)"
-							<%if (lieuDepart != null) {%> value="<%=lieuDepart%>" <%}%>>
+					<div class="form-group row px-5">
+						<label for="adresseDeDepart" class="text-right col-lg-3 py-1">Adresse de départ*</label>
+						<input type="text" class="form-control col-lg-9" id="adresseDeDepart" required
+								name="adresseDeDepart" placeholder="adresse (ex: Nantes, Bordeaux...)" onChange="contentChange()"
+								<%if (lieuDepart != null) {%> value="<%=lieuDepart%>" <%}%>
+						>
 					</div>
-					<div class="form-group">
-						<label for="adresseDeDestination">Adresse de destination</label> <input
-							type="text" class="form-control" id="adresseDeDestination"
-							name="adresseDeDestination"
-							placeholder="adresse (ex: Nantes, Bordeaux...)"
-							<%if (lieuArrive != null) {%> value="<%=lieuArrive%>" <%}%>>
+						
+					<div class="form-group row px-5">
+						<label for="adresseDeDestination" class="text-right col-lg-3 py-1">Adresse de destination*</label>
+						<input type="text" class="form-control col-lg-9" id="adresseDeDestination" required
+								name="adresseDeDestination" placeholder="adresse (ex: Nantes, Bordeaux...)"
+								<%if (lieuArrive != null) {%> value="<%=lieuArrive%>" <%}%> onChange="contentChange()">
 					</div>
-					<p class="card-text" >durée du trajet</p><p id="duree"></p>
-					<p class="card-text">distance en km</p><p id="distance"></p>
+					<div class="form-group row px-5">
+						<p class="card-text text-right col-lg-3 py-1" >Durée du trajet</p>
+						<p id="duree" class="form-control col-lg-9"></p>
+					</div>
+					<div class="form-group row px-5">
+						<p class="card-text text-right col-lg-3 py-1">Distance en km</p>
+						<p id="distance" class="form-control col-lg-9"></p>
+					</div>
+				</div>
+			</div>
 
-					<div class="card-header">Vehicule</div>
-
-
+			<div class="card mb-1">
+				<div class="card-header bg-dark text-light">
+					<h5>Véhicule</h5>
+				</div>
+						
+				<div class="card-body">
 					<%
 						if (messageErreur != null) {
 					%>
@@ -62,117 +62,96 @@
 						}
 					%>
 
-
-					<div class="form-group">
-						<label for="immatriculationModal">Immatriculation:</label> <input
-							type="text" class="form-control" id="immatriculationModal"
-							name="immatriculationVehicule"
-							placeholder="immatriculation (xx-123-xx)"
-							<%if (immatriculation != null) {%> value="<%=immatriculation%>"
-							<%}%>>
+					<div class="form-group row px-5">
+						<label for="immatriculationModal" class="text-right col-lg-3 py-1">Immatriculation*</label> 
+						<input type="text" id="immatriculationModal" id="immatriculationModal"
+							name="immatriculationVehicule" class="form-control col-lg-9"
+							placeholder="immatriculation (xx-123-xx)" pattern="[a-zA-Z]{2}-[0-9]{3}-[a-zA-Z]{2}" required
+							<%if (immatriculation != null) {%> value="<%=immatriculation%>"	<%}%> onChange="contentChange()">
 					</div>
-					<div class="form-group">
-						<label for="marqueModal">Marque:</label> <input type="text"
-							class="form-control" id="marqueModal" name="marqueVehicule"
-							placeholder="marque" <%if (marque != null) {%> value="<%=marque%>"
-							<%}%>>
+					<div class="form-group row px-5">
+						<label for="marqueModal" class="text-right col-lg-3 py-1">Marque*</label>
+						<input type="text" class="form-control col-lg-9" id="marqueModal" name="marqueVehicule" required
+						placeholder="marque" <%if (marque != null) {%> value="<%=marque%>" <%}%> onChange="contentChange()">
 					</div>
-					<div class="form-group">
-						<label for="modeleModal">Modele:</label> <input type="text"
-							class="form-control" id="modeleModal" name="modeleVehicule"
-							placeholder="modèle" <%if (modele != null) {%> value="<%=modele%>"
-							<%}%>>
+					<div class="form-group row px-5">
+						<label for="modeleModal" class="text-right col-lg-3 py-1">Modele*</label>
+						<input type="text"
+							class="form-control col-lg-9" id="modeleModal" name="modeleVehicule" required
+							placeholder="modèle" <%if (modele != null) {%> value="<%=modele%>" <%}%> onChange="contentChange()">
 					</div>
-					<div class="form-group">
-						<label for="nbPlacesModal">Nombre de places disponibles:</label> <input
-							type="number" class="form-control" id="nbPlacesModal"
-							name="nbPlacesVehicule" placeholder="nombre de place"
-							<%if (nbPlaceDispo != null) {%> value="<%=nbPlaceDispo%>" <%}%>>
-					</div>
-
-					<div class="card-header">Date et horaire</div>
-
-					<div class="row ">
-
-						<div class="col-2"></div>
-						<div class="col-8">
-							<div class="row ">
-								<div class="col-6">
-									<div class="form-group">
-										<label for="exampleFormControlSelect3">Date de départ</label>
-										<input type="date" class="form-control" name="dateDeDepart"
-											id="dateDeDepart">
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label for="exampleFormControlSelect1">Depart</label> <select
-											name="selectedHeureDeDepart" class="form-control"
-											id="exampleFormControlSelect1" onChange="">
-
-											<option value="01">01</option>
-											<option value="02">02</option>
-											<option value="03">03</option>
-											<option value="04">04</option>
-											<option value="05">05</option>
-											<option value="06">06</option>
-											<option value="07">07</option>
-											<option value="08">08</option>
-											<option value="09">09</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-											<option value="13">13</option>
-											<option value="14">14</option>
-											<option value="15">15</option>
-											<option value="16">16</option>
-											<option value="17">17</option>
-											<option value="18">18</option>
-											<option value="19">19</option>
-											<option value="20">20</option>
-											<option value="21">21</option>
-											<option value="22">22</option>
-											<option value="23">23</option>
-
-
-										</select>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label for="exampleFormControlSelect1">Depart</label> <select
-											name="selectedMinuteDeDepart" class="form-control"
-											id="exampleFormControlSelect1" onChange="">
-
-											<option value="00">00</option>
-											<option value="10">10</option>
-											<option value="20">20</option>
-											<option value="30">30</option>
-											<option value="40">40</option>
-											<option value="50">50</option>
-
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-2"></div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
-						<input type="button" class="btn btn-success" value="Enregistrer"
-							data-toggle="modal" data-target="#exampleModal">
+					<div class="form-group row px-5">
+						<label for="nbPlacesModal" class="text-right col-lg-3 py-1">Nombre de places disponibles*</label>
+						<input type="number" class="form-control col-lg-9" id="nbPlacesModal" required
+							name="nbPlacesVehicule" placeholder="nombre de places"
+							<%if (nbPlaceDispo != null) {%> value="<%=nbPlaceDispo%>" <%}%> onChange="contentChange()">
 					</div>
 				</div>
 			</div>
+					
+			<div class="card mb-1">
+			
+				<div class="card-header bg-dark text-light">
+					<h5>Date et horaire</h5>
+				</div>
 
-		</div>
-
+				<div class="row card-body">
+				
+					<div class="form-group col-6 d-flex">
+						<p for="exampleFormControlSelect3" class="text-right p-2 d-block">Date/heure*</p>
+						<input type="date" class="form-control" name="dateDeDepart" id="dateDeDepart" onChange="contentChange()" required>
+						<label for="dateDeDepart"><i class="fas fa-calendar-alt p-2"></i></label>
+					</div>
+					
+					<div class="form-group col-6 d-flex">
+						<select	name="selectedHeureDeDepart" class="form-control" id="selectedHeureDeDepart" onChange="contentChange()" required>
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+							</select>
+							<p class="p-2">h</p>
+							<select	name="selectedMinuteDeDepart" class="form-control" id="selectedMinuteDeDepart" onChange="contentChange()" required>
+								<option value="00">00</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+							</select>
+						</div>
+					
+				</div>
+			</div>
+			
+			<button class="btn btn-success float-right mt-2 mb-5" 
+					data-toggle="modal" data-target="#exampleModal">Publier</button>
+					
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
+				
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Confirmation
 							de votre annonce</h5>
@@ -181,22 +160,21 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<div class="modal-body">
-
-						<p>Départ :</p>
-						<p>Destination :</p>
-						<p>Immatriculation :</p>
-						<p>Marque :</p>
-						<p>Modèle :</p>
-						<p>Nb places disponibles :</p>
-						<p>Date / Heure :</p>
+						<p>Départ : <span id="departSpan"></span></p>
+						<p>Destination : <span id="destinationSpan"></span></p>
+						<p>Immatriculation : <span id="immatriculationSpan"></span></p>
+						<p>Marque : <span id="marqueSpan"></span></p>
+						<p>Modèle : <span id="modeleSpan"></span></p>
+						<p>Nb places disponibles : <span id="placesSpan"></span></p>
+						<p>Date / Heure : <span id="dateHeuresSpan"></span></p>
 						<div class="modal-footer">
 							<a href="/gdt/controller/collaborateur/annonces/"><button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button></a>
 							<input type="submit" class="btn btn-success" value="Confirmer">
 						</div>
-
-
 					</div>
+					
 				</div>
 			</div>
 	</form>
@@ -207,7 +185,6 @@
 
 	<script>
     $("#adresseDeDepart").change(function(){
-        console.log("j’ai changé");
             $.ajax({
                 url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
                 dataType: "json",
@@ -224,7 +201,6 @@
     })
     
     $("#adresseDeDestination").change(function(){
-        console.log("j’ai changé");
             $.ajax({
                 url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
                 dataType: "json",
@@ -240,6 +216,18 @@
             });
             
     })
+    
+    					
+	function contentChange() {
+	 	document.getElementById('departSpan').innerHTML = document.getElementById("adresseDeDepart").value;
+		document.getElementById('destinationSpan').innerHTML = document.getElementById("adresseDeDestination").value;
+		document.getElementById('immatriculationSpan').innerHTML = document.getElementById("immatriculationModal").value;
+		document.getElementById('marqueSpan').innerHTML = document.getElementById("marqueModal").value;
+		document.getElementById('modeleSpan').innerHTML = document.getElementById("modeleModal").value;
+		document.getElementById('placesSpan').innerHTML = document.getElementById("nbPlacesModal").value;
+		document.getElementById('dateHeuresSpan').innerHTML = document.getElementById("dateDeDepart").value + " " + document.getElementById("selectedHeureDeDepart").value + " h " + document.getElementById("selectedMinuteDeDepart").value;
+    };
+				
     </script>
 
 </body>

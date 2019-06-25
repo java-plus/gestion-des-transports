@@ -203,14 +203,14 @@ public class VehiculeDao {
 	public void ajouterVehiculePersonnel(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_etat`,`vhc_proprietaire`) VALUES (");
+				"INSERT INTO `VEHICULE` (`vhc_immatriculation`,`vhc_marque`,`vhc_modele`,`vhc_categorie`,`vhc_photo`,`vhc_capacite`,`vhc_proprietaire`) VALUES (");
 		sb.append("'").append(vehicule.getImmatriculation()).append("',");
 		sb.append("'").append(vehicule.getMarque()).append("',");
 		sb.append("'").append(vehicule.getModele()).append("',");
 		sb.append("'").append(vehicule.getCategorie()).append("',");
 		sb.append("'").append(vehicule.getPhoto()).append("',");
 		sb.append(5).append(",");
-		sb.append("'").append("inconnu").append("',");
+		// sb.append("'").append("inconnu").append("',");
 		sb.append("'").append(vehicule.getProprietaire()).append("'");
 		sb.append(")");
 
