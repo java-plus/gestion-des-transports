@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
-	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur"%>
+	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.time.format.DateTimeFormatter"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
@@ -32,7 +32,7 @@
 				for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesEnCours) {
 			%>
 			<tr>
-				<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+				<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 				<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 				<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
 				<td><%=listeDesNombresDeReservationsEnCours.get(n)%></td>
@@ -46,7 +46,7 @@
 		</tbody>
 	</table>
 	<% } else { %>
-		<p>Aucune réservation en cours.</p>
+		<p>Aucune réservation enregistrée.</p>
 	<% } %>
 	
 	
@@ -76,7 +76,7 @@
 				for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesPassees) {
 			%>
 			<tr>
-				<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+				<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 				<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 				<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
 				<td><%=listeDesNombresDeReservationsEnCours.get(p)%></td>
@@ -90,7 +90,7 @@
 		</tbody>
 	</table>
 	<% } else { %>
-		<p>Aucune réservation en cours.</p>
+		<p>Aucune réservation enregistrée.</p>
 	<% } %>
 			
 </div>
