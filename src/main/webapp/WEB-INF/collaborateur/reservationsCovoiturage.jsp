@@ -66,16 +66,11 @@
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">id</th>
-												<th scope="col">places disponibles</th>
-												<th scope="col">date départ</th>
-												<th scope="col">lieu départ</th>
-												<th scope="col">lieu arrivée</th>
-												<th scope="col">durée</th>
-												<th scope="col">distance</th>
-												<th scope="col">id utilisateur</th>
-												<th scope="col">id vehicule</th>
+												<th scope="col">Date / Heure</th>
+												<th scope="col">Depart</th>
+												<th scope="col">Destination</th>
 												<th scope="col"></th>
+												
 
 											</tr>
 										</thead>
@@ -92,20 +87,19 @@
 											<tr>
 
 
-												<td><%=annonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-												<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
+												
 												<td><%=annonceCovoiturage.getDateDeDepart()%></td>
 												<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 												<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
-												<td><%=annonceCovoiturage.getDuree()%></td>
-												<td><%=annonceCovoiturage.getDistanceEnKm()%></td>
-												<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
-												<td><%=annonceCovoiturage.getIdVehicule()%></td>
+												
 												<td>
 													<button type="submit" class="btn btn-success center-block"
-														data-toggle="modal" data-target="#exampleModal"
+														
 														onclick="afficherModal(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">annuler
 														ma reservation</button>
+														<button type="submit" class="btn btn-success center-block"
+														
+														onclick="afficherModalDetails(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">détails</button>
 												</td>
 											</tr>
 											<%
@@ -143,7 +137,7 @@
 		</div>
 	</div>
 
-
+										
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -168,13 +162,53 @@
 			</div>
 		</div>
 	</div>
-
+	
+											<%
+												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
+											%>
+	
+	<!-- Modal Details -->
+	<div class="modal fade" id="<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Details</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Depart : <%=annonceCovoiturage.getLieuDeDepart()%></p>
+					<p>Destination : <%=annonceCovoiturage.getLieuDeDestination()%></p>
+					<p>Date - Heure : <%=annonceCovoiturage.getDateDeDepart()%></p>
+					
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Fermer</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+											<%
+												}
+											%>
 	<script type="text/javascript">
 	
 	function afficherModal(idAnnonceCovoiturage){
 		const annulation = "annulerReservation("+idAnnonceCovoiturage.toString()+")";
+		
 		$("#btnAnnuler").attr("onclick", annulation);
 		$("#exampleModal").modal("show");
+	}
+	
+	function afficherModalDetails(idAnnonceCovoiturage){
+		
+		$("#" + idAnnonceCovoiturage).modal("show");
 	}
 	
 	function annulerReservation(idAnnonceCovoiturage) {
