@@ -118,7 +118,7 @@ public class CovoiturageDao {
 
 		System.out.println(idReservationVehiculeSociete);
 
-		if (idReservationVehiculeSociete == null) {
+		if (idReservationVehiculeSociete == 0) {
 			System.out.println("ok1");
 			System.out.println(
 					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("

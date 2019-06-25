@@ -121,7 +121,7 @@ public class CreerAnnonce extends HttpServlet {
 			idReservationVehiculeSociete = vehiculeDao.retrouverIdReservation(vehicule, dateHeureDepartEffective,
 					idUtilisateur);
 			System.out.println(idReservationVehiculeSociete);
-			if (idReservationVehiculeSociete != null) {
+			if (idReservationVehiculeSociete == 0) {
 				Integer idVehicule = vehiculeDao.retrouverIdVehicule(vehicule);
 
 				AnnonceCovoiturage annonceCovoiturage = new AnnonceCovoiturage(nbPlacesVehicule,
