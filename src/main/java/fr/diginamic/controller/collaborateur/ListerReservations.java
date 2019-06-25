@@ -20,6 +20,15 @@ import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
 
+/**
+ * classe SERVLET ListerReservations activée lorsque l'url
+ * /controller/collaborateur/reservations/creer est atteint permet d'afficher la
+ * liste des réservations sur des annonces de covoiturage faite par
+ * l'utilisateur courant
+ * 
+ * @author Diginamic02
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/reservations/creer")
 public class ListerReservations extends HttpServlet {
 
@@ -27,12 +36,18 @@ public class ListerReservations extends HttpServlet {
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ListerReservations.class);
 
 	/**
-	 * Methode doGet qui recupère les données (liste des reservationss) quand
-	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/reservations/*
+	 * Methode doGet qui recupère la liste des reservations sur des covoiturages
+	 * faites par l'utilisateur quand l'utilisateur accede à l'url
+	 * /gestion-transports/collaborateur/reservations/*
 	 * 
-	 * 
+	 * Fonctionnement de la méthode: _ crée une instance de la DAO
+	 * ResaCovoiturageDao _ celle ci appelle la méthode
+	 * recupererLesReservations(idUtilisateurCourant) qui retourne, via une
+	 * méthode SQL sur la table RESACOVOITURAGE, la liste des réservation faites
+	 * par l'utilisateur courant sur des annonces de covoiturage
 	 *
-	 *
+	 * les variables listeDesReservationsCovoiturage et idUtilisateur sont alors
+	 * stockées pour être traités par la JSP pour affichage
 	 * 
 	 * 
 	 * 
