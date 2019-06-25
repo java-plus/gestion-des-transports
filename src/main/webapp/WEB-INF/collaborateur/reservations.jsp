@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
-	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur, fr.diginamic.model.ReservationVoiture"%>
+	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur, fr.diginamic.model.ReservationVoiture, java.time.format.DateTimeFormatter,java.time.LocalDate"%>
 
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>		
@@ -63,8 +63,8 @@
 									<tr>
 
 
-										<td><%=listeDesReservationsVehiculeFutur.get(i).getDateTimeDeDebut()%></td>
-										<td><%=listeDesReservationsVehiculeFutur.get(i).getDateTimeDeFin()%></td>
+										<td><%=listeDesReservationsVehiculeFutur.get(i).getDateTimeDeDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
+										<td><%=listeDesReservationsVehiculeFutur.get(i).getDateTimeDeFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 										<td><%=listeDesReservationsVehiculeFutur.get(i).getImmatriculation()%></td>
 										<td><%=listeDesReservationsVehiculeFutur.get(i).getMarque()%></td>
 										<td><%=listeDesReservationsVehiculeFutur.get(i).getModele()%></td>
@@ -103,8 +103,8 @@
 									%>
 									
 									<tr>
-										<td><%=listeDesReservationsVehiculePassees.get(i).getDateTimeDeDebut()%></td>
-										<td><%=listeDesReservationsVehiculePassees.get(i).getDateTimeDeFin()%></td>
+										<td><%=listeDesReservationsVehiculePassees.get(i).getDateTimeDeDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
+										<td><%=listeDesReservationsVehiculePassees.get(i).getDateTimeDeFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 										<td><%=listeDesReservationsVehiculePassees.get(i).getImmatriculation()%></td>
 										<td><%=listeDesReservationsVehiculePassees.get(i).getMarque()%></td>
 										<td><%=listeDesReservationsVehiculePassees.get(i).getModele()%></td>
