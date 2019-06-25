@@ -143,9 +143,9 @@
 				</div>
 			</div>
 			
-			<input type="button" class="btn btn-success float-right mt-2 mb-5" 
-					value="Publier" data-toggle="modal" data-target="#exampleModal">
-
+			<button class="btn btn-success float-right mt-2 mb-5" 
+					data-toggle="modal" data-target="#exampleModal">Publier</button>
+					
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
