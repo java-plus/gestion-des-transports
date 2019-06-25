@@ -45,15 +45,12 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">id</th>
-							<th scope="col">places disponibles</th>
 							<th scope="col">date départ</th>
 							<th scope="col">lieu départ</th>
 							<th scope="col">lieu arrivée</th>
-							<th scope="col">durée</th>
-							<th scope="col">distance</th>
-							<th scope="col">id utilisateur</th>
-							<th scope="col">id vehicule</th>
+							<th scope="col">Nombre de voyageurs</th>
+							
+							
 
 						</tr>
 					</thead>
@@ -64,27 +61,27 @@
 						<%
 							List<AnnonceCovoiturage> listeDesAnnonces = (List<AnnonceCovoiturage>) request
 									.getAttribute("listeDesAnnonces");
-
+						List<Integer> listeDesNombresDeReservations = (List<Integer>) request
+								.getAttribute("listeDesNombresDeReservations");
+						Integer n = 0;
 							for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnonces) {
 						%>
 						<tr>
 
 
-							<td><%=annonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
 							<td><%=annonceCovoiturage.getDateDeDepart()%></td>
 							<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
-							<td><%=annonceCovoiturage.getDuree()%></td>
-							<td><%=annonceCovoiturage.getDistanceEnKm()%></td>
-							<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
-							<td><%=annonceCovoiturage.getIdVehicule()%></td>
+							<td><%=listeDesNombresDeReservations.get(n)%></td>
+								
+							
+						
 							<td>
-								<button type="submit" class="btn btn-primary center-block">Supprimer</button>
+								<button type="submit" class="btn btn-primary center-block" onclick="annulerCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Supprimer</button>
 							</td>
 						</tr>
 						<%
-							}
+							n++;}
 						%>
 
 					</tbody>
@@ -94,7 +91,14 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	function annulerCovoiturage(idAnnonceCovoiturage) {
 
+		document.location.href = "http://localhost:8080/gdt/controller/collaborateur/annulerAnnonce?idAnnonce="
+					+ idAnnonceCovoiturage;
+
+		}
+	</script>
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
 	<%@include file="../../jsp/dependanceScript.jsp"%>
