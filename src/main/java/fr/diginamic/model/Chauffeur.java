@@ -1,11 +1,13 @@
 package fr.diginamic.model;
 
+
 /**
  * Classe représentant un Chauffeur, classe fille de Employe
  * 
  * @author Diginamic02
  *
  */
+
 public class Chauffeur extends Employe {
 
 	private String matricule;

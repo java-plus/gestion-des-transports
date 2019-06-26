@@ -1,26 +1,41 @@
 package fr.diginamic.model;
 
+
 /**
- * Classe reprÃ©sentant un employe
+ * Classe abstraite reprÃ©sentant un employe
  * 
  * @author Diginamic02
  *
  */
+
 public abstract class Employe {
 
+	/** id de l'employé */
 	protected Integer id;
+	
+	/** nom de l'employé */
 	protected String nom;
+	
+	/** prenom de l'employé */
 	protected String prenom;
+	
+	/** email de l'employé */
 	protected String email;
-
+	
+	/** mdp de l'employé */
+	protected String mdp;
+	
+	/** statut de l'employé */
+	protected String statut;
+	
 	/**
 	 * Constructeur de l'objet Employe
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param mdp
+	 * @param id sous forme d'un Integer
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param email sous forme d'un String
+	 * @param mdp sous forme d'un String
 	 */
 	public Employe(Integer id, String nom, String prenom, String email, String mdp) {
 		super();
@@ -31,11 +46,8 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	protected String mdp;
-	protected String statut;
-
 	/**
-	 * Constructeur de l'objet Employe
+	 * Constructeur par défaut
 	 * 
 	 */
 	public Employe() {
@@ -43,12 +55,13 @@ public abstract class Employe {
 	}
 
 	/**
-	 * Constructor de l'objet Employe
+	 * Constructeur de l'objet Employé
+
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param prenom
-	 * @param statut
+	 * @param id sous forme d'un Integer
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param statut sous forme d'un String
 	 */
 	public Employe(Integer id, String nom, String prenom, String statut) {
 		this.id = id;
@@ -58,14 +71,12 @@ public abstract class Employe {
 	}
 
 	/**
-	 * Constructeur de l'objet Employe
+	 * Constructeur de l'objet Employé
 	 * 
-	 * @param listeDesReservationsVoitures
-	 * @param listeDesReservationsCovoiturages
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param mdp
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param email sous forme d'un String
+	 * @param mdp sous forme d'un String
 	 */
 	public Employe(String nom, String prenom, String email, String mdp) {
 		super();
@@ -74,6 +85,7 @@ public abstract class Employe {
 		this.email = email;
 		this.mdp = mdp;
 	}
+
 
 	/**
 	 * Getter
@@ -94,6 +106,7 @@ public abstract class Employe {
 		this.nom = nom;
 	}
 
+
 	/**
 	 * Getter
 	 * 
@@ -113,6 +126,7 @@ public abstract class Employe {
 		this.prenom = prenom;
 	}
 
+
 	/**
 	 * Getter
 	 * 
@@ -131,6 +145,7 @@ public abstract class Employe {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
+
 
 	/**
 	 * Getter

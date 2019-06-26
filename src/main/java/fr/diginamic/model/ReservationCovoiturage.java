@@ -1,5 +1,6 @@
 package fr.diginamic.model;
 
+
 /**
  * classe représentant la réservation d'un covoiturage
  * 
@@ -7,18 +8,25 @@ package fr.diginamic.model;
  *
  */
 public class ReservationCovoiturage {
-
+	
+	/** id de la r�servation covoiturage */
 	private Integer id_ReservationCovoiturage;
+	
+	/** id de l'annonce de covoiturage **/
 	private Integer idAnnonceCovoiturage;
+	
+	/** id de l'utilisateur du covoiturage */
 	private Integer idUtilisateur;
+	
+	/**  annonce du covoiturage * */
 	private AnnonceCovoiturage annonceCovoiturage;
 
 	/**
 	 * Constructeur de l'objet ReservationCovoiturage
 	 * 
-	 * @param id_ReservationCovoiturage
-	 * @param idAnnonceCovoiturage
-	 * @param idUtilisateur
+	 * @param id_ReservationCovoiturage sous forme d'un Integer
+	 * @param idAnnonceCovoiturage sous forme d'un Integer
+	 * @param idUtilisateur sous forme d'un Integer
 	 */
 	public ReservationCovoiturage(Integer id_ReservationCovoiturage, Integer idAnnonceCovoiturage,
 			Integer idUtilisateur) {
@@ -28,13 +36,14 @@ public class ReservationCovoiturage {
 		this.idUtilisateur = idUtilisateur;
 	}
 
+	
 	/**
 	 * Constructeur de l'objet ReservationCovoiturage
 	 * 
-	 * @param id_ReservationCovoiturage
-	 * @param idAnnonceCovoiturage
-	 * @param idUtilisateur
-	 * @param annonceCovoiturage
+	 * @param id_ReservationCovoiturage sous forme d'un Integer
+	 * @param idAnnonceCovoiturage sous forme d'un Integer
+	 * @param idUtilisateur sous forme d'un Integer
+	 * @param annonceCovoiturage sous forme d'un AnnonceCovoiturage
 	 */
 	public ReservationCovoiturage(Integer id_ReservationCovoiturage, Integer idAnnonceCovoiturage,
 			Integer idUtilisateur, AnnonceCovoiturage annonceCovoiturage) {
@@ -45,7 +54,7 @@ public class ReservationCovoiturage {
 		this.annonceCovoiturage = annonceCovoiturage;
 	}
 
-	/**
+	/** Getter
 	 * @return the id_ReservationCovoiturage
 	 */
 	public Integer getId_ReservationCovoiturage() {
@@ -62,7 +71,7 @@ public class ReservationCovoiturage {
 		this.id_ReservationCovoiturage = id_ReservationCovoiturage;
 	}
 
-	/**
+	/** Getter
 	 * @return the idAnnonceCovoiturage
 	 */
 	public Integer getIdAnnonceCovoiturage() {
@@ -79,7 +88,7 @@ public class ReservationCovoiturage {
 		this.idAnnonceCovoiturage = idAnnonceCovoiturage;
 	}
 
-	/**
+	/** Getter
 	 * @return the idUtilisateur
 	 */
 	public Integer getIdUtilisateur() {
@@ -96,7 +105,7 @@ public class ReservationCovoiturage {
 		this.idUtilisateur = idUtilisateur;
 	}
 
-	/**
+	/** Getter
 	 * @return the annonceCovoiturage
 	 */
 	public AnnonceCovoiturage getAnnonceCovoiturage() {

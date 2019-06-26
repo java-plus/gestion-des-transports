@@ -17,10 +17,9 @@ public class ReservationVoiture {
 	protected String immatriculation;
 	protected String marque;
 	protected String modele;
-	// protected String nomChauffeur;
 
 	/**
-	 * Constructor (sans paramÃ¨tre) de l'objet ReservationVoiture
+	 * Constructor par défaut de l'objet ReservationVoiture
 	 * 
 	 */
 	public ReservationVoiture() {
@@ -249,13 +248,5 @@ public class ReservationVoiture {
 	public void setModele(String modele) {
 		this.modele = modele;
 	}
-
-	// public String getNomChauffeur() {
-	// return nomChauffeur;
-	// }
-	//
-	// public void setNomChauffeur(String nomChauffeur) {
-	// this.nomChauffeur = nomChauffeur;
-	// }
 
 }
