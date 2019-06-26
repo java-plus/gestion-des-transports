@@ -190,8 +190,20 @@
                 dataType: "json",
                 success: (result) => {
                    
-                    	let htmlDistance = result.rows[0].elements[0].distance.text;
-                    let htmlDuree = result.rows[0].elements[0].duration.text;
+                	var distanceMiles= result.rows[0].elements[0].distance.text;
+                	
+                	 
+                	/([0-9]+)/.exec(distanceMiles);
+                	 
+                	
+                	
+                	 
+                	//J'utilise une condition ternaire =>
+                	 
+                	let htmlDuree = result.rows[0].elements[0].duration.text;
+                	let htmlDistance = RegExp.$1 * 1.61 + " km";
+                    	
+                    
                     
                     $("#duree").html(htmlDuree);
                     $("#distance").html(htmlDistance);
@@ -207,8 +219,20 @@
                 success: (result) => {
                     
                     
-                    	let htmlDistance = result.rows[0].elements[0].distance.text;
-                    let htmlDuree = result.rows[0].elements[0].duration.text;
+                	var distanceMiles= result.rows[0].elements[0].distance.text;
+                	
+               	 
+                	/([0-9]+)/.exec(distanceMiles);
+                	 
+                	
+                	
+                	 
+                	//J'utilise une condition ternaire =>
+                	 
+                	let htmlDuree = result.rows[0].elements[0].duration.text;
+                	let htmlDistance = RegExp.$1 * 1.61 + " km";
+                    	
+                    
                     
                     $("#duree").html(htmlDuree);
                     $("#distance").html(htmlDistance);
