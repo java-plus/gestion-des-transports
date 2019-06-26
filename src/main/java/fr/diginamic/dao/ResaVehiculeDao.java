@@ -132,10 +132,10 @@ public class ResaVehiculeDao {
 				String prenom = resultSet.getString("uti_prenom");
 				Integer id = resultSet.getInt("rvh_id");
 				String immatriculation = resultSet.getString("vhc_immatriculation");
-				LocalDateTime dtDebutResa = LocalDateTime.parse(debutResa, DateTimeFormatter.ofPattern(
-						"yyyy-MM-dd HH:mm:ss"));
-				LocalDateTime dtFinResa = LocalDateTime.parse(finResa, DateTimeFormatter.ofPattern(
-						"yyyy-MM-dd HH:mm:ss"));
+				LocalDateTime dtDebutResa = LocalDateTime.parse(debutResa,
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				LocalDateTime dtFinResa = LocalDateTime.parse(finResa,
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				ReservationVoiture resaVoiture = new ReservationVoiture();
 				resaVoiture.setDateTimeDeDebut(dtDebutResa);
 				resaVoiture.setDateTimeDeFin(dtFinResa);
@@ -171,8 +171,6 @@ public class ResaVehiculeDao {
 		}
 
 	}
-	
-	
 
 	public void ajoutResaVehicule(ReservationVoiture reservationVoiture) {
 		StringBuilder sb = new StringBuilder();
@@ -342,9 +340,10 @@ public class ResaVehiculeDao {
 		}
 
 	}
-	
+
 	/**
-	 * Methode permettant de lister les r�servations v�hicules futures (R�servations en cours)
+	 * Methode permettant de lister les r�servations v�hicules futures (R�servations
+	 * en cours)
 	 */
 	public List<ReservationVoiture> recupererReservationsFuturesDUneVoiture() {
 
@@ -355,7 +354,7 @@ public class ResaVehiculeDao {
 		String limmatriculation = null;
 		String marque = null;
 		String modele = null;
-		
+
 		StringBuilder selectQuery = new StringBuilder();
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		List<ReservationVoiture> ListeDesReservationsVoituresFutur = new ArrayList<>();
@@ -364,7 +363,8 @@ public class ResaVehiculeDao {
 			selectQuery.append(
 					"select resavehicule.rvh_datetimeDebut as DATE_DEBUT, resavehicule.rvh_datetimeFin as DATE_FIN, vehicule.vhc_immatriculation as IMMATRICULATION, vehicule.vhc_marque as MARQUE, vehicule.vhc_modele as MODELE");
 			selectQuery.append(" from resavehicule, vehicule, utilisateur");
-			selectQuery.append(" where resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin > now();");
+			selectQuery.append(
+					" where resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin > now();");
 
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
 			resultSet = preparedStatement.executeQuery();
@@ -376,8 +376,9 @@ public class ResaVehiculeDao {
 				limmatriculation = resultSet.getString("IMMATRICULATION");
 				marque = resultSet.getString("MARQUE");
 				modele = resultSet.getString("MODELE");
-				
-				ListeDesReservationsVoituresFutur.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
+
+				ListeDesReservationsVoituresFutur
+						.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
 			}
 
 			return ListeDesReservationsVoituresFutur;
@@ -404,11 +405,14 @@ public class ResaVehiculeDao {
 			ConnectionUtils.doClose();
 		}
 	}
-	
+
 	/**
-	 * Methode permettant de lister les r�servations v�hicules pass�es (Historique)
+	 * Methode permettant de lister les réservations véhicules passées (Historique)
+	 * 
+	 * @param idUtilisateur
+	 * @return List<ReservationVoiture> : liste des réservations antérieures
 	 */
-	public List<ReservationVoiture> recupererReservationsPasseesDUneVoiture() {
+	public List<ReservationVoiture> recupererReservationsPasseesDUneVoiturePourUtilisateur(Integer idUtilisateur) {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -417,7 +421,7 @@ public class ResaVehiculeDao {
 		String limmatriculation = null;
 		String marque = null;
 		String modele = null;
-		
+
 		StringBuilder selectQuery = new StringBuilder();
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		List<ReservationVoiture> ListeDesReservationsVoituresPassees = new ArrayList<>();
@@ -426,7 +430,11 @@ public class ResaVehiculeDao {
 			selectQuery.append(
 					"select resavehicule.rvh_datetimeDebut as DATE_DEBUT, resavehicule.rvh_datetimeFin as DATE_FIN, vehicule.vhc_immatriculation as IMMATRICULATION, vehicule.vhc_marque as MARQUE, vehicule.vhc_modele as MODELE");
 			selectQuery.append(" from resavehicule, vehicule, utilisateur");
-			selectQuery.append(" where resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin < now();");
+			selectQuery.append(" where rvh_id_utilisateur = ");
+			selectQuery.append(idUtilisateur);
+			selectQuery.append(" AND ");
+			selectQuery.append(
+					"resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin < now();");
 
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
 			resultSet = preparedStatement.executeQuery();
@@ -438,8 +446,144 @@ public class ResaVehiculeDao {
 				limmatriculation = resultSet.getString("IMMATRICULATION");
 				marque = resultSet.getString("MARQUE");
 				modele = resultSet.getString("MODELE");
-				
-				ListeDesReservationsVoituresPassees.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
+
+				ListeDesReservationsVoituresPassees
+						.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
+			}
+
+			return ListeDesReservationsVoituresPassees;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+	}
+
+	/**
+	 * Methode permettant de lister les r�servations v�hicules futures (R�servations
+	 * en cours)
+	 */
+	public List<ReservationVoiture> recupererReservationsFuturesDUneVoiturePourUtilisateur(Integer idUtilisateur) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		LocalDateTime dateDeDebut = null;
+		LocalDateTime dateDeFin = null;
+		String limmatriculation = null;
+		String marque = null;
+		String modele = null;
+
+		StringBuilder selectQuery = new StringBuilder();
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		List<ReservationVoiture> ListeDesReservationsVoituresFutur = new ArrayList<>();
+
+		try {
+			selectQuery.append(
+					"select resavehicule.rvh_datetimeDebut as DATE_DEBUT, resavehicule.rvh_datetimeFin as DATE_FIN, vehicule.vhc_immatriculation as IMMATRICULATION, vehicule.vhc_marque as MARQUE, vehicule.vhc_modele as MODELE");
+			selectQuery.append(" from resavehicule, vehicule, utilisateur");
+			selectQuery.append(" where rvh_id_utilisateur = ");
+			selectQuery.append(idUtilisateur);
+			selectQuery.append(" AND ");
+			selectQuery.append(
+					" resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin > now();");
+
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
+			resultSet = preparedStatement.executeQuery();
+			SERVICE_LOG.info("Requête de recupererReservationsFuturesDUneVoiture() lancée.");
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				dateDeDebut = LocalDateTime.parse(resultSet.getString("DATE_DEBUT"), inputFormatter);
+				dateDeFin = LocalDateTime.parse(resultSet.getString("DATE_FIN"), inputFormatter);
+				limmatriculation = resultSet.getString("IMMATRICULATION");
+				marque = resultSet.getString("MARQUE");
+				modele = resultSet.getString("MODELE");
+
+				ListeDesReservationsVoituresFutur
+						.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
+			}
+
+			return ListeDesReservationsVoituresFutur;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+	}
+
+	/**
+	 * Methode permettant de lister les réservations véhicules passées (Historique)
+	 * 
+	 * @param idUtilisateur
+	 * @return List<ReservationVoiture> : liste des réservations antérieures
+	 */
+	public List<ReservationVoiture> recupererReservationsPasseesDUneVoiture(Integer idUtilisateur) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		LocalDateTime dateDeDebut = null;
+		LocalDateTime dateDeFin = null;
+		String limmatriculation = null;
+		String marque = null;
+		String modele = null;
+
+		StringBuilder selectQuery = new StringBuilder();
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		List<ReservationVoiture> ListeDesReservationsVoituresPassees = new ArrayList<>();
+
+		try {
+			selectQuery.append(
+					"select resavehicule.rvh_datetimeDebut as DATE_DEBUT, resavehicule.rvh_datetimeFin as DATE_FIN, vehicule.vhc_immatriculation as IMMATRICULATION, vehicule.vhc_marque as MARQUE, vehicule.vhc_modele as MODELE");
+			selectQuery.append(" from resavehicule, vehicule, utilisateur");
+			selectQuery.append(
+					" where resavehicule.rvh_id_vehicule=vehicule.vhc_id and resavehicule.rvh_id_utilisateur=utilisateur.uti_id and resavehicule.rvh_datetimeFin < now();");
+
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
+			resultSet = preparedStatement.executeQuery();
+			SERVICE_LOG.info("Requête de recupererReservationsFuturesDUneVoiture() lancée.");
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				dateDeDebut = LocalDateTime.parse(resultSet.getString("DATE_DEBUT"), inputFormatter);
+				dateDeFin = LocalDateTime.parse(resultSet.getString("DATE_FIN"), inputFormatter);
+				limmatriculation = resultSet.getString("IMMATRICULATION");
+				marque = resultSet.getString("MARQUE");
+				modele = resultSet.getString("MODELE");
+
+				ListeDesReservationsVoituresPassees
+						.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
 			}
 
 			return ListeDesReservationsVoituresPassees;
@@ -468,7 +612,3 @@ public class ResaVehiculeDao {
 	}
 
 }
-
-
-
-
