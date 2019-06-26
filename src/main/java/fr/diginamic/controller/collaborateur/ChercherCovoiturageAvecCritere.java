@@ -15,18 +15,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.CovoiturageDao;
+import fr.diginamic.dao.UtilisateurDao;
+import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.model.Employe;
+import fr.diginamic.model.Vehicule;
 
+/**
+ * est la classe permettant de lister les annonces de covoiturages disponibles
+ * pour l'utilisateur courant et qui correspondent à 3 critères (lieu de départ,
+ * lieu d'arrivée, date de départ). comporte une methode doGet activée quand
+ * l'url "/controller/collaborateur/chercherannonces/*" est atteint.
+ * 
+ * Cette classe est "jumelle" de la classe ChercherCovoiturage
+ * 
+ * @author Diginamic02
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/chercherannoncesAvecCritere/*")
 public class ChercherCovoiturageAvecCritere extends HttpServlet {
 	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ChercherCovoiturage.class);
 
 	/**
-	 * Methode doGet qui recupère les données (liste des annonces) quand
+	 * Methode doGet qui recupère toutes les annonces de covoiturage quand
 	 * l'utilisateur accede à l'url /gestion-transports/collaborateur/annonces/*
+	 * La liste des annonce retournée et traitée pour affichage par la JSP
+	 * contient toutes les annonces de covoiturages qui n'ont pas été émises par
+	 * l'utilisateur courant et dont la date de départ est antérieure à la date
+	 * du jour puis trie ces annonces selon 3 critères
 	 * 
+	 * Fonctionnement de la méthode: _ récupère l'éléments utilisateur courant
+	 * (pour savoir s'il est admin, collaborateur ou chauffeur) _ récupère les
+	 * éléments : lieuDeDestination,lieuDeDepart,dateDeDepart _ instancie la DAO
+	 * CovoiturageDao qui appelera la méthode "recupererLesAnnoncesAvecCritere"
+	 * pour récupérer une liste d'annonces de covoiturage correspondant aux
+	 * critères evoqués plus haut. _stocke les variables
+	 * listeDesAnnonces,lieuDeDepart,lieuDeDestination,idUtilisateur,dateDeDepart
+	 * qui seront traités par la JSP
+	 * "/WEB-INF/collaborateur/chercherCovoiturage.jsp" pour affichage
 	 * 
 	 *
 	 * @param req
@@ -49,8 +76,14 @@ public class ChercherCovoiturageAvecCritere extends HttpServlet {
 		List<AnnonceCovoiturage> listeDesAnnonces = covoiturageDao.recupererLesAnnoncesAvecCritere(lieuDeDepart,
 				lieuDeDestination, dateDeDepart);
 
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
+		List<Employe> listeEmploye = utilisateurDao.recupererEmploye();
+
+		VehiculeDao vehiculeDao = new VehiculeDao();
+		List<Vehicule> listeVehicule = vehiculeDao.recupererVehiculesIdImmat();
+
+		req.setAttribute("listeVehicule", listeVehicule);
+		req.setAttribute("listeEmploye", listeEmploye);
 		req.setAttribute("listeDesAnnonces", listeDesAnnonces);
 		req.setAttribute("lieuDeDestination", lieuDeDestination);
 		req.setAttribute("lieuDeDepart", lieuDeDepart);

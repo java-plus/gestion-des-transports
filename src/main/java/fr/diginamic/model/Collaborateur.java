@@ -3,7 +3,14 @@ package fr.diginamic.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Class représentant un employé de type Collaborateur */
+
+/**
+ * classe reprÃ©sentant un collaborateur, fille de la classe Employe
+ * 
+ * @author Diginamic02
+ *
+ */
+
 public class Collaborateur extends Employe {
 
 	protected List<ReservationVoiture> listeDesReservationsVoitures = new ArrayList<>();
@@ -14,7 +21,7 @@ public class Collaborateur extends Employe {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor de l'objet collaborateur
 	 * 
 	 * @param id
 	 * @param nom
@@ -26,7 +33,7 @@ public class Collaborateur extends Employe {
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet collaborateur
 	 * 
 	 * @param listeDesReservationsVoitures
 	 * @param listeDesReservationsCovoiturages
@@ -43,19 +50,9 @@ public class Collaborateur extends Employe {
 		this.listeDesReservationsCovoiturages = listeDesReservationsCovoiturages;
 	}
 
-	public void reserverCovoiturage() {
-
-	}
-
-	public void reserverVoiture() {
-
-	}
-
-	public void proposerAnnonceCovoiturage() {
-
-	}
-
 	/**
+	 * Getter
+	 * 
 	 * @return the listeDesReservationsVoitures
 	 */
 	public List<ReservationVoiture> getListeDesReservationsVoitures() {
@@ -65,13 +62,16 @@ public class Collaborateur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param listeDesReservationsVoitures the listeDesReservationsVoitures to set
+	 * @param listeDesReservationsVoitures
+	 *            the listeDesReservationsVoitures to set
 	 */
 	public void setListeDesReservationsVoitures(List<ReservationVoiture> listeDesReservationsVoitures) {
 		this.listeDesReservationsVoitures = listeDesReservationsVoitures;
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the listeDesReservationsCovoiturages
 	 */
 	public List<ReservationCovoiturage> getListeDesReservationsCovoiturages() {
@@ -81,8 +81,8 @@ public class Collaborateur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param listeDesReservationsCovoiturages the listeDesReservationsCovoiturages
-	 *                                         to set
+	 * @param listeDesReservationsCovoiturages
+	 *            the listeDesReservationsCovoiturages to set
 	 */
 	public void setListeDesReservationsCovoiturages(List<ReservationCovoiturage> listeDesReservationsCovoiturages) {
 		this.listeDesReservationsCovoiturages = listeDesReservationsCovoiturages;

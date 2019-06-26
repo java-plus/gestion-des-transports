@@ -32,8 +32,8 @@ public class AjouterVehicule extends HttpServlet {
 	 * ?utilisateur=toto une date de début et une date de fin sous la forme
 	 * ?dateDeDebut=01062019 (pour 1er juin 2019) donc exemple d'url
 	 * /gestion-transports/chauffeur/occupation?utilisateur=kevinAUnePetitePinne&dateDeDebut=03052019&dateDeFin=03062019
-	 * pour une page occupation de l'utilisateur kevinAUnePetitePinne concernant des
-	 * dates du 3 mai au 6 juin 2019 (et donc un graphique avec ces dates en
+	 * pour une page occupation de l'utilisateur kevinAUnePetitePinne concernant
+	 * des dates du 3 mai au 6 juin 2019 (et donc un graphique avec ces dates en
 	 * abscisse)
 	 *
 	 * 
@@ -59,17 +59,7 @@ public class AjouterVehicule extends HttpServlet {
 		Integer nombreDePlaces = Integer.parseInt(req.getParameter("nombreDePlaces"));
 		String photo = req.getParameter("photo");
 
-		// Verifie si les dates en paramètres sont correctes et si ce n'est pas
-		// le cas prend en paramètre la dernière semaine
-		// if (!dateEstValide(dateDeDebut) && !dateEstValide(dateDeFin)) {
-		// dateDeDebut = dateDujour;
-		// dateDeFin = dateDuJourMoinsSeptJour;
-		// }
-
 		VehiculeDao vehiculeDao = new VehiculeDao();
-
-		// vehiculeDao.ajouterVehicule(new Vehicule(immatriculation, marque,
-		// modele, categorie, nombreDePlaces, photo));
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/administrateur/vehicules/");
 		requestDispatcher.forward(req, resp);

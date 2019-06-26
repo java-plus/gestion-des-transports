@@ -1,3 +1,5 @@
+<%@page import="fr.diginamic.model.Vehicule"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
@@ -130,22 +132,25 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">id</th>
-							<th scope="col">places disponibles</th>
-							<th scope="col">date départ</th>
-							<th scope="col">lieu départ</th>
-							<th scope="col">lieu arrivée</th>
-							<th scope="col">durée</th>
-							<th scope="col">distance</th>
-							<th scope="col">id utilisateur</th>
-							<th scope="col">id vehicule</th>
+						
+							
+							<th scope="col">Date départ</th>
+							<th scope="col">Lieu départ</th>
+							<th scope="col">Lieu arrivée</th>
+							
+							
+							<th scope="col">Responsable</th>
+							<th scope="col">Immatriculation</th>
+							<th scope="col">Places disponibles</th>
 							<th scope="col"></th>
 
 						</tr>
 					</thead>
 					<tbody>
 
-
+						<%List<Employe> listeEmploye = (List<Employe>) request.getAttribute("listeEmploye");
+						  List<Vehicule> listeVehicule = (List<Vehicule>) request.getAttribute("listeVehicule");
+						%>
 
 						<%
 							for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnonces) {
@@ -153,17 +158,24 @@
 						<tr>
 
 
-							<td><%=annonceCovoiturage.getIdAnnonceCovoiturage()%></td>
-							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
-							<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+							
+							
+							<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 							<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 							<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
-							<td><%=annonceCovoiturage.getDuree()%></td>
-							<td><%=annonceCovoiturage.getDistanceEnKm()%></td>
-							<td><%=annonceCovoiturage.getIdUtilisateur()%></td>
-							<td><%=annonceCovoiturage.getIdVehicule()%></td>
+							
+							<%for(Employe e:listeEmploye){
+								if(e.getId().equals(annonceCovoiturage.getIdUtilisateur())){%>
+							<td><%=e.getPrenom()%> <%=e.getNom() %></td>
+							<%} }%>
+							
+							<%for(Vehicule v: listeVehicule){ 
+							if(v.getId().equals(annonceCovoiturage.getIdVehicule())){%>
+							<td><%=v.getImmatriculation()%></td>
+							<%}} %>
+							<td><%=annonceCovoiturage.getNbPlacesDisponibles()%></td>
 							<td>
-								<button type="submit" class="btn btn-primary center-block" onclick="reserverCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Reserver</button>
+								<button type="submit" class="btn btn-success center-block" onclick="reserverCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Reserver</button>
 							</td>
 						</tr>
 						<%

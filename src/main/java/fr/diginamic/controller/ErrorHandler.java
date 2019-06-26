@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Controller gérant les error et affiche la page d’erreur correspondante
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet("/ErrorHandler")
 public class ErrorHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +30,16 @@ public class ErrorHandler extends HttpServlet {
 		processError(request, response);
 	}
 
+	/**
+	 * méthode gérant l’erreur
+	 * 
+	 * @param request
+	 *            requete http
+	 * @param response
+	 *            reponse http
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void processError(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// customize error message

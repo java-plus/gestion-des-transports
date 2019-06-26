@@ -1,6 +1,13 @@
 package fr.diginamic.model;
 
-/** Class abstraite représentant un employé */
+
+/**
+ * Classe abstraite reprÃ©sentant un employe
+ * 
+ * @author Diginamic02
+ *
+ */
+
 public abstract class Employe {
 
 	/** id de l'employé */
@@ -22,7 +29,7 @@ public abstract class Employe {
 	protected String statut;
 	
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Employe
 	 * 
 	 * @param id sous forme d'un Integer
 	 * @param nom sous forme d'un String
@@ -49,6 +56,7 @@ public abstract class Employe {
 
 	/**
 	 * Constructeur de l'objet Employé
+
 	 * 
 	 * @param id sous forme d'un Integer
 	 * @param nom sous forme d'un String
@@ -78,7 +86,10 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	/** Getter
+
+	/**
+	 * Getter
+	 * 
 	 * @return the nom
 	 */
 	public String getNom() {
@@ -95,7 +106,10 @@ public abstract class Employe {
 		this.nom = nom;
 	}
 
-	/** Getter
+
+	/**
+	 * Getter
+	 * 
 	 * @return the prenom
 	 */
 	public String getPrenom() {
@@ -112,7 +126,10 @@ public abstract class Employe {
 		this.prenom = prenom;
 	}
 
-	/** Getter
+
+	/**
+	 * Getter
+	 * 
 	 * @return the mdp
 	 */
 	public String getMdp() {
@@ -129,7 +146,10 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	/** Getter
+
+	/**
+	 * Getter
+	 * 
 	 * @return the email
 	 */
 	public String getEmail() {

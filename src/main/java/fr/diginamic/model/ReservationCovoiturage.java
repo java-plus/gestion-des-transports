@@ -1,6 +1,12 @@
 package fr.diginamic.model;
 
-/** Class de l'objet ReservationCovoiturage */
+
+/**
+ * classe représentant la réservation d'un covoiturage
+ * 
+ * @author Diginamic02
+ *
+ */
 public class ReservationCovoiturage {
 	
 	/** id de la r�servation covoiturage */
@@ -29,6 +35,7 @@ public class ReservationCovoiturage {
 		this.idAnnonceCovoiturage = idAnnonceCovoiturage;
 		this.idUtilisateur = idUtilisateur;
 	}
+
 	
 	/**
 	 * Constructeur de l'objet ReservationCovoiturage

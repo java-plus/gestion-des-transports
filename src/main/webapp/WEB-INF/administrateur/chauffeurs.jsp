@@ -184,7 +184,7 @@
 	                    	html+= '<div class="card pb-3 shadow">';
 	                    		html+= '<div class="card-header bg-white">' + chauffeur.nom + ' ' + chauffeur.prenom + '</div>'
 	                    		html+= '<div class="card-body row">'
-	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                    			html+= '<img src="' + chauffeur.photo + '" alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
 	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
 	                        			html+= '<div class="row">'
 	                        				html+= '<p class="col-4 pr-0">Nom</p>'
@@ -229,7 +229,7 @@
 	                    	html+= '<div class="card pb-3 shadow">';
 	                    		html+= '<div class="card-header bg-white">' + (chauffeur.nom).toUpperCase() + ' ' + chauffeur.prenom + '</div>'
 	                    		html+= '<div class="card-body row">'
-	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                    			html+= '<img src="' + chauffeur.photo + '" alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
 	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
 	                        			html+= '<div class="row">'
 	                        				html+= '<p class="col-4 pr-0">Nom</p>'
@@ -274,7 +274,7 @@
 	                    	html+= '<div class="card pb-3 shadow">';
 	                    		html+= '<div class="card-header bg-white">' + (chauffeur.nom).toUpperCase() + ' ' + chauffeur.prenom + '</div>'
 	                    		html+= '<div class="card-body row">'
-	                    			html+= '<img src="' + chauffeur.photo + 'alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
+	                    			html+= '<img src="' + chauffeur.photo + '" alt="photo du chauffeur" class="col-sm-5 col-12 mb-3" style="height:100%;"></img>'
 	                        		html+= '<div class="col-12 col-sm-7 pr-0">'
 	                        			html+= '<div class="row">'
 	                        				html+= '<p class="col-4 pr-0">Nom</p>'

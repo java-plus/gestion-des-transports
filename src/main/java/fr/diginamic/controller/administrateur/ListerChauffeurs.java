@@ -17,6 +17,12 @@ import org.slf4j.LoggerFactory;
 import fr.diginamic.dao.UtilisateurDao;
 import fr.diginamic.model.Chauffeur;
 
+/**
+ * Controller permettant de lister les chauffeurs
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/administrateur/chauffeurs/*")
 public class ListerChauffeurs extends HttpServlet {
 

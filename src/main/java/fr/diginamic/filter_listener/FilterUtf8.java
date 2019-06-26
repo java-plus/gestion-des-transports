@@ -10,6 +10,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+/**
+ * classe rreprésentant un FilterUtf8, implémente l'interface Filter
+ * 
+ * @author Diginamic02
+ *
+ */
 @WebFilter("/controller")
 public class FilterUtf8 implements Filter {
 

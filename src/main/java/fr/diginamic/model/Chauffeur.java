@@ -1,6 +1,13 @@
 package fr.diginamic.model;
 
-/** Class représentant un employé de type Chauffeur */
+
+/**
+ * Classe reprÃ©sentant un Chauffeur, classe fille de Employe
+ * 
+ * @author Diginamic02
+ *
+ */
+
 public class Chauffeur extends Employe {
 
 	private String matricule;
@@ -9,7 +16,7 @@ public class Chauffeur extends Employe {
 	private String telephone;
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Chauffeur
 	 * 
 	 */
 	public Chauffeur() {
@@ -17,7 +24,7 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor de l'objet Chauffeur
 	 * 
 	 * @param id
 	 * @param nom
@@ -29,7 +36,7 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Chauffeur
 	 * 
 	 * @param matricule
 	 * @param permis
@@ -45,7 +52,7 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor de l'objet Chauffeur
 	 * 
 	 * @param matricule
 	 * @param permis
@@ -66,6 +73,8 @@ public class Chauffeur extends Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the matricule
 	 */
 	public String getMatricule() {
@@ -75,13 +84,16 @@ public class Chauffeur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param matricule the matricule to set
+	 * @param matricule
+	 *            the matricule to set
 	 */
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the permis
 	 */
 	public String getPermis() {
@@ -91,13 +103,16 @@ public class Chauffeur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param permis the permis to set
+	 * @param permis
+	 *            the permis to set
 	 */
 	public void setPermis(String permis) {
 		this.permis = permis;
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the photo
 	 */
 	public String getPhoto() {
@@ -107,13 +122,16 @@ public class Chauffeur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param photo the photo to set
+	 * @param photo
+	 *            the photo to set
 	 */
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the telephone
 	 */
 	public String getTelephone() {
@@ -123,7 +141,8 @@ public class Chauffeur extends Employe {
 	/**
 	 * Setter
 	 * 
-	 * @param telephone the telephone to set
+	 * @param telephone
+	 *            the telephone to set
 	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;

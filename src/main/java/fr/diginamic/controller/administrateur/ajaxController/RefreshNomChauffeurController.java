@@ -18,6 +18,12 @@ import com.google.gson.GsonBuilder;
 import fr.diginamic.dao.UtilisateurDao;
 import fr.diginamic.model.Chauffeur;
 
+/**
+ * Controller permettant à la requete ajax de filtrer les chauffeurs par nom
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/refreshNomChauffeur")
 public class RefreshNomChauffeurController extends HttpServlet {
 

@@ -13,6 +13,12 @@ import fr.diginamic.dao.CovoiturageDao;
 import fr.diginamic.dao.ResaCovoiturageDao;
 import fr.diginamic.model.Employe;
 
+/**
+ * Controller permettant de reserver un covoiturage
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/reserverCovoiturage/*")
 public class ReserverCovoiturage extends HttpServlet {
 
@@ -31,8 +37,6 @@ public class ReserverCovoiturage extends HttpServlet {
 
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.unePlaceReserve(idAnnonceCovoiturage);
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 
 		resp.sendRedirect("/gdt/controller/collaborateur/reservations/creer");
 	}

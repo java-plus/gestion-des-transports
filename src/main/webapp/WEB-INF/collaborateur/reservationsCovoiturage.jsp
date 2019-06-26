@@ -1,28 +1,12 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur"%>
 
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
 <%@include file="../../jsp/layout_header.jsp"%>
 
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-</head>
-<body>
-
-
-	<h1>
-		Vos réservations
-
-		
-	</h1>
+	<h1>Vos réservations</h1>
 	<div class="m-3 mt-4">
 		<div id="accordion">
 			<div class="card ">
@@ -32,7 +16,8 @@
 						<button class="btn btn-link collapsed text-light"
 							data-toggle="collapse" data-target="#collapseOne"
 							aria-expanded="false" aria-controls="collapseOne">
-							Covoiturage</button>
+							Covoiturage
+						</button>
 					</h5>
 				</div>
 
@@ -41,27 +26,21 @@
 					<div class="card-body">
 						<div class="container ">
 
-
-
-
 							<div class="float-right">
 								<a href="/gdt/controller/collaborateur/chercherannonces/">
-									<button type="submit" class="btn btn-success center-block mb-3">Réserver
-										un transport</button>
+									<button type="submit" class="btn btn-success center-block mb-3">Réserver un transport</button>
 								</a>
 							</div>
 
 							<div>
 								<b>Covoiturage en cours</b>
 							</div>
-
-
 							
-							
-
-								
-
-
+							<% 
+								List<AnnonceCovoiturage> listeDesReservationsCovoiturage = (List<AnnonceCovoiturage>) request.getAttribute("listeDesReservationsCovoiturage");
+								Integer idUtilisateur = (Integer) request.getAttribute("idUtilisateur"); 
+								if(listeDesReservationsCovoiturage.size() > 0) {
+							%>
 
 									<table class="table">
 										<thead class="thead-dark">
@@ -70,25 +49,15 @@
 												<th scope="col">Depart</th>
 												<th scope="col">Destination</th>
 												<th scope="col"></th>
-												
-
 											</tr>
 										</thead>
 										<tbody>
-
-
-
 											<%
-												List<AnnonceCovoiturage> listeDesReservationsCovoiturage = (List<AnnonceCovoiturage>) request
-														.getAttribute("listeDesReservationsCovoiturage");
-												Integer idUtilisateur = (Integer) request.getAttribute("idUtilisateur");
+												
 												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
 											%>
 											<tr>
-
-
-												
-												<td><%=annonceCovoiturage.getDateDeDepart()%></td>
+												<td><%= annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 												<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 												<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
 												
@@ -108,10 +77,9 @@
 
 										</tbody>
 									</table>
-
-								
-
-							
+								<% } else { %>
+									<p>Aucun covoiturage enregistré.</p>
+								<% } %>
 						</div>
 					</div>
 				</div>
@@ -130,14 +98,10 @@
 				<div id="collapseTwo" class="collapse " aria-labelledby="headingTwo"
 					data-parent="#accordion">
 					<div class="card-body container "></div>
-
 				</div>
-
 			</div>
 		</div>
 	</div>
-
-										
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -162,7 +126,6 @@
 			</div>
 		</div>
 	</div>
-	
 											<%
 												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
 											%>
@@ -222,7 +185,6 @@
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
 	<%@include file="../../jsp/layout_footer.jsp"%>
 	<%@include file="../../jsp/dependanceScript.jsp"%>
-
 
 </body>
 </html>

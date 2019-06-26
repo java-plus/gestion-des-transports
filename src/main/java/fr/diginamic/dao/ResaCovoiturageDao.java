@@ -8,13 +8,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la base de donnée resaCovoiturage
+ * 
+ * @author Kevin.s
+ *
+ */
 public class ResaCovoiturageDao {
 
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ResaCovoiturageDao.class);
+
+	/**
+	 * méthode permettant de reserver un covoiturage
+	 * 
+	 * @param idAnnonceCovoiturage
+	 * @param idUtilisateur
+	 */
 	public void reserverCovoiturage(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
 
 		QueryUtils.updateQuery(
@@ -24,6 +42,12 @@ public class ResaCovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant d’annuler une reservation de covoiturage
+	 * 
+	 * @param idAnnonceCovoiturage
+	 * @param idUtilisateur
+	 */
 	public void annulerCovoiturage(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
 
 		QueryUtils.updateQuery(
@@ -33,6 +57,11 @@ public class ResaCovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant d’annuler toutes les reservations d’un covoiturage
+	 * 
+	 * @param idAnnonceCovoiturage
+	 */
 	public void annulerToutesLesReservations(Integer idAnnonceCovoiturage) {
 
 		QueryUtils.updateQuery(
@@ -41,6 +70,13 @@ public class ResaCovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de recuperer les annonces de covoiturage sur lesquels
+	 * l’utilisateur à reservé une place
+	 * 
+	 * @param idUtilisateurCourant
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesReservations(Integer idUtilisateurCourant) {
 
 		PreparedStatement preparedStatement = null;
@@ -69,9 +105,6 @@ public class ResaCovoiturageDao {
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
 				Integer duree = resultSet.getInt("cov_duree");
-				// Date duree =
-				// resultSet.getDate(resultSet.getString("cov_duree"));
-				// LocalTime duree2 = convertToLocalTimeViaInstant(duree);
 
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
@@ -86,7 +119,7 @@ public class ResaCovoiturageDao {
 
 			return listeDesAnnonces;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -94,8 +127,8 @@ public class ResaCovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet",
+							e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -103,8 +136,8 @@ public class ResaCovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -113,6 +146,13 @@ public class ResaCovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récuperer le nombre d’utilisateur qui ont reserver
+	 * sur le covoiturage
+	 * 
+	 * @param idAnnonceCovoiturage
+	 * @return Integer
+	 */
 	public Integer combienDePersonnesOntReserve(Integer idAnnonceCovoiturage) {
 
 		PreparedStatement preparedStatement = null;
@@ -136,7 +176,7 @@ public class ResaCovoiturageDao {
 
 			return nbReservations;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -144,8 +184,8 @@ public class ResaCovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet",
+							e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -153,8 +193,8 @@ public class ResaCovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}

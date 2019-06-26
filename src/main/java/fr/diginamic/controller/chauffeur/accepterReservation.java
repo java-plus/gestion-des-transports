@@ -11,11 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.model.Employe;
 
+/**
+ * Controller permettant d’accepter une reservation
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/chauffeur/accepterReservation/*")
 public class accepterReservation extends HttpServlet {
 
 	public accepterReservation() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

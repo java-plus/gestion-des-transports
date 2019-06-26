@@ -11,9 +11,17 @@ import org.slf4j.LoggerFactory;
 
 import fr.diginamic.exception.TechnicalException;
 import fr.diginamic.model.Chauffeur;
+import fr.diginamic.model.Collaborateur;
+import fr.diginamic.model.Employe;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la base de données utilisateur
+ * 
+ * @author Kevin.s
+ *
+ */
 public class UtilisateurDao {
 
 	/** SERVICE_LOG : Logger */
@@ -80,10 +88,11 @@ public class UtilisateurDao {
 	}
 
 	/**
-	 * Retourne l'id de l'utilisateur dans la base de données. Retourne null s'il
-	 * n'a rien trouvé.
+	 * Retourne l'id de l'utilisateur dans la base de données. Retourne null
+	 * s'il n'a rien trouvé.
 	 * 
-	 * @param email : email de l'utilisateur
+	 * @param email
+	 *            : email de l'utilisateur
 	 * @return (String) id de l'utilisateur
 	 */
 	public String getUserId(String email) {
@@ -131,7 +140,8 @@ public class UtilisateurDao {
 	/**
 	 * Retourne le mot de passe hashé de l'utilisateur.
 	 * 
-	 * @param id (String) : id de l'utilisateur
+	 * @param id
+	 *            (String) : id de l'utilisateur
 	 * @return String : le mot de passe hashé
 	 */
 	public String getUserPwd(String id) {
@@ -176,9 +186,11 @@ public class UtilisateurDao {
 	}
 
 	/**
-	 * Retourne plusieurs valeurs de l'utilisateur pour stockage dans la session.
+	 * Retourne plusieurs valeurs de l'utilisateur pour stockage dans la
+	 * session.
 	 * 
-	 * @param id : identifiant de l'utilisateur
+	 * @param id
+	 *            : identifiant de l'utilisateur
 	 * @return Map<String, String> : les valeurs utiles pendant la navigation
 	 */
 	public List<String> getUserInfosForSession(String id) {
@@ -230,8 +242,9 @@ public class UtilisateurDao {
 	/**
 	 * Ajoute un chauffeur dans la base de données.
 	 * 
-	 * @param chauffeur : objet contenant tous les différents attributs de
-	 *                  l'utilisateur chauffeur, sauf l'id
+	 * @param chauffeur
+	 *            : objet contenant tous les différents attributs de
+	 *            l'utilisateur chauffeur, sauf l'id
 	 */
 	public void ajouterChauffeur(Chauffeur chauffeur) {
 		StringBuilder sb = new StringBuilder();
@@ -267,11 +280,13 @@ public class UtilisateurDao {
 	}
 
 	/**
-	 * Récupère la liste des chauffeurs (dont le matricule correspond) de la base de
-	 * données.
+	 * Récupère la liste des chauffeurs (dont le matricule correspond) de la
+	 * base de données.
 	 * 
-	 * @param matricule String matricule du chauffeur
-	 * @return List<Chauffeur> La liste de tous les chauffeurs qui correspondent.
+	 * @param matricule
+	 *            String matricule du chauffeur
+	 * @return List<Chauffeur> La liste de tous les chauffeurs qui
+	 *         correspondent.
 	 */
 	public List<Chauffeur> recupererLesChauffeursParMatricule(String matricule) {
 
@@ -329,6 +344,12 @@ public class UtilisateurDao {
 		}
 	}
 
+	/**
+	 * méthode permettant de récuperer les chauffeurs par leur prénom
+	 * 
+	 * @param prenom
+	 * @return List<Chauffeur>
+	 */
 	public List<Chauffeur> recupererLesChauffeursParPrenom(String prenom) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -384,6 +405,12 @@ public class UtilisateurDao {
 		}
 	}
 
+	/**
+	 * méthode permettant de récuperer les chauffeurs par leur nom
+	 * 
+	 * @param nom
+	 * @return List<Chauffeur>
+	 */
 	public List<Chauffeur> recupererLesChauffeursParNom(String nom) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -439,4 +466,58 @@ public class UtilisateurDao {
 		}
 
 	}
+
+	/**
+	 * méthode permettant de récupérer tous les employés
+	 * 
+	 * @return List<Employe> avec l’id, le nom et le prenom de renseignés
+	 */
+	public List<Employe> recupererEmploye() {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Employe> listeDesEmploye = new ArrayList<>();
+		StringBuilder selectQuery = new StringBuilder();
+
+		try {
+			selectQuery.append("SELECT * FROM gestion_transport.UTILISATEUR ");
+
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt("uti_id");
+				String nom = resultSet.getString("uti_nom");
+				String prenom = resultSet.getString("uti_prenom");
+				Employe employe = new Collaborateur();
+				employe.setId(id);
+				employe.setNom(nom);
+				employe.setPrenom(prenom);
+				listeDesEmploye.add(employe);
+			}
+			return listeDesEmploye;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
 }
