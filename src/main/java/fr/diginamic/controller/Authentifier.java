@@ -113,6 +113,9 @@ public class Authentifier extends HttpServlet {
 			session.invalidate();
 		}
 		request.getSession(true);
-		request.getRequestDispatcher("/index.jsp").include(request, response);
+		// request.getRequestDispatcher("/index.jsp").include(request,
+		// response);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+		requestDispatcher.forward(request, response);
 	}
 }

@@ -60,7 +60,7 @@ public class FilterLogin implements Filter {
 				((HttpServletResponse) response).sendError(403, "Interdit");
 			}
 		} else {
-			RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/gdt/login");
+			RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(request, response);
 		}
 
