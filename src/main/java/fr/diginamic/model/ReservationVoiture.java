@@ -20,7 +20,7 @@ public class ReservationVoiture {
 //	protected String nomChauffeur;
 
 	/**
-	 * Constructor
+	 * Constructor par défaut
 	 * 
 	 */
 	public ReservationVoiture() {

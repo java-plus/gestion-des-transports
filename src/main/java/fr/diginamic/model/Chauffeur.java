@@ -1,5 +1,6 @@
 package fr.diginamic.model;
 
+/** Class représentant un employé de type Chauffeur */
 public class Chauffeur extends Employe {
 
 	private String matricule;

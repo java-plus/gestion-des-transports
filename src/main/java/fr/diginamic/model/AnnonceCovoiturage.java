@@ -2,28 +2,52 @@ package fr.diginamic.model;
 
 import java.time.LocalDateTime;
 
+/** Class représentant une annonce de covoiturage */
 public class AnnonceCovoiturage {
-
+	
+	/** id de l'annonce de covoiturage */
 	private Integer idAnnonceCovoiturage;
+	
+	/** nombre de place disponible pour le covoiturage */
 	private Integer nbPlacesDisponibles;
+	
+	/** date de départ covoiturage  */
 	private LocalDateTime dateDeDepart;
+	
+	/** lieu de départ covoiturage */
 	private String lieuDeDepart;
+	
+	/** lieu de destination du covoiturage */
 	private String lieuDeDestination;
+	
+	/** duree du covoiturage */
 	private Integer duree;
+	
+	/** distance parcourue */
 	private Integer distanceEnKm;
+	
+	/** id de la réservation du véhicule */
 	private Integer idReservationVehicule;
+	
+	/** id du vehicule utilisé pour le covoiturage */
 	private Integer idVehiculeUtilisePourCovoiturage;
+	
+	/** id de l'utilisateur réservant un covoiturage */
 	private Integer idUtilisateur;
+	
+	/** id du vehicule */
 	private Integer idVehicule;
 
 	/**
-	 * Constructeur
+	 * Constructeur avec id de reservation
 	 * 
-	 * @param nbPlacesDisponibles
-	 * @param dateDeDepart
-	 * @param lieuDeDepart
-	 * @param lieuDeDestination
-	 * @param idUtilisateur
+	 * @param nbPlacesDisponibles sous forme d'un Integer
+	 * @param dateDeDepart sous forme d'un LocalDateTime
+	 * @param lieuDeDepart sous forme d'un String
+	 * @param lieuDeDestination sous forme d'un String
+	 * @param idUtilisateur sous forme d'un Integer
+	 * @param idVehiculeUtilisePourCovoiturage sous forme d'un Integer
+	 * @param idReservationVehicule sous forme d'un Integer
 	 */
 	public AnnonceCovoiturage(Integer nbPlacesDisponibles, LocalDateTime dateDeDepart, String lieuDeDepart,
 			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage,
@@ -38,6 +62,17 @@ public class AnnonceCovoiturage {
 		this.idReservationVehicule = idReservationVehicule;
 	}
 
+	/**
+	 * Constructeur sans id de reservation
+	 * 
+	 * @param nbPlacesDisponibles sous forme d'un Integer
+	 * @param dateDeDepart sous forme d'un LocalDateTime
+	 * @param lieuDeDepart sous forme d'un String
+	 * @param lieuDeDestination sous forme d'un String
+	 * @param idUtilisateur sous forme d'un Integer
+	 * @param idVehiculeUtilisePourCovoiturage sous forme d'un Integer
+	 * @param idReservationVehicule sous forme d'un Integer
+	 */
 	public AnnonceCovoiturage(Integer nbPlacesDisponibles, LocalDateTime dateDeDepart, String lieuDeDepart,
 			String lieuDeDestination, Integer idUtilisateur, Integer idVehiculeUtilisePourCovoiturage) {
 		super();
@@ -50,19 +85,20 @@ public class AnnonceCovoiturage {
 
 	}
 
+	
 	/**
-	 * Constructeur
+	 * Constructeur complet pour l'objet AnnonceCovoiturage
 	 * 
-	 * @param idAnnonceCovoiturage
-	 * @param nbPlacesDisponibles
-	 * @param dateDeDepart
-	 * @param lieuDeDepart
-	 * @param lieuDeDestination
-	 * @param duree
-	 * @param distanceEnKm
-	 * @param idReservationVehicule
-	 * @param idUtilisateur
-	 * @param idVehicule
+	 * @param idAnnonceCovoiturage sous forme d'un Integer
+	 * @param nbPlacesDisponibles sous forme d'un Integer
+	 * @param dateDeDepart sous forme d'un LocalDateTime
+	 * @param lieuDeDepart sous forme d'un String
+	 * @param lieuDeDestination sous forme d'un String
+	 * @param duree sous forme d'un Integer
+	 * @param distanceEnKm sous forme d'un Integer
+	 * @param idUtilisateur sous forme d'un Integer
+	 * @param idVehicule sous forme d'un Integer
+	 * @param idReservationVehicule sous forme d'un Integer
 	 */
 	public AnnonceCovoiturage(Integer idAnnonceCovoiturage, Integer nbPlacesDisponibles, LocalDateTime dateDeDepart,
 			String lieuDeDepart, String lieuDeDestination, Integer duree, Integer distanceEnKm,
@@ -80,7 +116,7 @@ public class AnnonceCovoiturage {
 		this.idVehiculeUtilisePourCovoiturage = idVehicule;
 	}
 
-	/**
+	/** Getter
 	 * @return the idAnnonceCovoiturage
 	 */
 	public Integer getIdAnnonceCovoiturage() {
@@ -97,7 +133,7 @@ public class AnnonceCovoiturage {
 		this.idAnnonceCovoiturage = idAnnonceCovoiturage;
 	}
 
-	/**
+	/** Getter
 	 * @return the nbPlacesDisponibles
 	 */
 	public Integer getNbPlacesDisponibles() {
@@ -114,11 +150,7 @@ public class AnnonceCovoiturage {
 		this.nbPlacesDisponibles = nbPlacesDisponibles;
 	}
 
-	/**
-	 * @return the lieuDeDepart
-	 */
-
-	/**
+	/** Getter
 	 * @return the duree
 	 */
 	public Integer getDuree() {
@@ -135,7 +167,7 @@ public class AnnonceCovoiturage {
 		this.duree = duree;
 	}
 
-	/**
+	/** Getter
 	 * @return the distanceEnKm
 	 */
 	public Integer getDistanceEnKm() {
@@ -152,7 +184,7 @@ public class AnnonceCovoiturage {
 		this.distanceEnKm = distanceEnKm;
 	}
 
-	/**
+	/** Getter
 	 * @return the idReservationVehicule
 	 */
 	public Integer getIdReservationVehicule() {
@@ -169,7 +201,7 @@ public class AnnonceCovoiturage {
 		this.idReservationVehicule = idReservationVehicule;
 	}
 
-	/**
+	/** Getter
 	 * @return the idUtilisateur
 	 */
 	public Integer getIdUtilisateur() {
@@ -186,7 +218,7 @@ public class AnnonceCovoiturage {
 		this.idUtilisateur = idUtilisateur;
 	}
 
-	/**
+	/** Getter
 	 * @return the dateDeDepart
 	 */
 	public LocalDateTime getDateDeDepart() {
@@ -203,7 +235,7 @@ public class AnnonceCovoiturage {
 		this.dateDeDepart = dateDeDepart;
 	}
 
-	/**
+	/** Getter
 	 * @return the lieuDeDepart
 	 */
 	public String getLieuDeDepart() {
@@ -220,7 +252,7 @@ public class AnnonceCovoiturage {
 		this.lieuDeDepart = lieuDeDepart;
 	}
 
-	/**
+	/** Getter
 	 * @return the lieuDeDestination
 	 */
 	public String getLieuDeDestination() {
@@ -247,14 +279,14 @@ public class AnnonceCovoiturage {
 		this.idVehiculeUtilisePourCovoiturage = idVehicule;
 	}
 
-	/**
+	/** Getter
 	 * @return the idVehicule
 	 */
 	public Integer getIdVehicule() {
 		return idVehiculeUtilisePourCovoiturage;
 	}
 
-	/**
+	/** Getter
 	 * @return the idVehiculeUtilisePourCovoiturage
 	 */
 	public Integer getIdVehiculeUtilisePourCovoiturage() {

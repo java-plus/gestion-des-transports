@@ -3,6 +3,7 @@ package fr.diginamic.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Class représentant un employé de type Collaborateur */
 public class Collaborateur extends Employe {
 
 	protected List<ReservationVoiture> listeDesReservationsVoitures = new ArrayList<>();

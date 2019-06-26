@@ -1,20 +1,34 @@
 package fr.diginamic.model;
 
+/** Class abstraite représentant un employé */
 public abstract class Employe {
 
+	/** id de l'employé */
 	protected Integer id;
+	
+	/** nom de l'employé */
 	protected String nom;
+	
+	/** prenom de l'employé */
 	protected String prenom;
+	
+	/** email de l'employé */
 	protected String email;
-
+	
+	/** mdp de l'employé */
+	protected String mdp;
+	
+	/** statut de l'employé */
+	protected String statut;
+	
 	/**
 	 * Constructeur
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param mdp
+	 * @param id sous forme d'un Integer
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param email sous forme d'un String
+	 * @param mdp sous forme d'un String
 	 */
 	public Employe(Integer id, String nom, String prenom, String email, String mdp) {
 		super();
@@ -25,20 +39,21 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	protected String mdp;
-	protected String statut;
-
+	/**
+	 * Constructeur par défaut
+	 * 
+	 */
 	public Employe() {
 
 	}
 
 	/**
-	 * Constructor
+	 * Constructeur de l'objet Employé
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param prenom
-	 * @param statut
+	 * @param id sous forme d'un Integer
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param statut sous forme d'un String
 	 */
 	public Employe(Integer id, String nom, String prenom, String statut) {
 		this.id = id;
@@ -48,14 +63,12 @@ public abstract class Employe {
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Employé
 	 * 
-	 * @param listeDesReservationsVoitures
-	 * @param listeDesReservationsCovoiturages
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param mdp
+	 * @param nom sous forme d'un String
+	 * @param prenom sous forme d'un String
+	 * @param email sous forme d'un String
+	 * @param mdp sous forme d'un String
 	 */
 	public Employe(String nom, String prenom, String email, String mdp) {
 		super();
@@ -65,7 +78,7 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	/**
+	/** Getter
 	 * @return the nom
 	 */
 	public String getNom() {
@@ -82,7 +95,7 @@ public abstract class Employe {
 		this.nom = nom;
 	}
 
-	/**
+	/** Getter
 	 * @return the prenom
 	 */
 	public String getPrenom() {
@@ -99,7 +112,7 @@ public abstract class Employe {
 		this.prenom = prenom;
 	}
 
-	/**
+	/** Getter
 	 * @return the mdp
 	 */
 	public String getMdp() {
@@ -116,7 +129,7 @@ public abstract class Employe {
 		this.mdp = mdp;
 	}
 
-	/**
+	/** Getter
 	 * @return the email
 	 */
 	public String getEmail() {
