@@ -79,7 +79,7 @@
 				<td><%=annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
 				<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
 				<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
-				<td><%=listeDesNombresDeReservationsEnCours.get(p)%></td>
+				<td><%=listeDesNombresDeReservationsPassees.get(p)%></td>
 				<td>
 					<button type="submit" class="btn btn-success center-block" onclick="annulerCovoiturage(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">Annuler</button>
 				</td>
