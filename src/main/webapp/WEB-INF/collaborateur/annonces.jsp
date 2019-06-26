@@ -58,7 +58,7 @@
 			List<Integer> listeDesNombresDeReservationsPassees = (List<Integer>) request
 					.getAttribute("listeDesNombresDeReservationsPassees");
 			Integer p = 0;
-			if(listeDesAnnoncesEnCours != null && listeDesAnnoncesEnCours.size() > 0) {
+			if(listeDesAnnoncesPassees != null && listeDesAnnoncesPassees.size() > 0) {
 		%>
 	
 	<table class="table">
