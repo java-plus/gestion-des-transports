@@ -16,9 +16,19 @@ import javax.servlet.http.HttpSession;
 
 import fr.diginamic.model.Employe;
 
+/**
+ * Classe représentant un filterLogin, implémente l'interface Filter
+ * 
+ * @author Diginamic02
+ *
+ */
 @WebFilter("/controller/*")
 public class FilterLogin implements Filter {
 
+	/**
+	 * Constructeur de l'objet filterLogin
+	 * 
+	 */
 	public FilterLogin() {
 		// TODO Auto-generated constructor stub
 	}
