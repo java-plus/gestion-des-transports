@@ -42,9 +42,9 @@ public class ListerReservations extends HttpServlet {
 	 * 
 	 * Fonctionnement de la méthode: _ crée une instance de la DAO
 	 * ResaCovoiturageDao _ celle ci appelle la méthode
-	 * recupererLesReservations(idUtilisateurCourant) qui retourne, via une
-	 * méthode SQL sur la table RESACOVOITURAGE, la liste des réservation faites
-	 * par l'utilisateur courant sur des annonces de covoiturage
+	 * recupererLesReservations(idUtilisateurCourant) qui retourne, via une méthode
+	 * SQL sur la table RESACOVOITURAGE, la liste des réservation faites par
+	 * l'utilisateur courant sur des annonces de covoiturage
 	 *
 	 * les variables listeDesReservationsCovoiturage et idUtilisateur sont alors
 	 * stockées pour être traités par la JSP pour affichage
@@ -68,10 +68,14 @@ public class ListerReservations extends HttpServlet {
 		Integer idUtilisateurCourant = utilisateurCourant.getId();
 		ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 
-		List<AnnonceCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
-				.recupererLesReservations(idUtilisateurCourant);
+		List<AnnonceCovoiturage> listeDesReservationsCovoituragePassees = resaCovoiturageDao
+				.recupererLesReservationsPassees(idUtilisateurCourant);
+		List<AnnonceCovoiturage> listeDesReservationsCovoiturageEnCours = resaCovoiturageDao
+				.recupererLesReservationsEnCours(idUtilisateurCourant);
 
-		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
+		req.setAttribute("listeDesReservationsCovoituragePasses", listeDesReservationsCovoituragePassees);
+		req.setAttribute("listeDesReservationsCovoiturageEnCours", listeDesReservationsCovoiturageEnCours);
+
 		Integer idUtilisateur = utilisateurCourant.getId();
 		req.setAttribute("idUtilisateur", idUtilisateur);
 
