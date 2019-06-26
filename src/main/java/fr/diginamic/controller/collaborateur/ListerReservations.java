@@ -71,12 +71,9 @@ public class ListerReservations extends HttpServlet {
 		List<AnnonceCovoiturage> listeDesReservationsCovoiturage = resaCovoiturageDao
 				.recupererLesReservations(idUtilisateurCourant);
 
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 		req.setAttribute("listeDesReservationsCovoiturage", listeDesReservationsCovoiturage);
 		Integer idUtilisateur = utilisateurCourant.getId();
 		req.setAttribute("idUtilisateur", idUtilisateur);
-		// req.setAttribute("utilisateurCourant", utilisateurCourant);
 
 		RequestDispatcher requestDispatcher = req
 				.getRequestDispatcher("/WEB-INF/collaborateur/reservationsCovoiturage.jsp");

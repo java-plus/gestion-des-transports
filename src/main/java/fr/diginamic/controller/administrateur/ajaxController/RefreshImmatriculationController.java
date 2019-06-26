@@ -18,6 +18,13 @@ import com.google.gson.GsonBuilder;
 import fr.diginamic.dao.VehiculeDao;
 import fr.diginamic.model.Vehicule;
 
+/**
+ * Controller permettant à la requete ajax de filtrer les vehicules par
+ * immatriculation
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/refreshImmatriculation")
 public class RefreshImmatriculationController extends HttpServlet {
 

@@ -19,20 +19,45 @@ import fr.diginamic.model.AnnonceCovoiturage;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la table covoiturage
+ * 
+ * @author Kevin.s
+ *
+ */
 public class CovoiturageDao {
 
 	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(CovoiturageDao.class);
 
+	/**
+	 * méthode permettant de convertir une Date en LocaleDateTime
+	 * 
+	 * @param Date
+	 * @return LocalDateTime
+	 */
 	public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
 		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
+	/**
+	 * méthode permettant de convertir une Date en LocalTime
+	 * 
+	 * @param Date
+	 * @return LocalTime
+	 */
 	public static LocalTime convertToLocalTimeViaInstant(Date dateToConvert) {
 		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault()).toLocalTime();
 
 	}
 
+	/**
+	 * méthode permettant de décrémenter le nombre de place disponible pour une
+	 * annonce
+	 * 
+	 * @param idAnnonceCovoiturage
+	 *            identifiant de l’annonce
+	 */
 	public void unePlaceReserve(Integer idAnnonceCovoiturage) {
 
 		QueryUtils.updateQuery(
@@ -42,6 +67,13 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de d’incrementer le nombre de place disponible pour
+	 * une annonce
+	 * 
+	 * @param idAnnonceCovoiturage
+	 *            identifiant de l’annonce
+	 */
 	public void unePlaceReserveEnMoins(Integer idAnnonceCovoiturage) {
 
 		QueryUtils.updateQuery(
@@ -51,6 +83,14 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de supprimer une annonce
+	 * 
+	 * @param idAnnonceCovoiturage
+	 *            identifiant de l’annonce
+	 * @param idUtilisateur
+	 *            identifiant du responsable de l’annonce
+	 */
 	public void annulerAnnonce(Integer idAnnonceCovoiturage, Integer idUtilisateur) {
 
 		QueryUtils.updateQuery(
@@ -59,6 +99,12 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant d’ajouter une nouvelle annonce
+	 * 
+	 * @param annonceCovoiturage
+	 *            annonce du covoiturage
+	 */
 	public void insererNouvelleAnnonce(AnnonceCovoiturage annonceCovoiturage) {
 
 		String dateDeDepart = annonceCovoiturage.getDateDeDepart()
@@ -100,6 +146,14 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer une annonce selon certain critere
+	 * 
+	 * @param lieuDeDepart
+	 * @param lieuDeDestination
+	 * @param dateDeDepart
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesAnnoncesAvecCritere(String lieuDeDepart, String lieuDeDestination,
 			String dateDeDepart) {
 		PreparedStatement preparedStatement = null;
@@ -159,16 +213,12 @@ public class CovoiturageDao {
 			while (resultSet.next()) {
 				Integer id_utilisateur = resultSet.getInt("cov_id");
 				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
-				// TODO PRENDRE EN COMPTE CHANGEMENT DE FORMAT cov_dateTimeDebut
-				// EN DATE DANS BDD
+
 				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
 						formatterDateTime);
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
 				Integer duree = resultSet.getInt("cov_duree");
-				// Date duree =
-				// resultSet.getDate(resultSet.getString("cov_duree"));
-				// LocalTime duree2 = convertToLocalTimeViaInstant(duree);
 
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
@@ -207,6 +257,13 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer les annonces d’un utilisateur
+	 * 
+	 * @param idUtilisateurCourant
+	 *            id de l’utilisateur
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesAnnonces(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -229,9 +286,6 @@ public class CovoiturageDao {
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
 				Integer duree = resultSet.getInt("cov_duree");
-				// Date duree =
-				// resultSet.getDate(resultSet.getString("cov_duree"));
-				// LocalTime duree2 = convertToLocalTimeViaInstant(duree);
 
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
@@ -245,7 +299,7 @@ public class CovoiturageDao {
 
 			return listeDesAnnonces;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -270,6 +324,13 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récuperer les annonces en cours d’un utilisateur
+	 * 
+	 * @param idUtilisateurCourant
+	 *            identifiant de l’utilisateur
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesAnnoncesEnCours(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -332,6 +393,13 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récuperer les annonces passées d’un utilisateur
+	 * 
+	 * @param idUtilisateurCourant
+	 *            identifiant de l’utilisateur
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesAnnoncesPassees(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -392,6 +460,14 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer les annonces disponible pour un
+	 * utilisateur
+	 * 
+	 * @param idUtilisateurCourant
+	 *            identifiant de l’utilisateur
+	 * @return List<AnnonceCovoiturage>
+	 */
 	public List<AnnonceCovoiturage> recupererLesAnnoncesDisponiblesPourUtilisateur(Integer idUtilisateurCourant) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -414,9 +490,7 @@ public class CovoiturageDao {
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
 				Integer duree = resultSet.getInt("cov_duree");
-				// LocalTime duree =
-				// LocalTime.parse(resultSet.getString("cov_duree"),
-				// formatterTime);
+
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
 				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
@@ -429,7 +503,7 @@ public class CovoiturageDao {
 
 			return listeDesAnnonces;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -454,6 +528,13 @@ public class CovoiturageDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer une annonce en fonction de son id
+	 * 
+	 * @param idCovoiturage
+	 *            identifiant du covoiturage
+	 * @return AnnonceCovoiturage
+	 */
 	public AnnonceCovoiturage retrouverAnnonceCovoiturage(Integer idCovoiturage) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -475,9 +556,7 @@ public class CovoiturageDao {
 				String adresseDepart = resultSet.getString("cov_lieuDepart");
 				String adresseArrivee = resultSet.getString("cov_lieuArrive");
 				Integer duree = resultSet.getInt("cov_duree");
-				// LocalTime duree =
-				// LocalTime.parse(resultSet.getString("cov_duree"),
-				// formatterTime);
+
 				Integer distance = resultSet.getInt("cov_distance");
 				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
 				Integer idUtilisateur = resultSet.getInt("cov_uti_id");

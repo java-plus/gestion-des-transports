@@ -21,6 +21,12 @@ import fr.diginamic.model.Employe;
 import fr.diginamic.model.ReservationVoiture;
 import fr.diginamic.model.Vehicule;
 
+/**
+ * Controller permettant de reserver un véhicule de société
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/collaborateur/reserverVehiculeSociete/*")
 public class ReserverVehiculeSociete extends HttpServlet {
 
@@ -28,7 +34,6 @@ public class ReserverVehiculeSociete extends HttpServlet {
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ReserverVehiculeSociete.class);
 
 	public ReserverVehiculeSociete() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

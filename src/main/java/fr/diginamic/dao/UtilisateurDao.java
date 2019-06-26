@@ -16,6 +16,12 @@ import fr.diginamic.model.Employe;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la base de données utilisateur
+ * 
+ * @author Kevin.s
+ *
+ */
 public class UtilisateurDao {
 
 	/** SERVICE_LOG : Logger */
@@ -338,6 +344,12 @@ public class UtilisateurDao {
 		}
 	}
 
+	/**
+	 * méthode permettant de récuperer les chauffeurs par leur prénom
+	 * 
+	 * @param prenom
+	 * @return List<Chauffeur>
+	 */
 	public List<Chauffeur> recupererLesChauffeursParPrenom(String prenom) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -393,6 +405,12 @@ public class UtilisateurDao {
 		}
 	}
 
+	/**
+	 * méthode permettant de récuperer les chauffeurs par leur nom
+	 * 
+	 * @param nom
+	 * @return List<Chauffeur>
+	 */
 	public List<Chauffeur> recupererLesChauffeursParNom(String nom) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -449,6 +467,11 @@ public class UtilisateurDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer tous les employés
+	 * 
+	 * @return List<Employe> avec l’id, le nom et le prenom de renseignés
+	 */
 	public List<Employe> recupererEmploye() {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

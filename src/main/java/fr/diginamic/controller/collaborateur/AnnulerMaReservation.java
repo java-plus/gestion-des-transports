@@ -60,8 +60,6 @@ public class AnnulerMaReservation extends HttpServlet {
 
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.unePlaceReserveEnMoins(idAnnonceCovoiturage);
-		// Afficher les reservations via la liste listeDesReservations
-		// et java dans JSP
 
 		resp.sendRedirect("/gdt/controller/collaborateur/reservations/creer");
 	}

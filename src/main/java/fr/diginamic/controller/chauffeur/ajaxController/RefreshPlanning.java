@@ -21,11 +21,17 @@ import fr.diginamic.dao.ResaVehiculeDao;
 import fr.diginamic.model.Employe;
 import fr.diginamic.model.ReservationVoiture;
 
+/**
+ * Controller premettant à la requete ajax de changer de jour dans le planning
+ * et de traiter ses données
+ * 
+ * @author Kevin.s
+ *
+ */
 @WebServlet(urlPatterns = "/controller/chauffeur/refreshPlanning/*")
 public class RefreshPlanning extends HttpServlet {
 
 	public RefreshPlanning() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -50,6 +56,16 @@ public class RefreshPlanning extends HttpServlet {
 		resp.getWriter().write(gson.toJson(listeResa));
 	}
 
+	/**
+	 * méthode traitant les données de la bdd pour pouvoir les afficher dans le
+	 * planning
+	 * 
+	 * @param listeResa
+	 *            liste des réservation de véhicules provenant de la bdd
+	 * @param jourCourant
+	 *            le jour à visualiser dans le planning
+	 * @return liste de réservation traitée pour l’affichage
+	 */
 	private List<ReservationVoiture> traitementReservation(List<ReservationVoiture> listeResa,
 			LocalDate jourCourant) {
 		supprimerDemandeCreneauxIndisponible(listeResa);
@@ -83,6 +99,13 @@ public class RefreshPlanning extends HttpServlet {
 		return listeResa;
 	}
 
+	/**
+	 * méthode éliminant les réservations qui demande un chauffeur et qui ne
+	 * correspondent pas à un créneau disponible de notre chauffeur
+	 * 
+	 * @param listeResa
+	 *            liste des réservation de véhicules de la bdd
+	 */
 	private void supprimerDemandeCreneauxIndisponible(List<ReservationVoiture> listeResa) {
 		Iterator<ReservationVoiture> it = listeResa.iterator();
 		while (it.hasNext()) {

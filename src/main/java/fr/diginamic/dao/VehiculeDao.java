@@ -16,10 +16,21 @@ import fr.diginamic.model.Vehicule;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la base de données vehicule
+ * 
+ * @author Kevin.s
+ *
+ */
 public class VehiculeDao {
 	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(VehiculeDao.class);
 
+	/**
+	 * méthode permettant d’ajouter un véhicule en base de données
+	 * 
+	 * @param vehicule
+	 */
 	public void ajouterVehicule(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
@@ -36,10 +47,12 @@ public class VehiculeDao {
 		QueryUtils.updateQuery(sb.toString());
 	}
 
-	public void modifierStatutVehicule(String nouveauStatutVehicule, Vehicule vehicule) {
-		// ajout du vehicule dans la base de donnée
-	}
-
+	/**
+	 * méthode permettant de vérifier si un véhicule existe déja
+	 * 
+	 * @param vehicule
+	 * @return boolean
+	 */
 	public boolean existeDeja(Vehicule vehicule) {
 		if (recupererLesVehiculesParImmatriculation(vehicule.getImmatriculation()).size() > 0) {
 			return true;
@@ -49,6 +62,12 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de récuperer l’id d’un véhicule
+	 * 
+	 * @param vehicule
+	 * @return Integer
+	 */
 	public Integer retrouverIdVehicule(Vehicule vehicule) {
 
 		PreparedStatement preparedStatement = null;
@@ -85,8 +104,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -95,6 +114,12 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de vérifier si un véhicule appartient à la société
+	 * 
+	 * @param vehicule
+	 * @return Boolean
+	 */
 	public Boolean estUnVehiculeDeSociete(Vehicule vehicule) {
 
 		PreparedStatement preparedStatement = null;
@@ -137,8 +162,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -147,6 +172,14 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer l’identifiant d’une reservation
+	 * 
+	 * @param vehicule
+	 * @param dateHeureDepartEffective
+	 * @param idUtilisateur
+	 * @return Integer
+	 */
 	public Integer retrouverIdReservation(Vehicule vehicule, LocalDateTime dateHeureDepartEffective,
 			Integer idUtilisateur) {
 
@@ -189,8 +222,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -199,6 +232,11 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant d’ajouter un véhicule personnel
+	 * 
+	 * @param vehicule
+	 */
 	public void ajouterVehiculePersonnel(Vehicule vehicule) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
@@ -209,7 +247,7 @@ public class VehiculeDao {
 		sb.append("'").append(vehicule.getCategorie()).append("',");
 		sb.append("'").append(vehicule.getPhoto()).append("',");
 		sb.append(5).append(",");
-		// sb.append("'").append("inconnu").append("',");
+
 		sb.append("'").append(vehicule.getProprietaire()).append("'");
 		sb.append(")");
 
@@ -217,6 +255,12 @@ public class VehiculeDao {
 		QueryUtils.updateQuery(sb.toString());
 	}
 
+	/**
+	 * méthode permettant de récupérer les vehicules par leur immatriculation
+	 * 
+	 * @param immatriculation
+	 * @return List<Vehicule>
+	 */
 	public List<Vehicule> recupererLesVehiculesParImmatriculation(String immatriculation) {
 
 		PreparedStatement preparedStatement = null;
@@ -259,8 +303,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -269,6 +313,12 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer les vehicules par leur marque
+	 * 
+	 * @param marque
+	 * @return List<Vehicule>
+	 */
 	public List<Vehicule> recupererLesVehiculesParMarque(String marque) {
 
 		PreparedStatement preparedStatement = null;
@@ -308,8 +358,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -318,6 +368,11 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer les vehicules de la société
+	 * 
+	 * @return List<Vehicule>
+	 */
 	public List<Vehicule> recupererLesVehiculesSociete() {
 
 		PreparedStatement preparedStatement = null;
@@ -349,7 +404,7 @@ public class VehiculeDao {
 
 			return listeDesVehicules;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -357,8 +412,8 @@ public class VehiculeDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet",
+							e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -366,8 +421,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -376,6 +431,12 @@ public class VehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant de récupérer les id et immatriculation de tous les
+	 * véhicules
+	 * 
+	 * @return List<Vehicule>
+	 */
 	public List<Vehicule> recupererVehiculesIdImmat() {
 
 		PreparedStatement preparedStatement = null;
@@ -399,7 +460,7 @@ public class VehiculeDao {
 
 			return listeDesVehicules;
 		} catch (SQLException e) {
-			// SERVICE_LOG.error("probleme de selection en base", e);
+			SERVICE_LOG.error("probleme de selection en base", e);
 			throw new TechnicalException("probleme de selection en base", e);
 
 		} finally {
@@ -407,8 +468,8 @@ public class VehiculeDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le resultSet",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le resultSet",
+							e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -416,8 +477,8 @@ public class VehiculeDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// SERVICE_LOG.error("impossible de fermer le statement",
-					// e);
+					SERVICE_LOG.error("impossible de fermer le statement",
+							e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}

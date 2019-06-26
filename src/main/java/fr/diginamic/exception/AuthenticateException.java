@@ -1,5 +1,11 @@
 package fr.diginamic.exception;
 
+/**
+ * Exception gérant les erreurs d’identification
+ * 
+ * @author Kevin.s
+ *
+ */
 public class AuthenticateException extends RuntimeException {
 
 	/**

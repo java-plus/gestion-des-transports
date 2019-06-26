@@ -22,6 +22,12 @@ import fr.diginamic.model.ReservationVoiture;
 import fr.diginamic.utils.ConnectionUtils;
 import fr.diginamic.utils.QueryUtils;
 
+/**
+ * Dao gérant l’acces à la base resaVehicule
+ * 
+ * @author Kevin.s
+ *
+ */
 public class ResaVehiculeDao {
 
 	/** SERVICE_LOG : Logger */
@@ -41,6 +47,14 @@ public class ResaVehiculeDao {
 		return null;
 	}
 
+	/**
+	 * méthode permettant de vérifier si un véhicule est disponible
+	 * 
+	 * @param idDuVehicule
+	 * @param dateDeDebut
+	 * @param dateDeFin
+	 * @return Boolean
+	 */
 	public Boolean isVehiculeDisponible(Integer idDuVehicule, LocalDateTime dateDeDebut, LocalDateTime dateDeFin) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -99,7 +113,7 @@ public class ResaVehiculeDao {
 	 * 
 	 * @param jourCourant
 	 * @param utilisateurCourant
-	 * @return
+	 * @return List<ReservationVoiture>
 	 */
 	public List<ReservationVoiture> recupererLesTachesDuJourCourant(LocalDate jourCourant, Integer idUtilisateur) {
 		PreparedStatement preparedStatement = null;
@@ -172,6 +186,11 @@ public class ResaVehiculeDao {
 
 	}
 
+	/**
+	 * méthode permettant d’ajouter une reservation de véhicule
+	 * 
+	 * @param reservationVoiture
+	 */
 	public void ajoutResaVehicule(ReservationVoiture reservationVoiture) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
@@ -299,9 +318,7 @@ public class ResaVehiculeDao {
 			SERVICE_LOG.info("Requête de recupererReservationsPasseesDUneVoiture(String immatriculation) lancée.");
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
-				// rvh_id, rvh_datetimeDebut, rvh_datetimeFin,
-				// rvh_id_utilisateur,
-				// rvh_id_chauffeur, rvh_id_vehicule
+
 				dateDeFin = LocalDateTime.parse(resultSet.getString("rvh_datetimeFin"), inputFormatter);
 				dateDeDebut = LocalDateTime.parse(resultSet.getString("rvh_datetimeDebut"), inputFormatter);
 				ReservationVoiture reservation = new ReservationVoiture();
@@ -311,8 +328,7 @@ public class ResaVehiculeDao {
 				mapDesReservations.put(reservation, nomPrenomDuResponsable);
 
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-				String formattedDateTime = dateDeDebut.format(formatter); // "1986-04-08
-																			// 12:30"
+				String formattedDateTime = dateDeDebut.format(formatter);
 			}
 
 			return mapDesReservations;
@@ -342,8 +358,9 @@ public class ResaVehiculeDao {
 	}
 
 	/**
-	 * Methode permettant de lister les r�servations v�hicules futures (R�servations
-	 * en cours)
+	 * Methode permettant de lister les réservations véhicules futures
+	 * 
+	 * @return List<ReservationVoiture>
 	 */
 	public List<ReservationVoiture> recupererReservationsFuturesDUneVoiture() {
 
@@ -407,9 +424,10 @@ public class ResaVehiculeDao {
 	}
 
 	/**
-	 * Methode permettant de lister les réservations véhicules passées (Historique)
+	 * Methode permettant de lister les réservations véhicules passées de
+	 * l'utilisateur (Historique)
 	 * 
-	 * @param idUtilisateur
+	 * @param idUtilisateur Integer : id de l'utilisateur
 	 * @return List<ReservationVoiture> : liste des réservations antérieures
 	 */
 	public List<ReservationVoiture> recupererReservationsPasseesDUneVoiturePourUtilisateur(Integer idUtilisateur) {
@@ -449,6 +467,7 @@ public class ResaVehiculeDao {
 
 				ListeDesReservationsVoituresPassees
 						.add(new ReservationVoiture(dateDeDebut, dateDeFin, limmatriculation, marque, modele));
+
 			}
 
 			return ListeDesReservationsVoituresPassees;
@@ -477,8 +496,12 @@ public class ResaVehiculeDao {
 	}
 
 	/**
-	 * Methode permettant de lister les r�servations v�hicules futures (R�servations
-	 * en cours)
+	 * Methode permettant de lister les réservations véhicules futures pour un
+	 * utilisateur (Réservations en cours)
+	 * 
+	 * @param idUtilisateur Integer : id de l'utilisateur
+	 * @return List<ReservationVoiture> : la liste des résevations futures de
+	 *         l'utilisateur
 	 */
 	public List<ReservationVoiture> recupererReservationsFuturesDUneVoiturePourUtilisateur(Integer idUtilisateur) {
 
@@ -545,10 +568,12 @@ public class ResaVehiculeDao {
 	}
 
 	/**
-	 * Methode permettant de lister les réservations véhicules passées (Historique)
+	 * Methode permettant de lister les réservations véhicules passées pour un
+	 * utilisateur (Historique)
 	 * 
-	 * @param idUtilisateur
-	 * @return List<ReservationVoiture> : liste des réservations antérieures
+	 * @param idUtilisateur Integer : id de l'utilisateur
+	 * @return List<ReservationVoiture> : liste des réservations antérieures de
+	 *         l'utilisateur
 	 */
 	public List<ReservationVoiture> recupererReservationsPasseesDUneVoiture(Integer idUtilisateur) {
 
