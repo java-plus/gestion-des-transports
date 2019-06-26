@@ -74,7 +74,7 @@ public class ListerMesAnnonces extends HttpServlet {
 					.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage()));
 		}
 		List<Integer> listeDesNombresDeReservationsPassees = new ArrayList<>();
-		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesEnCours) {
+		for (AnnonceCovoiturage annonceCovoiturage : listeDesAnnoncesPassees) {
 			ResaCovoiturageDao resaCovoiturageDao = new ResaCovoiturageDao();
 			listeDesNombresDeReservationsPassees
 					.add(resaCovoiturageDao.combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage()));
