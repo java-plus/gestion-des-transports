@@ -3,7 +3,7 @@ package fr.diginamic.model;
 import java.time.LocalDateTime;
 
 /**
- * Représente une réservation d'un voiture de société.
+ * Représente une réservation d'une voiture de société.
  */
 public class ReservationVoiture {
 
@@ -17,10 +17,10 @@ public class ReservationVoiture {
 	protected String immatriculation;
 	protected String marque;
 	protected String modele;
-//	protected String nomChauffeur;
+	// protected String nomChauffeur;
 
 	/**
-	 * Constructor
+	 * Constructor (sans paramètre) de l'objet ReservationVoiture
 	 * 
 	 */
 	public ReservationVoiture() {
@@ -28,7 +28,7 @@ public class ReservationVoiture {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor de l'objet ReservationVoiture
 	 * 
 	 * @param id
 	 * @param idUtilisateur
@@ -39,8 +39,8 @@ public class ReservationVoiture {
 	 * @param vehicule
 	 */
 
-	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur,
-			LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, Vehicule vehicule) {
+	public ReservationVoiture(Integer id, Integer idUtilisateur, Integer idChauffeur, LocalDateTime dateTimeDeDebut,
+			LocalDateTime dateTimeDeFin, Vehicule vehicule) {
 		super();
 		this.id = id;
 		this.idUtilisateur = idUtilisateur;
@@ -50,6 +50,14 @@ public class ReservationVoiture {
 		this.vehicule = vehicule;
 	}
 
+	/**
+	 * Constructeur de l'objet ReservationVoiture
+	 * 
+	 * @param idUtilisateur
+	 * @param dateTimeDeDebut
+	 * @param dateTimeDeFin
+	 * @param vehicule
+	 */
 	public ReservationVoiture(Integer idUtilisateur, LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin,
 			Vehicule vehicule) {
 		super();
@@ -58,9 +66,18 @@ public class ReservationVoiture {
 		this.dateTimeDeFin = dateTimeDeFin;
 		this.vehicule = vehicule;
 	}
-	
-	
-	public ReservationVoiture(LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, String immatriculation, String marque, String modele) {
+
+	/**
+	 * Constructeur de l'objet ReservationVoiture
+	 * 
+	 * @param dateTimeDeDebut
+	 * @param dateTimeDeFin
+	 * @param immatriculation
+	 * @param marque
+	 * @param modele
+	 */
+	public ReservationVoiture(LocalDateTime dateTimeDeDebut, LocalDateTime dateTimeDeFin, String immatriculation,
+			String marque, String modele) {
 		super();
 		this.dateTimeDeDebut = dateTimeDeDebut;
 		this.dateTimeDeFin = dateTimeDeFin;
@@ -233,14 +250,12 @@ public class ReservationVoiture {
 		this.modele = modele;
 	}
 
-//	public String getNomChauffeur() {
-//		return nomChauffeur;
-//	}
-//
-//	public void setNomChauffeur(String nomChauffeur) {
-//		this.nomChauffeur = nomChauffeur;
-//	}
-	
-	
+	// public String getNomChauffeur() {
+	// return nomChauffeur;
+	// }
+	//
+	// public void setNomChauffeur(String nomChauffeur) {
+	// this.nomChauffeur = nomChauffeur;
+	// }
 
 }

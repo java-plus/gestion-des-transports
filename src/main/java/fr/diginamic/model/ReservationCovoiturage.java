@@ -1,5 +1,11 @@
 package fr.diginamic.model;
 
+/**
+ * classe représentant la réservation d'un covoiturage
+ * 
+ * @author Diginamic02
+ *
+ */
 public class ReservationCovoiturage {
 
 	private Integer id_ReservationCovoiturage;
@@ -8,7 +14,7 @@ public class ReservationCovoiturage {
 	private AnnonceCovoiturage annonceCovoiturage;
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet ReservationCovoiturage
 	 * 
 	 * @param id_ReservationCovoiturage
 	 * @param idAnnonceCovoiturage
@@ -22,6 +28,14 @@ public class ReservationCovoiturage {
 		this.idUtilisateur = idUtilisateur;
 	}
 
+	/**
+	 * Constructeur de l'objet ReservationCovoiturage
+	 * 
+	 * @param id_ReservationCovoiturage
+	 * @param idAnnonceCovoiturage
+	 * @param idUtilisateur
+	 * @param annonceCovoiturage
+	 */
 	public ReservationCovoiturage(Integer id_ReservationCovoiturage, Integer idAnnonceCovoiturage,
 			Integer idUtilisateur, AnnonceCovoiturage annonceCovoiturage) {
 		super();
