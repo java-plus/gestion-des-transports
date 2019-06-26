@@ -40,7 +40,7 @@
 				List<Vehicule> listeVehicule = (List<Vehicule>) request.getAttribute("listeDesVehicules");
 				for (Vehicule vehicule : listeVehicule) {
 			%>
-			<a class="col-md-3 text-dark btn" href="/gdt/controller/administrateur/vehicules/vehicule/<%= vehicule.getImmatriculation() %>">
+			<a class="col-md-3 text-dark btn urlDetails" data-url="/gdt/controller/administrateur/vehicules/vehicule/<%= vehicule.getImmatriculation() %>" href="/gdt/controller/administrateur/vehicules/vehicule/<%= vehicule.getImmatriculation() %>">
 				<div>
 					<img src=<%=vehicule.getPhoto()%> alt="" class="img-thumbnail">
 					<p>
@@ -124,35 +124,25 @@
 	<%@include file="../../jsp/layout_footer.jsp"%>
 	<%@include file="../../jsp/dependanceScript.jsp"%>
 
-
-	<!--/ methode redirigeant vers la servlet AjouterVehicule.java via une url de la forme 
-    /gestion-transports/admin/vehicules/ajout
-    ?immatriculation=AD123AED
-    &marque=ford
-    &modele=focus
-    &categorie=5e
-    &nombreDePlaces=42
-    &photo=url
-    		/-->
 	<script>
 	$("#immatriculation").change(function(){
 		    $.ajax({
 		        url: "/gdt/controller/refreshImmatriculation?immatriculation="+document.getElementById('immatriculation').value,
 		        dataType: "json",
-		        success: (result) => {
+		        success: (result) => {        	
 		        	let html = '<div class="mx-5 mt-5 text-center" id="vehicules">';
 		        	html+= '<div class="row">'
-		        	console.log(result);
 		        	result.forEach((vehicule)=>
 		        	{
-		        		html +='<div class="col-md-3">';
+		        		html+= '<a class="col-md-3 text-dark btn urlDetails" href="/gdt/controller/administrateur/vehicules/vehicule/'+ vehicule.immatriculation + '">';
+		        		html+='<div>';
 	                    html+='<div>';
 	                        html+='<img  src="'+vehicule.photo;
-	                        html+='"alt="" class="img-thumbnail">';
+	                        html+='"alt="photo de voiture" class="img-thumbnail">';
 	                        html+='<p>'+vehicule.immatriculation+'<br>';
 	                        html+=vehicule.marque+' - '+vehicule.modele+'<br>';
 	                        html+= vehicule.categorie;
-	                        html+='</p></div></div>';	
+	                        html+='</p></div></div></a>';	
 		        	});
 
 		            $("#vehicules").html(html);
@@ -173,7 +163,8 @@
 		        	console.log(result);
 		        	result.forEach((vehicule)=>
 		        	{
-		        		html +='<div class="col-md-3">';
+		        		html+= '<a class="col-md-3 text-dark btn urlDetails" href="/gdt/controller/administrateur/vehicules/vehicule/'+ vehicule.immatriculation + '">';
+		        		html+='<div>';
 	                    html+='<div>';
 	                        html+='<img  src="'+vehicule.photo;
 	                        html+='"alt="" class="img-thumbnail">';
