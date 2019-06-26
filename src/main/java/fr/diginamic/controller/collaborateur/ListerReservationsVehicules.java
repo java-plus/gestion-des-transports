@@ -10,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.diginamic.dao.ResaVehiculeDao;
+import fr.diginamic.model.Employe;
 import fr.diginamic.model.ReservationVoiture;
 
 /**
@@ -34,8 +36,7 @@ public class ListerReservationsVehicules extends HttpServlet {
 	 * quand l'utilisateur accede à l'url
 	 * /gestion-transports/collaborateur/reservations
 	 * 
-	 * @param req
-	 *            récupere les données depuis la DAO et l’envoie à la JSP
+	 * @param req  récupere les données depuis la DAO et l’envoie à la JSP
 	 * 
 	 * @param resp
 	 * @throws ServletException
@@ -44,14 +45,20 @@ public class ListerReservationsVehicules extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+
+		Employe utilisateur = (Employe) session.getAttribute("utilisateur");
+		Integer idUtilisateur = utilisateur.getId();
 
 		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
 
 		List<ReservationVoiture> listeDesReservationsVehiculeFutur = new ArrayList<ReservationVoiture>();
 		List<ReservationVoiture> listeDesReservationsVehiculePassees = new ArrayList<ReservationVoiture>();
 
-		listeDesReservationsVehiculeFutur = resaVehiculeDao.recupererReservationsFuturesDUneVoiture();
-		listeDesReservationsVehiculePassees = resaVehiculeDao.recupererReservationsPasseesDUneVoiture();
+		listeDesReservationsVehiculeFutur = resaVehiculeDao
+				.recupererReservationsFuturesDUneVoiturePourUtilisateur(idUtilisateur);
+		listeDesReservationsVehiculePassees = resaVehiculeDao
+				.recupererReservationsPasseesDUneVoiturePourUtilisateur(idUtilisateur);
 
 		// Afficher les reservations futures et passées via les listes
 		// listeDesReservationsVehiculeFutur et

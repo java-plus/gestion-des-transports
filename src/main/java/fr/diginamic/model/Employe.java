@@ -1,5 +1,11 @@
 package fr.diginamic.model;
 
+/**
+ * Classe représentant un employe
+ * 
+ * @author Diginamic02
+ *
+ */
 public abstract class Employe {
 
 	protected Integer id;
@@ -8,7 +14,7 @@ public abstract class Employe {
 	protected String email;
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Employe
 	 * 
 	 * @param id
 	 * @param nom
@@ -28,12 +34,16 @@ public abstract class Employe {
 	protected String mdp;
 	protected String statut;
 
+	/**
+	 * Constructeur de l'objet Employe
+	 * 
+	 */
 	public Employe() {
 
 	}
 
 	/**
-	 * Constructor
+	 * Constructor de l'objet Employe
 	 * 
 	 * @param id
 	 * @param nom
@@ -48,7 +58,7 @@ public abstract class Employe {
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur de l'objet Employe
 	 * 
 	 * @param listeDesReservationsVoitures
 	 * @param listeDesReservationsCovoiturages
@@ -66,6 +76,8 @@ public abstract class Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the nom
 	 */
 	public String getNom() {
@@ -83,6 +95,8 @@ public abstract class Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the prenom
 	 */
 	public String getPrenom() {
@@ -100,6 +114,8 @@ public abstract class Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the mdp
 	 */
 	public String getMdp() {
@@ -117,6 +133,8 @@ public abstract class Employe {
 	}
 
 	/**
+	 * Getter
+	 * 
 	 * @return the email
 	 */
 	public String getEmail() {
