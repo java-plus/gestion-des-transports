@@ -49,7 +49,7 @@ public class RefreshPlanning extends HttpServlet {
 
 		ResaVehiculeDao resaVehiculeDao = new ResaVehiculeDao();
 		List<ReservationVoiture> listeResa = resaVehiculeDao.recupererLesTachesDuJourCourant(localDate, idChauffeur);
-		traitementReservation(listeResa, LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		traitementReservation(listeResa, localDate);
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -68,6 +68,7 @@ public class RefreshPlanning extends HttpServlet {
 	 */
 	private List<ReservationVoiture> traitementReservation(List<ReservationVoiture> listeResa,
 			LocalDate jourCourant) {
+
 		supprimerDemandeCreneauxIndisponible(listeResa);
 		LocalDateTime debutJour = LocalDateTime.of(jourCourant, LocalTime.parse("00:00:00"));
 		LocalDateTime finJour = LocalDateTime.of(jourCourant, LocalTime.parse("23:59:59"));
@@ -77,11 +78,9 @@ public class RefreshPlanning extends HttpServlet {
 			LocalDateTime finResa = resaVoiture.getDateTimeDeFin();
 
 			if (debutResa.isBefore(debutJour) && finResa.isBefore(finJour)) {
-
 				LocalDateTime d = resaVoiture.getDateTimeDeDebut();
 				resaVoiture.setDateTimeDeDebut(LocalDateTime.of(d.getYear(), d.getMonth(), d.getDayOfMonth(), 0,
 						0));
-
 			} else if (debutResa.isAfter(debutJour) && finResa.isAfter(finJour)) {
 				LocalDateTime f = resaVoiture.getDateTimeDeFin();
 				resaVoiture.setDateTimeDeFin(LocalDateTime.of(f.getYear(), f.getMonth(), f.getDayOfMonth(), 23,
