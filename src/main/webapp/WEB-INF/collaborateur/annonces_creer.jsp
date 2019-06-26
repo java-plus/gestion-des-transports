@@ -13,7 +13,7 @@
 		Integer nbPlaceDispo = (Integer) request.getAttribute("nbPlaceDispo");
 	%>
 	
-	<a href="/gdt/controller/collaborateur/annonces" class="text-success p-2 btn mb-3"> << Retour à la liste</a>
+	<a href="/gdt/controller/collaborateur/annonces" class="text-success p-2 btn mb-3 font-weight-bold"> << Retour à la liste</a>
         
 	<h1 class="mb-4">Publier une annonce</h1>
 	<form method="POST" action="/gdt/controller/collaborateur/creerannonce/">
@@ -143,8 +143,8 @@
 				</div>
 			</div>
 			
-			<button class="btn btn-success float-right mt-2 mb-5" 
-					data-toggle="modal" data-target="#exampleModal">Publier</button>
+			<button type="button" class="btn btn-success float-right mt-2 mb-5" id="btnPublier"
+					data-toggle="modal" data-target="#exampleModal" disabled>Publier</button>
 					
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -177,6 +177,7 @@
 					
 				</div>
 			</div>
+		</div>
 	</form>
 
 	<%-- CONTENU FIN HTML (FIN MAIN, FOOTER) --%>
@@ -217,15 +218,41 @@
             
     })
     
+    let adresseDeDepart = "";
+    let adresseDeDestination = "";
+    let immatriculationModal = "";
+    let marqueModal = "";
+    let modeleModal = "";
+    let nbPlacesModal = "";
+    let dateDeDepart = "";
+    let selectedHeureDeDepart = "";
+    let selectedMinuteDeDepart = "";
+    let btnPublier = document.getElementById("btnPublier");
     					
 	function contentChange() {
-	 	document.getElementById('departSpan').innerHTML = document.getElementById("adresseDeDepart").value;
-		document.getElementById('destinationSpan').innerHTML = document.getElementById("adresseDeDestination").value;
-		document.getElementById('immatriculationSpan').innerHTML = document.getElementById("immatriculationModal").value;
-		document.getElementById('marqueSpan').innerHTML = document.getElementById("marqueModal").value;
-		document.getElementById('modeleSpan').innerHTML = document.getElementById("modeleModal").value;
-		document.getElementById('placesSpan').innerHTML = document.getElementById("nbPlacesModal").value;
-		document.getElementById('dateHeuresSpan').innerHTML = document.getElementById("dateDeDepart").value + " " + document.getElementById("selectedHeureDeDepart").value + " h " + document.getElementById("selectedMinuteDeDepart").value;
+    	
+	    adresseDeDepart = document.getElementById("adresseDeDepart").value;
+	    adresseDeDestination = document.getElementById("adresseDeDestination").value;
+	    immatriculationModal = document.getElementById("immatriculationModal").value;
+	    marqueModal = document.getElementById("marqueModal").value;
+	    modeleModal = document.getElementById("modeleModal").value;
+	    nbPlacesModal = document.getElementById("nbPlacesModal").value;
+	    dateDeDepart = document.getElementById("dateDeDepart").value;
+	    selectedHeureDeDepart = document.getElementById("selectedHeureDeDepart").value;
+	    selectedMinuteDeDepart = document.getElementById("selectedMinuteDeDepart").value;
+
+	 	document.getElementById('departSpan').innerHTML = adresseDeDepart;
+		document.getElementById('destinationSpan').innerHTML = adresseDeDestination;
+		document.getElementById('immatriculationSpan').innerHTML = immatriculationModal;
+		document.getElementById('marqueSpan').innerHTML = marqueModal;
+		document.getElementById('modeleSpan').innerHTML = modeleModal;
+		document.getElementById('placesSpan').innerHTML = nbPlacesModal;
+		document.getElementById('dateHeuresSpan').innerHTML = dateDeDepart + " " + selectedHeureDeDepart + " h " + selectedMinuteDeDepart;
+    	if(adresseDeDepart != "" && adresseDeDestination != "" && immatriculationModal != "" && marqueModal != "" && modeleModal != "" && nbPlacesModal != "" && dateDeDepart != "" && selectedHeureDeDepart != "" && selectedMinuteDeDepart != "") {
+    		btnPublier.removeAttribute("disabled");
+    	} else {
+    		btnPublier.setAttribute("disabled", "");
+    	}
     };
 				
     </script>
