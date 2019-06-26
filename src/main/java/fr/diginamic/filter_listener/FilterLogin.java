@@ -30,12 +30,10 @@ public class FilterLogin implements Filter {
 	 * 
 	 */
 	public FilterLogin() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -44,9 +42,10 @@ public class FilterLogin implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession(false);
+		System.out.println(session);
 		System.out.println("filter lancé");
 
-		if (req.isRequestedSessionIdValid()) {
+		if (req.isRequestedSessionIdValid() && session.getAttribute("utilisateur") != null) {
 			Employe utilisateur = (Employe) session.getAttribute("utilisateur");
 			String statut = utilisateur.getStatut();
 			System.out.println("statut:" + utilisateur.getStatut());
