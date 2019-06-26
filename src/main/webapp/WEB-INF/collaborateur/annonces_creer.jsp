@@ -1,3 +1,5 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
 	import="java.util.List, fr.diginamic.model.AnnonceCovoiturage,fr.diginamic.model.Collaborateur,java.util.HashSet,java.util.Set"%>
 <%-- CONTENU DEBUT HTML (HEAD + HEADER ...) --%>
@@ -185,36 +187,60 @@
 	<%@include file="../../jsp/dependanceScript.jsp"%>
 
 	<script>
+	
     $("#adresseDeDepart").change(function(){
-            $.ajax({
-                url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
-                dataType: "json",
-                success: (result) => {
-                   
-                    	let htmlDistance = result.rows[0].elements[0].distance.text;
-                    let htmlDuree = result.rows[0].elements[0].duration.text;
-                    
-                    $("#duree").html(htmlDuree);
-                    $("#distance").html(htmlDistance);
-                }
-            });
+    	$.ajax({
+            url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
+            dataType: "json",
+            success: (result) => {
+
+                var distanceMiles= result.rows[0].elements[0].distance.text;
+                
+                
+                /([0-9]+)/.exec(distanceMiles);
+                
+                
+                
+                
+                //J'utilise une condition ternaire =>
+                
+                let htmlDuree = result.rows[0].elements[0].duration.text;
+                let htmlDistance = (RegExp.$1 * 1.61).toFixed(2) + " km";
+                
+
+
+                $("#duree").html(htmlDuree);
+                $("#distance").html(htmlDistance);
+            }
+        });
             
     })
     
     $("#adresseDeDestination").change(function(){
-            $.ajax({
-                url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
-                dataType: "json",
-                success: (result) => {
+    	$.ajax({
+            url: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+document.getElementById('adresseDeDepart').value+"&destinations="+document.getElementById('adresseDeDestination').value+"&key=AIzaSyBrXhHfdvdv1-lZnGwMxHMmxgtFuELKoGQ",
+            dataType: "json",
+            success: (result) => {
+
+                var distanceMiles= result.rows[0].elements[0].distance.text;
+                
+                
+                /([0-9]+)/.exec(distanceMiles);
+                
+                
+                
+                
+                //J'utilise une condition ternaire =>
+                
+                let htmlDuree = result.rows[0].elements[0].duration.text;
+                let htmlDistance = (RegExp.$1 * 1.61).toFixed(2) + " km";
                     
-                    
-                    	let htmlDistance = result.rows[0].elements[0].distance.text;
-                    let htmlDuree = result.rows[0].elements[0].duration.text;
-                    
-                    $("#duree").html(htmlDuree);
-                    $("#distance").html(htmlDistance);
-                }
-            });
+
+
+                $("#duree").html(htmlDuree);
+                $("#distance").html(htmlDistance);
+            }
+        });
             
     })
     
