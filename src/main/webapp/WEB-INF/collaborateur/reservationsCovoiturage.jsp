@@ -33,13 +33,13 @@
 							</div>
 
 							<div>
-								<b>Covoiturage en cours</b>
+								<b>Réservations en cours</b>
 							</div>
 							
 							<% 
-								List<AnnonceCovoiturage> listeDesReservationsCovoiturage = (List<AnnonceCovoiturage>) request.getAttribute("listeDesReservationsCovoiturage");
+								List<AnnonceCovoiturage> listeDesReservationsCovoiturageEnCours = (List<AnnonceCovoiturage>) request.getAttribute("listeDesReservationsCovoiturageEnCours");
 								Integer idUtilisateur = (Integer) request.getAttribute("idUtilisateur"); 
-								if(listeDesReservationsCovoiturage.size() > 0) {
+								if(listeDesReservationsCovoiturageEnCours != null && listeDesReservationsCovoiturageEnCours.size() > 0) {
 							%>
 
 									<table class="table">
@@ -54,7 +54,56 @@
 										<tbody>
 											<%
 												
-												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
+												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturageEnCours) {
+											%>
+											<tr>
+												<td><%= annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
+												<td><%=annonceCovoiturage.getLieuDeDepart()%></td>
+												<td><%=annonceCovoiturage.getLieuDeDestination()%></td>
+												
+												<td>
+													<button type="submit" class="btn btn-success center-block"
+														
+														onclick="afficherModal(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">annuler
+														ma reservation</button>
+														<button type="submit" class="btn btn-success center-block"
+														
+														onclick="afficherModalDetails(<%=annonceCovoiturage.getIdAnnonceCovoiturage()%>)">détails</button>
+												</td>
+											</tr>
+											<%
+												}
+											%>
+
+										</tbody>
+									</table>
+								<% } else { %>
+									<p>Aucun covoiturage enregistré.</p>
+								<% } %>
+								
+								
+								<div>
+								<b>Historique</b>
+							</div>
+							
+							<% 
+								List<AnnonceCovoiturage> listeDesReservationsCovoituragePassees = (List<AnnonceCovoiturage>) request.getAttribute("listeDesReservationsCovoituragePassees");
+								if(listeDesReservationsCovoituragePassees != null && listeDesReservationsCovoituragePassees.size() > 0) {
+							%>
+
+									<table class="table">
+										<thead class="thead-dark">
+											<tr>
+												<th scope="col">Date / Heure</th>
+												<th scope="col">Depart</th>
+												<th scope="col">Destination</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												
+												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoituragePassees) {
 											%>
 											<tr>
 												<td><%= annonceCovoiturage.getDateDeDepart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))%></td>
@@ -127,7 +176,7 @@
 		</div>
 	</div>
 											<%
-												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturage) {
+												for (AnnonceCovoiturage annonceCovoiturage : listeDesReservationsCovoiturageEnCours) {
 											%>
 	
 	<!-- Modal Details -->
