@@ -34,20 +34,20 @@ public class ListerMesAnnonces extends HttpServlet {
 
 	/**
 	 * Methode doGet qui recupère la liste des annonces qu'a créé l'utilisateur
-	 * courant ainsi que le nombre de réservation qui ont été faites par
-	 * d'autres utilisateur sur ce trajet
+	 * courant ainsi que le nombre de réservation qui ont été faites par d'autres
+	 * utilisateur sur ce trajet
 	 * 
 	 * Fonctionnement de la méthode: _crée un instant de la DAO CovoiturageDao
-	 * _celle ci appelle la methode recupererLesAnnonces(idUtilisateurCourant)
-	 * qui retourne une liste "listeDesAnnonces" _ pour chaque élément (annonce)
-	 * de cette liste (dans une boucle for) -> une instance de la dao
+	 * _celle ci appelle la methode recupererLesAnnonces(idUtilisateurCourant) qui
+	 * retourne une liste "listeDesAnnonces" _ pour chaque élément (annonce) de
+	 * cette liste (dans une boucle for) -> une instance de la dao
 	 * ResaCovoiturageDao est créée -> celle ci appelle une methode
 	 * combienDePersonnesOntReserve(annonceCovoiturage.getIdAnnonceCovoiturage())
 	 * qui, via une requete SQL sur la base RESACOVOITURAGE, compte le nombre de
 	 * réservations qui ont été faites sur cette réservation
 	 * 
-	 * les variables listeDesAnnonces et listeDesNombresDeReservations sont
-	 * alors stockées pour etre traitées par la JSP pour affichage
+	 * les variables listeDesAnnonces et listeDesNombresDeReservations sont alors
+	 * stockées pour etre traitées par la JSP pour affichage
 	 * 
 	 *
 	 * @param req
@@ -83,7 +83,7 @@ public class ListerMesAnnonces extends HttpServlet {
 		req.setAttribute("listeDesAnnoncesEnCours", listeDesAnnoncesEnCours);
 		req.setAttribute("listeDesAnnoncesPassees", listeDesAnnoncesPassees);
 		req.setAttribute("listeDesNombresDeReservationsEnCours", listeDesNombresDeReservationsEnCours);
-		req.setAttribute("listeDesNombresDeReservationsEnCours", listeDesNombresDeReservationsPassees);
+		req.setAttribute("listeDesNombresDeReservationsPassees", listeDesNombresDeReservationsPassees);
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/collaborateur/annonces.jsp");
 		requestDispatcher.forward(req, resp);
