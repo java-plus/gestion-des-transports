@@ -71,6 +71,154 @@ public class ResaCovoiturageDao {
 	}
 
 	/**
+	 * Méthode permettant de récuperer les annonces de covoiturage en cours (non
+	 * passées) sur lesquels l’utilisateur a reservé une place
+	 * 
+	 * @param idUtilisateurCourant
+	 * @return List<AnnonceCovoiturage>
+	 */
+	public List<AnnonceCovoiturage> recupererLesReservationsEnCours(Integer idUtilisateurCourant) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		PreparedStatement preparedStatementAnnonceCovoiturage = null;
+		ResultSet resultSetAnnonceCovoiturage = null;
+
+		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where cov_datetimeDebut >= NOW() AND resaCovoiturage.rco_idUtilisateur="
+							+ idUtilisateurCourant);
+			resultSet = preparedStatement.executeQuery();
+			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			ConnectionUtils.doCommit();
+
+			while (resultSet.next()) {
+
+				Integer id_utilisateur = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
+
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
+						formatterDateTime);
+				String adresseDepart = resultSet.getString("cov_lieuDepart");
+				String adresseArrivee = resultSet.getString("cov_lieuArrive");
+				Integer duree = resultSet.getInt("cov_duree");
+
+				Integer distance = resultSet.getInt("cov_distance");
+				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
+				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
+				Integer idVehicule = resultSet.getInt("cov_idVehicule");
+
+				listeDesAnnonces
+						.add(new AnnonceCovoiturage(id_utilisateur, nbPlacesDispo, dateHeureDebut, adresseDepart,
+								adresseArrivee, duree, distance, idReservationVehicule, idUtilisateur, idVehicule));
+
+			}
+
+			return listeDesAnnonces;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	/**
+	 * Méthode permettant de récuperer les annonces de covoiturage passées sur
+	 * lesquelles l’utilisateur a reservé une place
+	 * 
+	 * @param idUtilisateurCourant
+	 * @return List<AnnonceCovoiturage>
+	 */
+	public List<AnnonceCovoiturage> recupererLesReservationsPassees(Integer idUtilisateurCourant) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		PreparedStatement preparedStatementAnnonceCovoiturage = null;
+		ResultSet resultSetAnnonceCovoiturage = null;
+
+		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where cov_datetimeDebut < NOW() AND resaCovoiturage.rco_idUtilisateur="
+							+ idUtilisateurCourant);
+			resultSet = preparedStatement.executeQuery();
+			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			ConnectionUtils.doCommit();
+
+			while (resultSet.next()) {
+
+				Integer id_utilisateur = resultSet.getInt("cov_id");
+				Integer nbPlacesDispo = resultSet.getInt("cov_nbPlacesDispo");
+
+				LocalDateTime dateHeureDebut = LocalDateTime.parse(resultSet.getString("cov_dateTimeDebut"),
+						formatterDateTime);
+				String adresseDepart = resultSet.getString("cov_lieuDepart");
+				String adresseArrivee = resultSet.getString("cov_lieuArrive");
+				Integer duree = resultSet.getInt("cov_duree");
+
+				Integer distance = resultSet.getInt("cov_distance");
+				Integer idReservationVehicule = resultSet.getInt("cov_idReservationVehicule");
+				Integer idUtilisateur = resultSet.getInt("cov_uti_id");
+				Integer idVehicule = resultSet.getInt("cov_idVehicule");
+
+				listeDesAnnonces
+						.add(new AnnonceCovoiturage(id_utilisateur, nbPlacesDispo, dateHeureDebut, adresseDepart,
+								adresseArrivee, duree, distance, idReservationVehicule, idUtilisateur, idVehicule));
+
+			}
+
+			return listeDesAnnonces;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
+	/**
 	 * méthode permettant de recuperer les annonces de covoiturage sur lesquels
 	 * l’utilisateur à reservé une place
 	 * 
@@ -127,8 +275,7 @@ public class ResaCovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					SERVICE_LOG.error("impossible de fermer le resultSet",
-							e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -136,8 +283,7 @@ public class ResaCovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					SERVICE_LOG.error("impossible de fermer le statement",
-							e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
@@ -147,8 +293,8 @@ public class ResaCovoiturageDao {
 	}
 
 	/**
-	 * méthode permettant de récuperer le nombre d’utilisateur qui ont reserver
-	 * sur le covoiturage
+	 * méthode permettant de récuperer le nombre d’utilisateur qui ont reserver sur
+	 * le covoiturage
 	 * 
 	 * @param idAnnonceCovoiturage
 	 * @return Integer
@@ -184,8 +330,7 @@ public class ResaCovoiturageDao {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
-					SERVICE_LOG.error("impossible de fermer le resultSet",
-							e);
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
 					throw new TechnicalException("impossible de fermer le resultSet", e);
 				}
 			}
@@ -193,8 +338,7 @@ public class ResaCovoiturageDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					SERVICE_LOG.error("impossible de fermer le statement",
-							e);
+					SERVICE_LOG.error("impossible de fermer le statement", e);
 					throw new TechnicalException("impossible de fermer le statement", e);
 				}
 			}
