@@ -93,7 +93,7 @@ public class ConnectionUtils {
 	 */
 	public static void doClose() {
 		try {
-			if (conn != null || conn.isClosed()) {
+			if (conn != null && conn.isClosed()) {
 				conn.close();
 			}
 		} catch (SQLException e) {
