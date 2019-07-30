@@ -89,7 +89,7 @@ public class ResaCovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where cov_datetimeDebut >= NOW() AND resaCovoiturage.rco_idUtilisateur="
+					"select * from COVOITURAGE inner join RESACOVOITURAGE on COVOITURAGE.cov_id=RESACOVOITURAGE.rco_idCovoiture where cov_datetimeDebut >= NOW() AND RESACOVOITURAGE.rco_idUtilisateur="
 							+ idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -163,7 +163,7 @@ public class ResaCovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where cov_datetimeDebut < NOW() AND resaCovoiturage.rco_idUtilisateur="
+					"select * from COVOITURAGE inner join RESACOVOITURAGE on COVOITURAGE.cov_id=RESACOVOITURAGE.rco_idCovoiture where cov_datetimeDebut < NOW() AND RESACOVOITURAGE.rco_idUtilisateur="
 							+ idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -237,7 +237,7 @@ public class ResaCovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from covoiturage inner join resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
+					"select * from COVOITURAGE inner join RESACOVOITURAGE on COVOITURAGE.cov_id=RESACOVOITURAGE.rco_idCovoiture where RESACOVOITURAGE.rco_idUtilisateur="
 							+ idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -293,8 +293,8 @@ public class ResaCovoiturageDao {
 	}
 
 	/**
-	 * méthode permettant de récuperer le nombre d’utilisateur qui ont reserver sur
-	 * le covoiturage
+	 * méthode permettant de récuperer le nombre d’utilisateur qui ont reserver
+	 * sur le covoiturage
 	 * 
 	 * @param idAnnonceCovoiturage
 	 * @return Integer
@@ -309,7 +309,7 @@ public class ResaCovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select count(rco_id) from resacovoiturage where rco_idCovoiture=" + idAnnonceCovoiturage);
+					"select count(rco_id) from RESACOVOITURAGE where rco_idCovoiture=" + idAnnonceCovoiturage);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 

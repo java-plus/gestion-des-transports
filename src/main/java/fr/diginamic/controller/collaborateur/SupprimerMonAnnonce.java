@@ -39,7 +39,7 @@ public class SupprimerMonAnnonce extends HttpServlet {
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.annulerAnnonce(idAnnonceCovoiturage, idUtilisateur);
 
-		resp.sendRedirect("http://localhost:8080/gdt/controller/collaborateur/annonces");
+		resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/annonces");
 	}
 
 }

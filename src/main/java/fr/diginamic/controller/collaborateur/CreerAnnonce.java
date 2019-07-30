@@ -115,7 +115,7 @@ public class CreerAnnonce extends HttpServlet {
 			req.setAttribute("utilisateur", utilisateur);
 
 			req.setAttribute("utilisateur", utilisateur);
-			resp.sendRedirect("/gdt/controller/collaborateur/annonces");
+			resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/annonces");
 		} else if (vehiculeDao.estUnVehiculeDeSociete(vehicule)) {
 			System.out.println("existe pas");
 			idReservationVehiculeSociete = vehiculeDao.retrouverIdReservation(vehicule, dateHeureDepartEffective,
@@ -132,7 +132,7 @@ public class CreerAnnonce extends HttpServlet {
 				req.setAttribute("utilisateur", utilisateur);
 
 				req.setAttribute("utilisateur", utilisateur);
-				resp.sendRedirect("/gdt/controller/collaborateur/annonces");
+				resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/annonces");
 			} else {
 
 				Integer nbPlaceDispo = nbPlacesVehicule;
@@ -168,7 +168,7 @@ public class CreerAnnonce extends HttpServlet {
 			req.setAttribute("utilisateur", utilisateur);
 
 			req.setAttribute("utilisateur", utilisateur);
-			resp.sendRedirect("/gdt/controller/collaborateur/annonces");
+			resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/annonces");
 		}
 
 	}

@@ -29,7 +29,7 @@ public class accepterReservation extends HttpServlet {
 		Integer idChauffeur = ((Employe) req.getSession().getAttribute("utilisateur")).getId();
 		ResaVehiculeDao vehiculeDao = new ResaVehiculeDao();
 		vehiculeDao.accepterReservation(idResa, idChauffeur);
-		resp.sendRedirect("/gdt/controller/chauffeur/planning");
+		resp.sendRedirect(req.getContextPath() + "/controller/chauffeur/planning");
 
 	}
 

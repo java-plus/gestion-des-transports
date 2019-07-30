@@ -61,7 +61,7 @@ public class AnnulerMaReservation extends HttpServlet {
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.unePlaceReserveEnMoins(idAnnonceCovoiturage);
 
-		resp.sendRedirect("/gdt/controller/collaborateur/reservations/creer");
+		resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/reservations/creer");
 	}
 
 }

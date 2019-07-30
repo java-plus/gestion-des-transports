@@ -70,7 +70,7 @@ public class ListerVehicules extends HttpServlet {
 		VehiculeDao vehiculeDao = new VehiculeDao();
 		vehiculeDao.ajouterVehicule(vehicule);
 		SERVICE_LOG.info("redirect");
-		resp.sendRedirect("/gdt/controller/administrateur/vehicules");
+		resp.sendRedirect(req.getContextPath() + "/controller/administrateur/vehicules");
 
 	}
 

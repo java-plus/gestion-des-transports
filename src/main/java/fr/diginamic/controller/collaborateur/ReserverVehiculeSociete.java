@@ -80,10 +80,11 @@ public class ReserverVehiculeSociete extends HttpServlet {
 		if (resaVehiculeDao.isVehiculeDisponible(idVehicule, dateHeureDepart, dateHeureArrive)) {
 			SERVICE_LOG.info("Vehicule disponible.");
 			resaVehiculeDao.ajoutResaVehicule(reservationVoiture);
-			resp.sendRedirect("/gdt/controller/collaborateur/reservations/");
+			resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/reservations/");
 		} else {
 			SERVICE_LOG.info("Vehicule non disponible.");
-			resp.sendRedirect("/gdt/controller/collaborateur/reserverVehiculeSociete?statut=dejareserve");
+			resp.sendRedirect(req.getContextPath()
+					+ "/controller/collaborateur/reserverVehiculeSociete?statut=dejareserve");
 		}
 
 	}

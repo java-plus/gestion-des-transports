@@ -46,13 +46,11 @@
 						if (statut.equals("admin") || statut.equals("collaborateur")) {
 					%>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/collaborateur/reservations">Vos
+						href=<%=request.getContextPath()+"/controller/collaborateur/reservations" %>>Vos
 						réservations</a> <a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/collaborateur/annonces">Vos
+						href=<%=request.getContextPath()+"/controller/collaborateur/annonces" %>>Vos
 						annonces</a> 
-						<%-- <a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/collaborateur/statistiques">Statistiques</a>
-						 ---%>
+						
 					<%
 						}
 					%>
@@ -60,9 +58,9 @@
 						if (statut.equals("admin")) {
 					%>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/administrateur/vehicules">Véhicules</a>
+						href=<%=request.getContextPath()+ "/controller/administrateur/vehicules"%>>Véhicules</a>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/administrateur/chauffeurs">Chauffeurs</a>
+						href=<%=request.getContextPath()+"/controller/administrateur/chauffeurs"%>>Chauffeurs</a>
 					<%
 						}
 					%>
@@ -70,10 +68,8 @@
 						if (statut.equals("chauffeur")) {
 					%>
 					<a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/chauffeur/planning">Planning</a>
-					<%--<a class="nav-item nav-link"
-						href="http://localhost:8080/gdt/controller/chauffeur/occupation">Occupation</a>
-					--%>
+						href=<%=request.getContextPath()+"/controller/chauffeur/planning"%>>Planning</a>
+					
 					<%
 						}
 					%>
@@ -86,7 +82,7 @@
 				<%=utilisateur.getNom().toUpperCase()%>
 				<%=utilisateur.getPrenom()%></p>
 			<a class="text-success bg-dark p-1"
-				href="http://localhost:8080/gdt/logout">Se déconnecter</a>
+				href=<%=request.getContextPath()+"/logout" %>>Se déconnecter</a>
 		</div>
 	</header>
 

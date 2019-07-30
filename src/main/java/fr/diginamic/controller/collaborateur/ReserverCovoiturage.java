@@ -38,7 +38,7 @@ public class ReserverCovoiturage extends HttpServlet {
 		CovoiturageDao covoiturageDao = new CovoiturageDao();
 		covoiturageDao.unePlaceReserve(idAnnonceCovoiturage);
 
-		resp.sendRedirect("/gdt/controller/collaborateur/reservations/creer");
+		resp.sendRedirect(req.getContextPath() + "/controller/collaborateur/reservations/creer");
 	}
 
 }

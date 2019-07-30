@@ -72,7 +72,7 @@ public class AjouterChauffeur extends HttpServlet {
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		utilisateurDao.ajouterChauffeur(chauffeur);
 
-		resp.sendRedirect("/gdt/controller/administrateur/chauffeurs");
+		resp.sendRedirect(req.getContextPath() + "/controller/administrateur/chauffeurs");
 
 	}
 }
