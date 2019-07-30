@@ -42,7 +42,7 @@ public class UtilisateurDao {
 
 		try {
 			selectQuery.append(
-					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM gestion_transport.UTILISATEUR WHERE uti_statut = 'chauffeur';");
+					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM UTILISATEUR WHERE uti_statut = 'chauffeur';");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -103,7 +103,7 @@ public class UtilisateurDao {
 		StringBuilder selectQuery = new StringBuilder();
 
 		try {
-			selectQuery.append("SELECT uti_id FROM gestion_transport.UTILISATEUR WHERE uti_email = \"");
+			selectQuery.append("SELECT uti_id FROM UTILISATEUR WHERE uti_email = \"");
 			selectQuery.append(email);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -151,7 +151,7 @@ public class UtilisateurDao {
 		StringBuilder selectQuery = new StringBuilder();
 
 		try {
-			selectQuery.append("SELECT uti_mdp FROM gestion_transport.UTILISATEUR WHERE uti_id = \"");
+			selectQuery.append("SELECT uti_mdp FROM UTILISATEUR WHERE uti_id = \"");
 			selectQuery.append(id);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -201,7 +201,7 @@ public class UtilisateurDao {
 
 		try {
 			selectQuery.append(
-					"SELECT uti_id, uti_nom, uti_prenom, uti_statut FROM gestion_transport.UTILISATEUR WHERE uti_id = \"");
+					"SELECT uti_id, uti_nom, uti_prenom, uti_statut FROM UTILISATEUR WHERE uti_id = \"");
 			selectQuery.append(id);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -297,7 +297,7 @@ public class UtilisateurDao {
 
 		try {
 			selectQuery.append(
-					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM gestion_transport.UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_matricule = \"");
+					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_matricule = \"");
 			selectQuery.append(matricule);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -358,7 +358,7 @@ public class UtilisateurDao {
 
 		try {
 			selectQuery.append(
-					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM gestion_transport.UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_prenom = \"");
+					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_prenom = \"");
 			selectQuery.append(prenom);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -419,7 +419,7 @@ public class UtilisateurDao {
 
 		try {
 			selectQuery.append(
-					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM gestion_transport.UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_nom = \"");
+					"SELECT uti_prenom, uti_nom, uti_email, uti_permis, uti_photo, uti_tel FROM UTILISATEUR WHERE uti_statut = 'chauffeur' AND uti_nom = \"");
 			selectQuery.append(nom);
 			selectQuery.append("\";");
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
@@ -479,7 +479,7 @@ public class UtilisateurDao {
 		StringBuilder selectQuery = new StringBuilder();
 
 		try {
-			selectQuery.append("SELECT * FROM gestion_transport.UTILISATEUR ");
+			selectQuery.append("SELECT * FROM UTILISATEUR ");
 
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(selectQuery.toString());
 			resultSet = preparedStatement.executeQuery();

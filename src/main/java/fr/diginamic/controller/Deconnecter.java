@@ -32,7 +32,7 @@ public class Deconnecter extends HttpServlet {
 
 		session = request.getSession(false);
 		SERVICE_LOG.info("session: " + session);
-		response.sendRedirect("/gdt/login");
+		response.sendRedirect(request.getContextPath() + "/login");
 
 	}
 

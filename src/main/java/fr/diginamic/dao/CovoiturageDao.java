@@ -62,7 +62,7 @@ public class CovoiturageDao {
 
 		QueryUtils.updateQuery(
 
-				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo -1 where cov_id="
+				"update COVOITURAGE set cov_nbPlacesDispo  =cov_nbPlacesDispo -1 where cov_id="
 						+ idAnnonceCovoiturage);
 
 	}
@@ -78,7 +78,7 @@ public class CovoiturageDao {
 
 		QueryUtils.updateQuery(
 
-				"update gestion_transport.covoiturage set cov_nbPlacesDispo  =cov_nbPlacesDispo +1 where cov_id="
+				"update COVOITURAGE set cov_nbPlacesDispo  =cov_nbPlacesDispo +1 where cov_id="
 						+ idAnnonceCovoiturage);
 
 	}
@@ -95,7 +95,7 @@ public class CovoiturageDao {
 
 		QueryUtils.updateQuery(
 
-				"delete from covoiturage where cov_id=" + idAnnonceCovoiturage + " and cov_uti_id=" + idUtilisateur);
+				"delete from COVOITURAGE where cov_id=" + idAnnonceCovoiturage + " and cov_uti_id=" + idUtilisateur);
 
 	}
 
@@ -121,24 +121,24 @@ public class CovoiturageDao {
 		if (idReservationVehiculeSociete == 0) {
 			System.out.println("ok1");
 			System.out.println(
-					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
+					"insert into COVOITURAGE (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
 							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
 							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
 			QueryUtils.updateQuery(
 
-					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
+					"insert into COVOITURAGE (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule) values ("
 							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
 							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\")");
 		} else {
 			System.out.println("ok2");
 			System.out.println(
-					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
+					"insert into COVOITURAGE (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
 							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
 							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\",\"" + idReservationVehiculeSociete
 							+ "\")");
 			QueryUtils.updateQuery(
 
-					"insert into covoiturage (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
+					"insert into COVOITURAGE (`cov_nbPlacesDispo`,`cov_datetimeDebut`,`cov_lieuDepart`,`cov_lieuArrive`,cov_uti_id,cov_idVehicule,cov_idReservationVehicule) values ("
 							+ nbPlacesDispo + ",\"" + dateDeDepart + "\",\"" + lieuDepart + "\",\"" + lieuArrive
 							+ "\",\"" + idUtilissateur + "\",\"" + idVehicule + "\",\"" + idReservationVehiculeSociete
 							+ "\")");
@@ -164,45 +164,45 @@ public class CovoiturageDao {
 			if (!lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
 					&& !dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
+						.prepareStatement("select * from COVOITURAGE where cov_lieuDepart=\"" + lieuDeDepart
 								+ "\" and cov_lieuArrive=\"" + lieuDeDestination + "\" and cov_datetimeDebut>\""
 								+ dateDeDepart + "\"");
 
 			} else if (lieuDeDestination.equals("indeterminé") && !lieuDeDepart.equals("indeterminé")
 					&& dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart + "\"");
+						.prepareStatement("select * from COVOITURAGE where cov_lieuDepart=\"" + lieuDeDepart + "\"");
 
 			} else if (!lieuDeDestination.equals("indeterminé") && lieuDeDepart.equals("indeterminé")
 					&& dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-						"select * from covoiturage where cov_lieuArrive=\"" + lieuDeDestination + "\"");
+						"select * from COVOITURAGE where cov_lieuArrive=\"" + lieuDeDestination + "\"");
 
 			} else if (lieuDeDestination.equals("indeterminé") && lieuDeDepart.equals("indeterminé")
 					&& !dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_datetimeDebut>\"" + dateDeDepart + "\"");
+						.prepareStatement("select * from COVOITURAGE where cov_datetimeDebut>\"" + dateDeDepart + "\"");
 
 			} else if (lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
 					&& !dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_lieuArrive=\"" + lieuDeDestination
+						.prepareStatement("select * from COVOITURAGE where cov_lieuArrive=\"" + lieuDeDestination
 								+ "\" and cov_datetimeDebut>\"" + dateDeDepart + "\"");
 
 			} else if (!lieuDeDepart.equals("indeterminé") && lieuDeDestination.equals("indeterminé")
 					&& !dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
+						.prepareStatement("select * from COVOITURAGE where cov_lieuDepart=\"" + lieuDeDepart
 								+ "\" and cov_datetimeDebut>\"" + dateDeDepart + "\"");
 
 			} else if (!lieuDeDepart.equals("indeterminé") && !lieuDeDestination.equals("indeterminé")
 					&& dateDeDepart.equals("indeterminé")) {
 				preparedStatement = ConnectionUtils.getInstance()
-						.prepareStatement("select * from covoiturage where cov_lieuDepart=\"" + lieuDeDepart
+						.prepareStatement("select * from COVOITURAGE where cov_lieuDepart=\"" + lieuDeDepart
 								+ "\" and cov_lieuArrive=\"" + lieuDeDestination + "\"");
 
 			} else {
-				preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from covoiturage");
+				preparedStatement = ConnectionUtils.getInstance().prepareStatement("select * from COVOITURAGE");
 
 			}
 			resultSet = preparedStatement.executeQuery();
@@ -271,7 +271,7 @@ public class CovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant);
+					.prepareStatement("select * from COVOITURAGE where cov_uti_id=" + idUtilisateurCourant);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -337,10 +337,10 @@ public class CovoiturageDao {
 		List<AnnonceCovoiturage> listeDesAnnonces = new ArrayList<>();
 
 		try {
-			SERVICE_LOG.info("QUERYYYYYYY = " + "select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+			SERVICE_LOG.info("QUERYYYYYYY = " + "select * from COVOITURAGE where cov_uti_id=" + idUtilisateurCourant
 					+ " AND cov_datetimeDebut >= NOW();");
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+					.prepareStatement("select * from COVOITURAGE where cov_uti_id=" + idUtilisateurCourant
 							+ " AND cov_datetimeDebut >= NOW();");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -407,7 +407,7 @@ public class CovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from covoiturage where cov_uti_id=" + idUtilisateurCourant
+					.prepareStatement("select * from COVOITURAGE where cov_uti_id=" + idUtilisateurCourant
 							+ " AND cov_datetimeDebut < NOW();");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -475,7 +475,7 @@ public class CovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from gestion_transport.covoiturage WHERE cov_id not in (select cov_id from gestion_transport.covoiturage inner join gestion_transport.resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
+					"select * from gestion_transport.COVOITURAGE WHERE cov_id not in (select cov_id from gestion_transport.covoiturage inner join gestion_transport.resacovoiturage on covoiturage.cov_id=resaCovoiturage.rco_idCovoiture where resaCovoiturage.rco_idUtilisateur="
 							+ idUtilisateurCourant + ") and cov_datetimeDebut > CURDATE()");
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -542,7 +542,7 @@ public class CovoiturageDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from covoiturage where cov_id=" + idCovoiturage);
+					.prepareStatement("select * from COVOITURAGE where cov_id=" + idCovoiturage);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

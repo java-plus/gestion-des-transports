@@ -75,7 +75,7 @@ public class VehiculeDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select vhc_id from vehicule where vhc_immatriculation=?");
+					.prepareStatement("select vhc_id from VEHICULE where vhc_immatriculation=?");
 			preparedStatement.setString(1, vehicule.getImmatriculation());
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -127,7 +127,7 @@ public class VehiculeDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from vehicule where vhc_immatriculation=?");
+					.prepareStatement("select * from VEHICULE where vhc_immatriculation=?");
 			preparedStatement.setString(1, vehicule.getImmatriculation());
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -190,8 +190,8 @@ public class VehiculeDao {
 		try {
 
 			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
-					"select * from RESAVEHICULE  inner join vehicule on RESAVEHICULE.rvh_id_vehicule=vehicule.vhc_id "
-							+ "where vehicule.vhc_immatriculation=\"" + vehicule.getImmatriculation()
+					"select * from RESAVEHICULE  inner join vehicule on RESAVEHICULE.rvh_id_vehicule=VEHICULE.vhc_id "
+							+ "where VEHICULE.vhc_immatriculation=\"" + vehicule.getImmatriculation()
 							+ "\" and rvh_id_utilisateur=" + idUtilisateur + " and \"" + dateDeDepart
 							+ "\" between rvh_datetimeDebut and rvh_datetimeFin");
 
@@ -269,7 +269,7 @@ public class VehiculeDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from vehicule where vhc_immatriculation=?");
+					.prepareStatement("select * from VEHICULE where vhc_immatriculation=?");
 			preparedStatement.setString(1, immatriculation);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
@@ -327,7 +327,7 @@ public class VehiculeDao {
 
 		try {
 			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from vehicule where vhc_marque=?");
+					.prepareStatement("select * from VEHICULE where vhc_marque=?");
 			preparedStatement.setString(1, marque);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
