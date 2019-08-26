@@ -54,7 +54,7 @@ CREATE TABLE `RESACOVOITURAGE` (
  `rco_id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
  `rco_idCovoiture` int(11) NOT NULL,
  `rco_idUtilisateur` int(11) NOT NULL,
- FOREIGN KEY (rco_idCovoiture) REFERENCES COVOITURAGE(cov_id),
+ FOREIGN KEY (rco_idCovoiture) REFERENCES COVOITURAGES(cov_id),
  FOREIGN KEY (rco_idUtilisateur) REFERENCES UTILISATEUR(uti_id));
  
 
